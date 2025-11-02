@@ -5,6 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/teaming/teaming",
+			"style": {
+				"navigationBarTitleText": "组队"
+			}
 		}
 	],
 	"globalStyle": {
