@@ -5,24 +5,17 @@
       <text class="title">{{ title }}</text>
     </view>
   </view>
-  <button @click="goToTeaming">Go to Teaming</button>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      title: 'Hello',
+      title: 'He',
     }
   },
   onLoad() {},
-  methods: {
-    goToTeaming() {
-      uni.navigateTo({
-        url: '/pages/teaming/teaming' // 跳转的目标页面路径
-      });
-    },
-  },
+  methods: {},
 }
 </script>
 
