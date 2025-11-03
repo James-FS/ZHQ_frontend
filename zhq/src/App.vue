@@ -14,9 +14,20 @@ export default {
 
 <style>
 /*每个页面公共css */
-@import './static/iconfont/iconfont.css';
 
-.pageHolder{
+/*导入iconfont图标库 */
+@import './static/iconfont/iconfont.css'; 
 
+page {                 /* 小程序根节点 */
+  background-color: #F5F7FA;   /* 统一背景颜色 */
 }
+
+/* .pageHolder{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+} */
+
 </style>

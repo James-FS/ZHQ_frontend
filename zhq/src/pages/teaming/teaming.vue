@@ -1,30 +1,72 @@
-<template>
-  <view class="content">
-    <image class="logo" src="/static/logo.png"></image>
-    <view class="text-area">
-      <text class="title">{{ title }}</text>
-    </view>
-  </view>
-</template>
-
 <script>
 export default {
-  data() {
-    return {
-      title: 'He',
-    }
-  },
   onLoad() {},
   methods: {},
 }
 </script>
 
-<style>
-.content {
+<script setup>
+import { ref } from 'vue'
+let mockData = [
+  {
+    id: 1,
+    title: '项目一',
+    description: '这是项目一的描述',
+    status: '进行中',
+  },
+  {
+    id: 2,
+    title: '项目二',
+    description: '这是项目二的描述',
+    status: '已完成',
+  },
+]
+</script>
+
+<template>
+  <view class="pageHolder">
+    <h1>我的项目</h1>
+    <view class="content">
+      <text>文本显示</text>
+      <view class="list-container">
+        <view class="list-item" v-for="item in mockData" :key="item.id">
+          <view class="item-title">{{ item.title }}</view>
+          <view class="item-description">{{ item.description }}</view>
+          <text class="item-status">{{ item.status }}</text>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</template>
+
+
+
+<style lang="scss">
+.pageHolder{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  height: 100vh;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #ffffff;
+  width:90vw;
+  .list-container{
+    display: inline-flex;
+    flex-wrap: wrap;
+    min-height:40vh;
+    .list-item{
+      display: flex;
+      background-color: #ffffff;
+    }
+  }
 }
 
 .logo {

@@ -41,33 +41,37 @@
 	  {
 		"pagePath": "pages/square/square",
 		"text": "广场",
-		"iconPath": "static/img/广场.png"
+		"iconPath": "static/img/广场.png",
+		"selectedIconPath": "static/img/广场_active.png"
 	  },
 	  {
 		"pagePath": "pages/message/message",
 		"text": "消息",
-		"iconPath": "static/img/消息.png"
+		"iconPath": "static/img/消息.png",
+		"selectedIconPath": "static/img/消息_active.png"
 		
 	  },
 
       {
         "pagePath": "pages/teaming/teaming",
         "text": "组队",
-		"iconPath": "static/img/组队.png"
+		"iconPath": "static/img/组队.png",
+		"selectedIconPath": "static/img/组队_active.png"
       },
 	  
 	  {
         "pagePath": "pages/index/index",
         "text": "我",
-		"iconPath": "static/img/我.png"
+		"iconPath": "static/img/我.png",
+		"selectedIconPath": "static/img/我_active.png"
       }
     ]
   },
 
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "智汇圈",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F5F7FA"
 	}
 }
