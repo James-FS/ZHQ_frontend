@@ -18,7 +18,7 @@ export default {
   onLoad() {},
   methods: {
     goToTeaming() {
-      uni.navigateTo({
+      uni.switchTab({
         url: '/pages/teaming/teaming' // 跳转的目标页面路径
       });
     },
