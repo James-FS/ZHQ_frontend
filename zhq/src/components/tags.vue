@@ -31,13 +31,13 @@ export default {
   font-family: Arial, sans-serif;
   font-size: 14px;
   height: 40rpx;
-  max-width: 350rpx;
+  max-width: 380rpx;
 }
 
 .tag {
   display: flex;
   align-items: center;
-  max-width: 350rpx;
+  max-width: 380rpx;
   min-width: 100rpx;
   /* width: 50rpx; */
 }
@@ -50,7 +50,7 @@ export default {
   color:#084e8a;
 }
 .tag-text {
-  max-width:300rpx;
+  max-width:330rpx;
   margin-right: 20rpx;
   color:#084e8a;
 }
