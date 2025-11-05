@@ -17,9 +17,9 @@ export default {
 
 /*导入iconfont图标库 */
 @import './static/iconfont/iconfont.css'; 
-
+@import './static/styles/global.css';
 page {                 /* 小程序根节点 */
-  background-color: #F5F7FA;   /* 统一背景颜色 */
+  background: #f5f5f5; /* 统一背景颜色 */
 }
 
 /* .pageHolder{

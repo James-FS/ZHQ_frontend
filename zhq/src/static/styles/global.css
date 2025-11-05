@@ -1,10 +1,11 @@
-:root{
-    --dark-primary-color:#F57C00;
+page{
+    --dark-primary-color:#ff7b54;
     --light-primary-color:#FFE0B2;
     --primary-color:#FF9800;
-    --text-color:#212121;
     --accent-color:#03a9f4;
     --background-color:#FFFFFF;
-    --text-size:15px;
-    
+    --text-size:30rpx;
+    --text-color:#212121;
+    --title-color:#212121;
+    --title-size:35rpx;
 }

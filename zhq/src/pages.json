@@ -1,15 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "我"
+			"path":"pages/user/user",
+			"style":{
+				"navigationBarTitleText":"个人中心"
 			}
 		},
 		{
 			"path": "pages/teaming/teaming",
 			"style": {
-				"navigationBarTitleText": "组队"
+				"navigationBarTitleText": ""
 			}
 		},
 		{
@@ -23,13 +23,8 @@
 			"style":{
 				"navigationBarTitleText":"广场"
 			}
-		},
-		{
-			"path":"pages/user/user",
-			"style":{
-				"navigationBarTitleText":"个人中心"
-			}
 		}
+		
 	],
 
 	"tabBar": {
@@ -60,7 +55,7 @@
       },
 	  
 	  {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/user/user",
         "text": "我",
 		"iconPath": "static/img/我.png",
 		"selectedIconPath": "static/img/我_active.png"

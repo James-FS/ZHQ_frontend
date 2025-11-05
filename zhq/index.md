@@ -8,8 +8,9 @@ zhq/                      # 项目根
 │  │  ├──square                #广场页
 │  │  ├──teaming               #组队页
 │  │  ├──user                  #用户主页
+│  │  ├─ components/              # 全局组件
 │  │
-│  ├─ components/              # 全局组件
+│  │
 │  ├─ utils/                   # 复用函数
 │  ├─ static/                  # 静态资源（图片、字体、json）
 │  │   ├─iconfont              # 阿里图标库
