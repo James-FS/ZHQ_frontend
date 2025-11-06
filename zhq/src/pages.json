@@ -23,6 +23,12 @@
 			"style":{
 				"navigationBarTitleText":"广场"
 			}
+		},
+		{
+			"path":"pages/button-demo/button-demo",
+			"style":{
+				"navigationBarTitleText":"按钮展示"
+			}
 		}
 		
 	],
