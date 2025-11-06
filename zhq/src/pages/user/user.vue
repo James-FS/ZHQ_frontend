@@ -107,7 +107,7 @@
 
 <script>
 // 引入标签组件
-import TagItem from '@/components/tags.vue'
+import TagItem from '@/components/Tags.vue'
 
 export default {
   // 注册标签组件
