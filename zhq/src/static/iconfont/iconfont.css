@@ -1,16 +1,123 @@
 @font-face {
   font-family: "iconfont"; /* Project id 5054889 */
-  src: url('@static/iconfont/iconfont.woff2?t=1762139302648') format('woff2'),
-       url('@static/iconfont/iconfont.woff?t=1762139302648') format('woff'),
-       url('@static/iconfont/iconfont.ttf?t=1762139302648') format('truetype');
+  src: url('/static/iconfont/iconfont.woff2?t=t=1762392307421') format('woff2'),
+       url('/static/iconfont/iconfont.woff?t=t=1762392307421') format('woff'),
+       url('/static/iconfont/iconfont.ttf?t=t=1762392307421') format('truetype');
 }
-
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shaixuan:before {
+  content: "\e692";
+}
+
+.icon-sousuo1:before {
+  content: "\e61f";
+}
+
+.icon-sousuo:before {
+  content: "\e651";
+}
+
+.icon-tuichudenglu:before {
+  content: "\e61d";
+}
+
+.icon-shezhi:before {
+  content: "\e621";
+}
+
+.icon-tuichudenglu1:before {
+  content: "\e71e";
+}
+
+.icon-shezhi1:before {
+  content: "\e663";
+}
+
+.icon-a-shezhi-shucaidanshezhi-copy:before {
+  content: "\e628";
+}
+
+.icon-youjiantou:before {
+  content: "\e633";
+}
+
+.icon-zaixianjianli:before {
+  content: "\e627";
+}
+
+.icon-liulanlishi:before {
+  content: "\e99a";
+}
+
+.icon-liulanlishi1:before {
+  content: "\e629";
+}
+
+.icon-shoucang:before {
+  content: "\e605";
+}
+
+.icon-jinghao:before {
+  content: "\e660";
+}
+
+.icon-jinghao1:before {
+  content: "\e65e";
+}
+
+.icon-81:before {
+  content: "\e674";
+}
+
+.icon-nv:before {
+  content: "\e604";
+}
+
+.icon-xinjian2:before {
+  content: "\e630";
+}
+
+.icon-add:before {
+  content: "\e609";
+}
+
+.icon-nvxing:before {
+  content: "\e613";
+}
+
+.icon-tianjia:before {
+  content: "\e603";
+}
+
+.icon-xinjianlichengbei:before {
+  content: "\e68c";
+}
+
+.icon-xinjian:before {
+  content: "\e626";
+}
+
+.icon-xinjian1:before {
+  content: "\e64b";
+}
+
+.icon-xinjianduiwu:before {
+  content: "\e622";
+}
+
+.icon-wo:before {
+  content: "\e602";
+}
+
+.icon-nan:before {
+  content: "\e668";
 }
 
 .icon-xiaoxi:before {
