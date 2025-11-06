@@ -8,6 +8,7 @@ export default {
 <script setup>
 import { ref } from 'vue'
 import TagComponent from '@/components/tags.vue'
+import '../../static/iconfont/iconfont.css'; 
 
 let mockData = [
   {
@@ -68,6 +69,7 @@ let mockData = [
 </script>
 
 <template>
+  <!-- <link rel="stylesheet" href="static/iconfont/iconfont.css"> -->
   <view class="pageHolder">
     <view class="content">
           <h1 class="title">我的队伍</h1>
@@ -82,7 +84,6 @@ let mockData = [
                   </view>
                   <view class="item-title">{{ item.title }}</view>
                   <view class="item-description">{{ item.description.slice(0, 25) }}</view>
-                  <view class="item-status">{{ item.status }}</view>
                   </view>
 
                 <view class="item-right">
@@ -90,7 +91,13 @@ let mockData = [
                 </view>
             </view>
 
-          <view class="item-tags"><TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" /></view>
+          <view class="item-tags">
+            <TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" />
+          </view>
+          <view class="item-status">
+            <i class="iconfont icon-zudui"></i>
+            <text>3/5人</text>
+          </view>
         </view>
       </view>
     </view>
@@ -198,7 +205,21 @@ let mockData = [
 
       .item-tags{
         margin-left: -10rpx;
+        
+        
       }
+
+      .item-status{
+          display: flex;
+          justify-content: flex-start;
+          margin-top: 10rpx;
+          gap:10rpx;
+          align-items: center;
+          color: var(--text-color);
+          font-size: calc(var(--text-size) - 2rpx);
+          font-weight: var(--text-weight);
+        }
+      
     }
   }
 }
