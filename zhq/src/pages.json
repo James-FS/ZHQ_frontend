@@ -9,7 +9,13 @@
 		{
 			"path": "pages/teaming/teaming",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "我的队伍"
+			}
+		},
+		{
+			"path": "pages/create-team/create-team",
+			"style": {
+				"navigationBarTitleText": "创建队伍"
 			}
 		},
 		{
@@ -47,6 +53,11 @@
 		
 	  },
 
+	  {
+		"pagePath": "pages/create-team/create-team",
+		"iconPath": "static/img/2ebd9496-1ff5-4e6c-b26f-4a18361d0801.png"
+	  },
+
       {
         "pagePath": "pages/teaming/teaming",
         "text": "组队",
@@ -60,6 +71,7 @@
 		"iconPath": "static/img/我.png",
 		"selectedIconPath": "static/img/我_active.png"
       }
+	  
     ]
   },
 
