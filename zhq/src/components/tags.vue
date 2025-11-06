@@ -1,3 +1,7 @@
+<!--
+  标签组件
+  tagText: 标签文本
+-->
 <template>
   <view class="tag-component">
     <view class="tag">

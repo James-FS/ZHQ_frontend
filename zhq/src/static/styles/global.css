@@ -6,6 +6,7 @@ page{
     --background-color:#FFFFFF;
     --text-size:30rpx;
     --text-color:#212121;
+    --text-weight:400;
     --title-color:#212121;
     --title-size:35rpx;
 }
