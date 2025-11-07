@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ 
 		{
 			"path":"pages/user/user",
 			"style":{
@@ -34,6 +34,12 @@
 			"path":"pages/square/square",
 			"style":{
 				"navigationBarTitleText":"广场"
+			}
+		},
+		{
+			"path":"pages/button-demo/button-demo",
+			"style":{
+				"navigationBarTitleText":"按钮展示"
 			}
 		}
 		
