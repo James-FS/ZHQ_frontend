@@ -5,13 +5,19 @@
       <text class="title">{{ title }}</text>
     </view>
     
-    <!-- 新增按钮，点击跳转到按钮展示页面 -->
-    <view class="button-area">
+    <!-- 演示按钮区域 -->
+    <view class="demo-buttons">
       <common-button 
         text="查看按钮样式展示"
         type="primary"
         size="medium"
         @click="goToButtonDemo"
+      />
+      <common-button 
+        text="输入框演示"
+        type="secondary"
+        size="medium"
+        @click="goToInputDemo"
       />
     </view>
   </view>
@@ -29,6 +35,11 @@ export default {
     goToButtonDemo() {
       uni.navigateTo({
         url: '/pages/button-demo/button-demo'
+      });
+    },
+    goToInputDemo() {
+      uni.navigateTo({
+        url: '/pages/input-demo/input-demo'
       });
     }
   },
@@ -64,9 +75,11 @@ export default {
   color: #8f8f94;
 }
 
-.button-area {
+.demo-buttons {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 30rpx;
   width: 100%;
+  max-width: 600rpx;
 }
 </style>

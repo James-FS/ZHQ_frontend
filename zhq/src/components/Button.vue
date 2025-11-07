@@ -1,3 +1,17 @@
+<!-- /**
+ * 通用按钮组件
+ * text: 按钮文本（必需）
+ * type: 按钮类型 - primary（默认）, secondary, danger, warning, success
+ * size: 按钮大小 - medium（默认）, small, large
+ * disabled: 是否禁用 - false（默认）
+ * loading: 是否加载中 - false（默认）
+ * loadingText: 加载中显示文本 - '加载中...'（默认）
+ * round: 是否圆形按钮 - false（默认）
+ * fullWidth: 是否全宽 - false（默认）
+ * plain: 是否镂空样式 - false（默认）
+ * debounce: 是否启用防抖 - true（默认）
+ * debounceDelay: 防抖延迟时间（毫秒） - 500（默认）
+ */ -->
 <template>
   <button
     class="common-btn"

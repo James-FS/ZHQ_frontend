@@ -35,6 +35,12 @@
 			"style":{
 				"navigationBarTitleText":"按钮展示"
 			}
+		},
+		{
+			"path":"pages/input-demo/input-demo",
+			"style":{
+				"navigationBarTitleText":"输入框演示"
+			}
 		}
 		
 	],
