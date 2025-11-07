@@ -65,6 +65,12 @@ let mockData = [
   },
   
 ]
+
+function getDetail(id){
+  uni.navigateTo({
+    url:`./detail?id=${id}`
+  })
+}
 </script>
 
 <template>
@@ -76,7 +82,7 @@ let mockData = [
         <view class="list-item" v-for="item in mockData" :key="item.id">
           <view class="item-body">
             <!-- <view class="item-img">       文字       </view> -->
-                <view class="item-content">
+                <view class="item-content" @click="getDetail(item.id)">
                   <view class="author-info">
                     <img class="author-avator" src="/static/img/我.png" mode="aspectFill"></img>
                     <view class="author-name">作者名称</view>
@@ -91,7 +97,7 @@ let mockData = [
             </view>
 
           <view class="item-tags">
-            <TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" />
+            <TagComponent tagText="空洞骑士" /><TagComponent tagText="空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士1111111111111111111" />
           </view>
           <view class="item-status">
             <i class="iconfont icon-zudui"></i>
@@ -205,7 +211,7 @@ let mockData = [
 
       .item-tags{
         margin-left: -10rpx;
-        
+        margin-right: 10rpx;
         
       }
 
