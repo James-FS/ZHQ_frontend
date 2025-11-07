@@ -35,13 +35,13 @@ export default {
   font-family: Arial, sans-serif;
   font-size: 14px;
   height: 40rpx;
-  max-width: 380rpx;
+  max-width: 600rpx;
 }
 
 .tag {
   display: flex;
   align-items: center;
-  max-width: 380rpx;
+  max-width: 600rpx;
   min-width: 100rpx;
   /* width: 50rpx; */
 }
@@ -54,8 +54,11 @@ export default {
   color:#084e8a;
 }
 .tag-text {
-  max-width:330rpx;
+  max-width:550rpx;
   margin-right: 20rpx;
   color:#084e8a;
+  white-space: nowrap;           /* 不换行 */
+  overflow: hidden;              /* 隐藏溢出内容 */
+  text-overflow: ellipsis;       /* 显示省略号 */
 }
 </style>

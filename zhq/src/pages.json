@@ -13,6 +13,12 @@
 			}
 		},
 		{
+			"path": "pages/teaming/detail",
+			"style": {
+				"navigationBarTitleText": "队伍详情"
+			}
+		},
+		{
 			"path": "pages/create-team/create-team",
 			"style": {
 				"navigationBarTitleText": "创建队伍"
