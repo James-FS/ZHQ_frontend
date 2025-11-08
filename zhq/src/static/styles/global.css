@@ -4,9 +4,9 @@ page{
     --primary-color:#FF9800;
     --accent-color:#03a9f4;
     --background-color:#FFFFFF;
-    --text-size:30rpx;
+    --text-size:15px;
     --text-color:#212121;
     --text-weight:400;
     --title-color:#212121;
-    --title-size:35rpx;
+    --title-size:17px;
 }
