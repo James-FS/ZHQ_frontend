@@ -281,10 +281,14 @@ export default {
 
 /* 标签容器 */
 .tags-container {
-  display: flex; // 弹性布局
-  flex-wrap: wrap; // 换行
-  gap: 16rpx; // 间距
-  margin-bottom: 32rpx; // 底部外边距
+  display: flex;
+  flex-wrap: wrap;           /* 允许换行 */
+  gap: 8rpx;                 /* 间距（根据您原代码是8rpx） */
+  margin-bottom: 32rpx;
+  
+  /* 新增：限制最多两行 */
+  max-height: 80rpx;         /* 限制最大高度 = 2 × 标签高度 */
+  
 }
 
 /* 查看详情按钮 */

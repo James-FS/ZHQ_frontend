@@ -47,8 +47,13 @@
 			"style":{
 				"navigationBarTitleText":"输入框演示"
 			}
+		},
+		{
+			"path":"pages/history/history",
+			"style":{
+				"navigationBarTitleText":"浏览历史"
+			}
 		}
-		
 	],
 
 	"tabBar": {
