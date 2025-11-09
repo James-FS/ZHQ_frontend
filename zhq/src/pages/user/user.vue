@@ -1,106 +1,124 @@
 <template>
-  <view class="mine-container">
-    <!-- 顶部用户信息卡片 -->
-    <view class="user-card">
-      <!-- 顶部区域：头像和用户信息横向排列 -->
-      <view class="user-header">
-        <!-- 用户头像 -->
-        <image 
-          class="avatar" 
-          :src="userInfo.avatar || '/static/img/我_active.png'" 
-          mode="aspectFill"
-        />
-        
-        <!-- 用户信息区域 -->
-        <view class="user-info">
-          <!-- 用户名 -->
-          <text class="username">{{ userInfo.name || '大卫带' }}</text>
+  <!-- ==================== 新增：最外层容器 ==================== -->
+  <view class="page-wrapper">
+    <!-- ==================== 新增：使用渐变背景组件 ==================== -->
+    <gradient-background 
+      height="800rpx"
+      top-color="#D3E4FE"
+      mid-color="#EFF4FA"
+      bottom-color="#F5F6FB"
+    ></gradient-background>
+    
+    <!-- ==================== 新增：使用自定义导航栏组件 ==================== -->
+    <custom-navbar 
+      title="个人中心" 
+      :show-back="false"
+    ></custom-navbar>
+    
+    <!-- ==================== 修改：原有内容容器，添加动态 paddingTop ==================== -->
+    <view class="mine-container" :style="{ paddingTop: contentPaddingTop + 'px' }">
+      <!-- 顶部用户信息卡片 -->
+      <view class="user-card">
+        <!-- 顶部区域：头像和用户信息横向排列 -->
+        <view class="user-header">
+          <!-- 用户头像 -->
+          <image 
+            class="avatar" 
+            :src="userInfo.avatar || '/static/img/我_active.png'" 
+            mode="aspectFill"
+          />
           
-          <!-- 性别和学院信息 -->
-          <view class="info-row">
-            <!-- 性别图标和文字 -->
-            <view class="gender-box">
-              <!-- Font Class 方式：iconfont + 具体图标类名 -->
-              <text class="iconfont icon-nan gender-icon"></text>
-              <text class="gender-text">{{ userInfo.gender || '男' }}</text>
+          <!-- 用户信息区域 -->
+          <view class="user-info">
+            <!-- 用户名 -->
+            <text class="username">{{ userInfo.name || '大卫带' }}</text>
+            
+            <!-- 性别和学院信息 -->
+            <view class="info-row">
+              <!-- 性别图标和文字 -->
+              <view class="gender-box">
+                <!-- Font Class 方式：iconfont + 具体图标类名 -->
+                <text class="iconfont icon-nan gender-icon"></text>
+                <text class="gender-text">{{ userInfo.gender || '男' }}</text>
+              </view>
+              
+              <!-- 分隔符 -->
+              <text class="divider">|</text>
+              
+              <!-- 学院信息 -->
+              <text class="college">{{ userInfo.college || '计算机科学与网络工程学院' }}</text>
             </view>
-            
-            <!-- 分隔符 -->
-            <text class="divider">|</text>
-            
-            <!-- 学院信息 -->
-            <text class="college">{{ userInfo.college || '计算机科学与网络工程学院' }}</text>
           </view>
+        </view>
+        
+        <!-- 标签区域 -->
+        <view class="tags-container">
+          <!-- 循环渲染标签，使用自定义组件，修改属性名为 tagText -->
+          <TagItem 
+            v-for="(tag, index) in userInfo.tags" 
+            :key="index"
+            :tagText="tag"
+          />
+        </view>
+        
+        <!-- 查看详情按钮 -->
+        <view class="detail-btn" @click="goToDetail">
+          <text class="detail-text">编辑资料</text>
         </view>
       </view>
       
-      <!-- 标签区域 -->
-      <view class="tags-container">
-        <!-- 循环渲染标签，使用自定义组件，修改属性名为 tagText -->
-        <TagItem 
-          v-for="(tag, index) in userInfo.tags" 
-          :key="index"
-          :tagText="tag"
-        />
+      <!-- 功能列表 - 改为独立卡片 -->
+      <!-- 我的收藏 -->
+      <view class="menu-item" @click="goToPage('collection')">
+        <!-- 左侧图标 -->
+        <view class="menu-left">
+          <!-- Font Class 方式：基础类 iconfont + 图标类 icon-xxx -->
+          <text class="iconfont icon-shoucang menu-icon"></text>
+          <text class="menu-text">我的收藏</text>
+        </view>
+        <!-- 右侧箭头 -->
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
       
-      <!-- 查看详情按钮 -->
-      <view class="detail-btn" @click="goToDetail">
-        <text class="detail-text">编辑资料</text>
+      <!-- 浏览历史 -->
+      <view class="menu-item" @click="goToPage('history')">
+        <view class="menu-left">
+          <!-- Font Class 方式：时钟图标 -->
+          <text class="iconfont icon-liulanlishi menu-icon"></text>
+          <text class="menu-text">浏览历史</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-    </view>
-    
-    <!-- 功能列表 - 改为独立卡片 -->
-    <!-- 我的收藏 -->
-    <view class="menu-item" @click="goToPage('collection')">
-      <!-- 左侧图标 -->
-      <view class="menu-left">
-        <!-- Font Class 方式：基础类 iconfont + 图标类 icon-xxx -->
-        <text class="iconfont icon-shoucang menu-icon"></text>
-        <text class="menu-text">我的收藏</text>
+      
+      <!-- 我的简历 -->
+      <view class="menu-item" @click="goToPage('resume')">
+        <view class="menu-left">
+          <!-- Font Class 方式：你提供的在线简历图标 -->
+          <text class="iconfont icon-zaixianjianli menu-icon"></text>
+          <text class="menu-text">我的简历</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      <!-- 右侧箭头 -->
-      <text class="iconfont icon-youjiantou arrow-icon"></text>
-    </view>
-    
-    <!-- 浏览历史 -->
-    <view class="menu-item" @click="goToPage('history')">
-      <view class="menu-left">
-        <!-- Font Class 方式：时钟图标 -->
-        <text class="iconfont icon-liulanlishi menu-icon"></text>
-        <text class="menu-text">浏览历史</text>
+      
+      <!-- 系统设置 -->
+      <view class="menu-item" @click="goToPage('settings')">
+        <view class="menu-left">
+          <!-- 系统设置图标（请根据实际图标类名修改） -->
+          <text class="iconfont icon-shezhi menu-icon"></text>
+          <text class="menu-text">系统设置</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      <text class="iconfont icon-youjiantou arrow-icon"></text>
-    </view>
-    
-    <!-- 我的简历 -->
-    <view class="menu-item" @click="goToPage('resume')">
-      <view class="menu-left">
-        <!-- Font Class 方式：你提供的在线简历图标 -->
-        <text class="iconfont icon-zaixianjianli menu-icon"></text>
-        <text class="menu-text">我的简历</text>
+      
+      <!-- 退出登录 -->
+      <view class="menu-item" @click="goToPage('logout')">
+        <view class="menu-left">
+          <!-- 退出登录图标（请根据实际图标类名修改） -->
+          <text class="iconfont icon-tuichudenglu menu-icon"></text>
+          <text class="menu-text">退出登录</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      <text class="iconfont icon-youjiantou arrow-icon"></text>
-    </view>
-    
-    <!-- 系统设置 -->
-    <view class="menu-item" @click="goToPage('settings')">
-      <view class="menu-left">
-        <!-- 系统设置图标（请根据实际图标类名修改） -->
-        <text class="iconfont icon-shezhi menu-icon"></text>
-        <text class="menu-text">系统设置</text>
-      </view>
-      <text class="iconfont icon-youjiantou arrow-icon"></text>
-    </view>
-    
-    <!-- 退出登录 -->
-    <view class="menu-item" @click="goToPage('logout')">
-      <view class="menu-left">
-        <!-- 退出登录图标（请根据实际图标类名修改） -->
-        <text class="iconfont icon-tuichudenglu menu-icon"></text>
-        <text class="menu-text">退出登录</text>
-      </view>
-      <text class="iconfont icon-youjiantou arrow-icon"></text>
     </view>
   </view>
 </template>
@@ -108,12 +126,20 @@
 <script>
 // 引入标签组件
 import TagItem from '@/components/Tags.vue'
+import GradientBackground from '@/components/background.vue'
+import CustomNavbar from '@/components/custom-navbar.vue'
+import navbarPaddingMixin from '@/components/navbar-padding.js'
 
 export default {
-  // 注册标签组件
+  // ==================== 修改：注册渐变背景和自定义导航栏组件 ====================
   components: {
-    TagItem
+    TagItem,
+    GradientBackground,  // 新增
+    CustomNavbar         // 新增
   },
+  
+  // ==================== 新增：使用混入（自动提供 contentPaddingTop 和 setContentPadding 方法） ====================
+  mixins: [navbarPaddingMixin],
   
   data() {
     return {
@@ -134,6 +160,7 @@ export default {
   },
   
   methods: {
+    
     // 获取用户信息
     getUserInfo() {
       // 这里调用API获取用户数据
@@ -193,11 +220,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 页面容器 */
+/* ==================== 新增：页面最外层包裹容器 ==================== */
+.page-wrapper {
+  position: relative;      /* 相对定位，为子元素提供定位上下文 */
+  min-height: 100vh;       /* 最小高度为屏幕高度 */
+}
+
+/* ==================== 修改：页面容器样式 ==================== */
 .mine-container {
-  min-height: 100vh; // 最小高度为屏幕高度
-  background-color: #f5f5f5; // 背景色
-  padding: 20rpx; // 内边距
+  position: relative;              /* 相对定位 */
+  min-height: 100vh;               /* 最小高度为屏幕高度 */
+  background-color: transparent;   /* 修改：改为透明，显示渐变背景 */
+  padding: 20rpx;                  /* 保持原有左右内边距 */
+  /* padding-top 通过动态绑定 :style 设置，在 template 中已添加 */
 }
 
 /* 用户信息卡片 */
@@ -281,10 +316,13 @@ export default {
 
 /* 标签容器 */
 .tags-container {
-  display: flex; // 弹性布局
-  flex-wrap: wrap; // 换行
-  gap: 16rpx; // 间距
-  margin-bottom: 32rpx; // 底部外边距
+  display: flex;
+  flex-wrap: wrap;           /* 允许换行 */
+  gap: 8rpx;                 /* 间距（根据您原代码是8rpx） */
+  margin-bottom: 32rpx;
+  
+  /* 新增：限制最多两行 */
+  max-height: 80rpx;         /* 限制最大高度 = 2 × 标签高度 */
 }
 
 /* 查看详情按钮 */
