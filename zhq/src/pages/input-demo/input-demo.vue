@@ -332,10 +332,7 @@ export default {
   border-radius: 16rpx;
   font-size: 28rpx;
   font-weight: 500;
-  
-  &:active {
-    background: darken($uni-color-primary, 10%);
-  }
+
 }
 
 .form-data {
