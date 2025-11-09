@@ -16,6 +16,7 @@
 
         <view class="detail-context">
           <mp-html :content="html" />
+          <application></application>
         </view>
     </view>
   </view>
@@ -24,6 +25,7 @@
 <script setup>
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
+import {Application} from '@/components/Application.vue';
 const id=ref(null);
 onLoad((options)=>{
   id.value=options.id;
@@ -114,4 +116,6 @@ let mockData={
     align-items: center;
   }
 }
+
+
 </style>

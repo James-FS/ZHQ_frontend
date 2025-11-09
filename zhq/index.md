@@ -28,3 +28,4 @@ zhq/                      # 项目根
 
 
 1.尺寸使用rpx而不是px  1rpx = 屏宽/750
+2.font-size,border-radius,border-width属性使用px
