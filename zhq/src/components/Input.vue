@@ -563,7 +563,6 @@ export default {
   justify-content: center;
   width: 20px;
   height: 20px;
-  cursor: pointer;
   
   .clear-icon {
     font-size: 18px;

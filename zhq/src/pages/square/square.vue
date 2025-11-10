@@ -19,6 +19,12 @@
         size="medium"
         @click="goToInputDemo"
       />
+      <common-button 
+        text="选择框演示"
+        type="primary"
+        size="medium"
+        @click="goToSelectDemo"
+      />
     </view>
   </view>
 </template>
@@ -40,6 +46,11 @@ export default {
     goToInputDemo() {
       uni.navigateTo({
         url: '/pages/input-demo/input-demo'
+      });
+    },
+    goToSelectDemo() {
+      uni.navigateTo({
+        url: '/pages/select-demo/select-demo'
       });
     }
   },
