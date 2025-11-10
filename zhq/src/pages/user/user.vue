@@ -10,10 +10,10 @@
     ></gradient-background>
     
     <!-- ==================== 新增：使用自定义导航栏组件 ==================== -->
-    <custom-navbar 
+    <Custom-navbar 
       title="个人中心" 
       :show-back="false"
-    ></custom-navbar>
+    ></Custom-navbar>
     
     <!-- ==================== 修改：原有内容容器，添加动态 paddingTop ==================== -->
     <view class="mine-container" :style="{ paddingTop: contentPaddingTop + 'px' }">
