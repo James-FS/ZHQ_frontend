@@ -10,8 +10,14 @@
         </view>
 
         <view class="author-info">
-          <img class="author-avator" src="/static/img/wechat_2025-11-05_092504_970.png" mode="aspectFill"></img>
+          <img class="author-avator" src="/static/img/wechat_2025-11-05_103123_039.png" mode="aspectFill"></img>
           <view class="author-name">废物利用</view>
+        </view>
+
+        <view class="detail-info">
+          <text>项目周期：4 周</text>
+          <text>招募人数：5 人</text>
+          <text>预期成果：完成对战士全部单卡的评价</text>
         </view>
 
         <view class="detail-context">
@@ -64,14 +70,14 @@ const html = ref(`
 let mockContext=ref({
   title:'CST2023企业',
   context:'html',
-  avator:'/static/img/wechat_2025-11-05_092504_970.png',
+  avator:'/static/img/wechat_2025-11-05_103123_039.png',
   name:'作者名称',
   tags:['标签一','标签二','标签三','标签四','标签五','标签六']
 });
 
 let mockAuthor=ref({
   name:'作者名称',
-  avator:'/static/img/wechat_2025-11-05_092504_970.png',
+  avator:'/static/img/wechat_2025-11-05_103123_039.png',
 });
 </script>
 
@@ -122,11 +128,19 @@ let mockAuthor=ref({
     gap:20rpx;
     padding:20rpx;
     .author-avator{
-      height: 180rpx;
-      width: 270rpx;
+      height: 150rpx;
+      width: 150rpx;
       border-radius: 10rpx;
       padding:20rpx;
     }
+  }
+
+  .detail-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100vw;
+    gap:20rpx;
   }
 
   .detail-context{
