@@ -11,14 +11,15 @@
         </view>
         
         <view class="invite-button" @click="handleApplication">
-            <button class="btn-handle">前往处理</button>
+            <button class="btn-handle">{{ buttonText }}</button>
         </view>
     </view>
 </template>
 
 
 <script setup>
-    defineProps({
+import { computed } from 'vue';
+    const props =defineProps({
         title: {
             type: String,
             default: 'CST2023企业邀请您加入'
@@ -33,6 +34,10 @@
         }
     });
 
+    const buttonText = computed(() => {
+        return props.type === 'primary' ? '前往处理' : '申请加入'
+    })
+    
     function handleApplication(){
         uni.navigateTo({
             url:'/pages/teaming/teaming'

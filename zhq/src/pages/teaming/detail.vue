@@ -3,58 +3,127 @@
 
     <view class="detail-container">
         <view class="title">
-          <img class="title-img" src="/static/img/wechat_2025-11-05_103123_039.png" mode="aspectFill"></img>
+          <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
           <view class="title-text">
-            209连胜战士教你玩懂战士——对战士全部单卡的评价
+            基于uniapp开发的跨平台移动应用实战
           </view>
         </view>
 
         <view class="author-info">
-          <img class="author-avator" src="/static/img/wechat_2025-11-05_092504_970.png" mode="aspectFill"></img>
+          <img class="author-avator" src="/static/icon/头像2.svg" mode="aspectFill"></img>
           <view class="author-name">废物利用</view>
+        </view>
+
+        <view class="detail-info">
+          <text class="info-label">项目周期：</text>
+          <text class="info-value">4 周</text>
+          <text class="info-label">招募人数：</text>
+          <text class="info-value">5 人</text>
+          <text class="info-label">预期成果：</text>
+          <text class="info-value">发表一篇论文以及申请专利</text>
         </view>
 
         <view class="detail-context">
           <mp-html :content="html" />
-          <application></application>
+          <application 
+          :title="`${mockContext.title}`"
+          :type="'green'"
+          </application>
         </view>
+
+        <view class="detail-tag">
+          <TagComponent
+            v-for="(tags,index) in mockContext.tags"
+            :key="index"
+            :tagText="tags"
+          ></TagComponent>
+      </view>
     </view>
+    
   </view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { readonly, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import {Application} from '@/components/Application.vue';
+import TagComponent from '@/components/Tags.vue';
 const id=ref(null);
 onLoad((options)=>{
   id.value=options.id;
 })
 
 const html = ref(`
-  <div style="color:#333;line-height:1.8;">
-    <h3 style="color:#e64340;">一、单卡总览</h3>
-    <p>209连胜的核心在于<strong>节奏</strong>与<strong>资源兑换</strong>，下面给出全部单卡点评：</p>
-    
-    <table border="1" style="border-collapse:collapse;width:100%;text-align:center;">
-      <tr style="background:#f5f5f5;">
-        <th style="padding:8px;">名称</th><th style="padding:8px;">评分</th><th style="padding:8px;">说明</th>
+  <div style="color:#333;line-height:1.9;">
+
+    <h3 style="color:#333;">一、项目背景</h3>
+    <p>随着高校创新创业教育深化，<strong>“一码多端”</strong>已成为移动应用的主流交付形态。本次实战以<strong>校园二手市集</strong>为真实业务场景，采用 <strong>uni-app + Vue3 + Vite + TypeScript</strong> 技术栈，<strong>4 周</strong>内完成一套可同时编译到微信、支付宝、H5、App 的商用级代码库，并输出学术论文与软件著作权。</p>
+
+    <h3 style="color:#333;">二、技术选型与收益</h3>
+    <ul>
+      <li><strong>Vue3</strong>：Composition API 让复杂逻辑拆得开、合得拢；配合 <code>&lt;script setup&gt;</code> 语法糖，开发体验更轻量。</li>
+      <li><strong>Vite</strong>：冷启动 & HMR 速度比 Webpack 快 3-5 倍，小程序端热重载稳定在 <strong>1 s 内</strong>。</li>
+      <li><strong>TypeScript</strong>：组件 Props、Pinia State、API 接口全链路类型安全，<strong>编译期即可暴露 90% 低级错误</strong>。</li>
+      <li><strong>uni-app</strong>：单仓代码 → 10+ 平台，<strong>条件编译</strong>解决平台差异，<strong>插件市场</strong>一键集成登录、支付、推送。</li>
+    </ul>
+
+    <h3 style="color:#333;">三、核心模块一览</h3>
+    <table border="1" style="border-collapse:collapse;width:100%;text-align:center;margin:12px 0;">
+      <tr style="background:#fafafa;">
+        <th style="padding:8px;">模块</th><th style="padding:8px;">关键技术</th><th style="padding:8px;">交付物</th>
       </tr>
-      <tr><td style="padding:8px;">战斗怒吼</td><td style="padding:8px;">★★★★★</td><td style="padding:8px;">节奏发动机</td></tr>
-      <tr><td style="padding:8px;">盾牌格挡</td><td style="padding:8px;">★★★☆☆</td><td style="padding:8px;">过渡即可</td></tr>
+      <tr><td>用户中心</td><td>JWT 无感刷新、Vuex 持久化、微信一键登录</td><td>登录/注册/找回密码</td></tr>
+      <tr><td>商品瀑布流</td><td>Intersection 懒加载、分页缓存、图片实时压缩</td><td>首页列表、搜索、详情页</td></tr>
+      <tr><td>订单&支付</td><td>微信支付 V3、异步通知、订单状态机</td><td>下单/支付/退款/状态回调</td></tr>
+      <tr><td>发布上架</td><td>条件编译、原生插件、离线包方案</td><td>微信小程序包 + App 离线包</td></tr>
     </table>
 
-    <h3 style="color:#e64340;">二、实战截图</h3>
-    <p>下图是 209 连胜关键局：</p>
+    <h3 style="color:#333;">四、开发流程与规范</h3>
+    <ol>
+      <li><strong>需求评审</strong>：使用 Moqups 绘制低保真原型，确立 MVP 范围。</li>
+      <li><strong>接口契约</strong>：Swagger + OpenAPI 3.0，前端通过 openapi-typescript 自动生成调用代码。</li>
+      <li><strong>分支策略</strong>：Git Flow，main / dev / feature-xxx，合并必须经过 MR + Code Review。</li>
+      <li><strong>自动化质检</strong>：Husky + lint-staged 在 commit 阶段跑 ESLint + Prettier，保证风格统一。</li>
+      <li><strong>多端构建</strong>：一条命令同时输出微信小程序、H5、App 三端包，CI 自动上传体验版。</li>
+    </ol>
+
+    <h3 style="color:#333;">五、性能与体验优化</h3>
+    <ul>
+      <li><strong>图片</strong>：WebP + 腾讯云数据万象「<code>?imageView2/2/w/750</code>」实时压缩，平均节省 62% 流量。</li>
+      <li><strong>包体积</strong>：Vite terser + 按需引入 lodash-es，主包缩小 0.8 MB。</li>
+      <li><strong>首屏渲染</strong>：骨架屏 + 离线缓存，小程序首屏时间从 1.8 s → 0.9 s。</li>
+      <li><strong>列表滚动</strong>：虚拟滚动 + 分页缓存，千级商品无白屏、无闪动。</li>
+    </ul>
+
+    <h3 style="color:#333;">六、4 周里程碑</h3>
+    <p><strong>Week1</strong> 需求锁定 + 技术底座搭建<br>
+       <strong>Week2</strong> 用户/商品/订单接口联调<br>
+       <strong>Week3</strong> 支付闭环 + 性能优化<br>
+       <strong>Week4</strong> 多端打包 + 论文/专利材料输出</p>
+
+    <h3 style="color:#333;">七、预期成果</h3>
+    <ul>
+      <li>✅ 可运行的跨端应用（微信、支付宝、H5、App）</li>
+      <li>✅ 源代码、接口文档、部署脚本全套交付</li>
+      <li>✅ EI 会议论文 1 篇（已拟题）</li>
+      <li>✅ 软件著作权 1 项（材料已准备）</li>
+    </ul>
+
   </div>
 `)
 
-let mockData={
-  title:'这是一个标题',
-  context:'',
-  avator:'/static/img/wechat_2025-11-05_092504_970.png',
+let mockContext=ref({
+  title:'CST2023企业',
+  context:'html',
+  avator:'/static/img/wechat_2025-11-05_103123_039.png',
   name:'作者名称',
-}
+  tags:['大创', '移动开发', 'UniApp']
+});
+
+let mockAuthor=ref({
+  name:'作者名称',
+  avator:'/static/img/wechat_2025-11-05_103123_039.png',
+});
 </script>
 
 <style lang="scss" scoped>
@@ -63,14 +132,15 @@ let mockData={
   flex-direction: column;
   flex-wrap: wrap;
   flex:1;
-  align-items: center;
-  background-color: #f5f5f5;
+  align-items: flex-start;
+  background-color: #ffffff;
   min-height: 90vh;
   width:100vw;
   border-radius: 20rpx;
   border: 1rpx solid #e5e5e5;
   box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
   margin-top: 20rpx;
+  gap:10rpx;
 }
 .detail-container{
   display: flex;
@@ -103,17 +173,40 @@ let mockData={
     gap:20rpx;
     padding:20rpx;
     .author-avator{
-      height: 180rpx;
-      width: 270rpx;
+      height: 150rpx;
+      width: 150rpx;
       border-radius: 10rpx;
       padding:20rpx;
     }
+  }
+
+  .detail-info{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100vw;
+    gap:20rpx;
+    .info-label{
+      font-weight: bold;
+      color:var(--accent-color);
+    }
+    
   }
 
   .detail-context{
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .detail-tag{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: calc(100% - 40rpx);
+    justify-content: flex-start;
+    margin:20rpx;
+    gap:5rpx;
   }
 }
 

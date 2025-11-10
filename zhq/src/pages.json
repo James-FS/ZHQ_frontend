@@ -13,6 +13,7 @@
 			"style": {
 				"navigationBarTitleText": "我的队伍"
 			}
+			
 		},
 		{
 			"path": "pages/teaming/detail",
