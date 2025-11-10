@@ -124,11 +124,12 @@
 </template>
 
 <script>
+
 // 引入标签组件
 import TagItem from '@/components/Tags.vue'
-import GradientBackground from '@/components/background.vue'
-import CustomNavbar from '@/components/custom-navbar.vue'
-import navbarPaddingMixin from '@/components/navbar-padding.js'
+import GradientBackground from '@/components/Grandient-background.vue'
+import CustomNavbar from '@/components/Custom-navbar.vue'
+import navbarPaddingMixin from '@/components/Navbar-padding.js'
 
 export default {
   // ==================== 修改：注册渐变背景和自定义导航栏组件 ====================
