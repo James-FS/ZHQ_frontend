@@ -141,8 +141,6 @@ export default {
   font-weight: 500;
   line-height: 1;
   transition: all 0.3s ease;
-  cursor: pointer;
-  outline: none;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -340,7 +338,6 @@ export default {
   /* 加载状态 */
   &.btn-loading {
     opacity: 0.8;
-    cursor: not-allowed;
     pointer-events: none; 
   }
 
@@ -350,7 +347,6 @@ export default {
 
   /* 禁用状态 */
   &.btn-disabled {
-    cursor: not-allowed;
     pointer-events: none;
   }
 

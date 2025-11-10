@@ -52,10 +52,23 @@
 			}
 		},
 		{
+			"path":"pages/select-demo/select-demo",
+			"style":{
+				"navigationBarTitleText":"选择框演示"
+			}
+		},
+		{
 			"path":"pages/history/history",
 			"style":{
 				"navigationBarTitleText":"浏览历史"
 			}
+		},
+		{
+			"path":"pages/settings/settings",
+			"style":{
+				"navigationBarTitleText":"系统设置"
+			}
+			
 		}
 	],
 
