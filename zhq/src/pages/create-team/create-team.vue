@@ -1,240 +1,245 @@
-<script>
-export default {
-  onLoad() {},
-  methods: {},
-}
-</script>
-
-<script setup>
-import { ref } from 'vue'
-import TagComponent from '@/components/Tags.vue'
-import StatusTags from '../../components/StatusTags.vue';
-let mockData = [
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述,看看字多了会怎么样这是项目一的描述,看看字多了会怎么样',
-    status: '进行中',
-  },
-  
-  {
-    id: 1,
-    title: '项目一',
-    description: '字少',
-    status: '进行中',
-  },
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },
-  {
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },{
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },{
-    id: 1,
-    title: '项目一',
-    description: '这是项目一的描述',
-    status: '进行中',
-  },
-  
-]
-</script>
-
 <template>
-  <!-- <link rel="stylesheet" href="static/iconfont/iconfont.css"> -->
-  <view class="pageHolder">
-    <view class="content">
-          <h1 class="title">我的队伍</h1>
-      <view class="list-container">
-        <view class="list-item" v-for="item in mockData" :key="item.id">
-          <view class="item-body">
-            <!-- <view class="item-img">       文字       </view> -->
-                <view class="item-content">
-                  <view class="author-info">
-                    <img class="author-avator" src="/static/img/我.png" mode="aspectFill"></img>
-                    <view class="author-name">作者名称</view>
-                  </view>
-                  <view class="item-title">{{ item.title }}</view>
-                  <view class="item-description">{{ item.description.slice(0, 25) }}</view>
-                  </view>
+  <view class="page">
+    <view class="container">
+      <text class="page-title">队伍详情</text>
 
-                <view class="item-right">
-                  <img class="item-img" src="/static/img/wechat_2025-11-05_103123_039.png" mode="aspectFill"></img>
-                </view>
-            </view>
-
-          <view class="item-tags">
-            <TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" /><TagComponent tagText="空洞骑士丝之歌空洞骑士" />
-          </view>
-          <view class="item-status">
-            <i class="iconfont icon-zudui"></i>
-            <text>3/5人</text>
-            <StatusTags type="green" text="开发中" />
-          </view>
+      <form class="form" @submit.prevent="onSubmit">
+        <view class="row">
+          <common-input
+            label="队伍名称"
+            class="field"
+            placeholder="请输入队伍名称"
+            v-model="form.name"
+            :required="true"
+            @input="onUsernameInput"
+          />
         </view>
-      </view>
-    </view>
+        <view class="event">
+          <common-select
+            label="相关赛事"
+            class="field"
+            placeholder="请选择您要参加的比赛"
+            :options="eventOptions"
+            :value="form.event"
+            :addable="true"
+            :required="true"
+            @input="onEventInput"
+            @option-added="handleAddEvent"
+          />
+        </view>
+        <view class="multiline-row">
+          <common-input
+            label="项目内容"
+            class="field"
+            placeholder="请输入项目内容"
+            :multiline="true"
+            :required="true"
+            v-model:value="form.content"
+            :show-word-limit="false"
+            :clearable="false"
+          />
+        </view>
 
+        <view class="row">
+          <common-input
+            label="招募人数"
+            class="field"
+            placeholder="请输入招募人数"
+            v-model="form.recruitNumber"
+            :required="true"
+            @input="onUsernameInput"
+          />
+        </view>
+
+        <view class="row">
+          <common-input
+            label="所需技能"
+            class="field"
+            placeholder="示例:Python・机器学习・团队协作"
+            v-model="form.skills"
+            :required="true"
+            @input="onUsernameInput"
+          />
+        </view>
+
+        <view class="row">
+          <common-input
+            label="项目周期"
+            class="field"
+            placeholder="请输入项目周期"
+            v-model="form.period"
+            :required="true"
+            @input="onUsernameInput"
+          />
+        </view>
+
+        <view class="row">
+          <common-input
+            label="预期成果"
+            class="field"
+            placeholder="请输入预期成果"
+            v-model="form.outcome"
+            :required="true"
+            @input="onUsernameInput"
+          />
+        </view>
+
+        <view class="buttons">
+          <common-button text="取消" type="secondary" @click="onCancel" />
+          <common-button text="确定" type="primary" @click="onSubmit" />
+        </view>
+      </form>
+    </view>
   </view>
 </template>
 
 
 
-<style lang="scss">
-.pageHolder{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-  
-  
+<script>
+import { CommonInput } from "@/components/Input.vue";
+import { CommonSelect } from "@/components/Select.vue";
+export default {
+  components: {
+    CommonInput,
+    CommonSelect,
+  },
+  data() {
+    return {
+      form: {
+        name: "",
+        event: "",
+        eventIndex: 0,
+        content: "",
+        recruitNumber: "",
+        skills: "",
+        period: "",
+        outcome: "",
+        city: "",
+      },
+      eventOptions: [
+        { label: "大学生创新创业比赛", value: "innovation_competition" },
+        { label: "挑战杯", value: "challenge_cup" },
+        { label: "互联网+", value: "internet_plus" }
+      ]
+    };
+  },
+  methods: {
+    onEventInput(value) {
+      // 处理赛事选择变化
+      this.form.event = value;
+      console.log('选择的赛事:', value);
+    },
+    handleAddEvent(newOption) {
+      // 处理用户添加的新赛事选项
+      this.eventOptions.push(newOption);
+      // 自动选择新添加的选项
+      this.form.event = newOption.value;
+    },
+    onEventChange(e) {
+      this.form.eventIndex = e.detail.value;
+    },
+    onCancel() {
+      if (typeof uni !== "undefined" && uni.navigateBack) {
+        uni.navigateBack();
+      }
+    },
+    onSubmit() {
+      // 提交逻辑
+      // 基础校验示例
+      if (!this.form.name) {
+        uni.showToast({ title: "请填写队伍名称", icon: "none" });
+        return;
+      }
+      console.log("提交表单：", this.form);
+      uni.showToast({ title: "提交成功", icon: "success" });
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.page {
+  background: linear-gradient(#eaf4ff, #f6f7fb);
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: -apple-system, "Helvetica Neue", "PingFang SC", "Microsoft YaHei",
+    Arial;
 }
 
-.title{
-  font-size: 45rpx;
-  color:var(--title-color);
-  font-weight: bold;
-  margin-bottom: 20rpx;
-  margin-top: 20rpx;
-  width: 100vw;
+/* 容器改为填充整个页面 */
+.container {
+  width: 100%;
+  height:100vh;
+  margin: 0;
+  background: #fff;
+  border: none;
+  box-sizing: border-box;
+  position: relative;
 }
 
-.content{
+/* 标题向上对齐，保留视觉层次 */
+.page-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin: 20rpx;
+}
+
+.row {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex:1;
   align-items: center;
-  background-color: #f5f5f5;
-  min-height: 90vh;
-  width:100vw;
-  border-radius: 20rpx;
-  border: 1rpx solid #e5e5e5;
-  box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
-  margin-top: 20rpx;
-  .list-container{
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
-    min-height:25vh;
-    justify-content: center;
-    align-self: start;
-    gap:20rpx;
-    padding-top: 20rpx;
-    
-    .list-item{
-      display: flex;
-      flex-direction: column;
-      background: #ffffff8d;
-      width:100vw;
-      min-height:300rpx;
-      // border-radius:15rpx;
-      border: 1rpx solid #e5e5e5;
-      box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
-      justify-content: space-between;
-      padding: 20rpx;
-      .item-body{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap:40rpx;
-        .item-content{
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          .item-title{
-            color:var(--title-color);
-            font-size: var(--title-size);
-            font-weight: bold;
-          }
-          .author-info{
-            display: flex;
-            margin-top: 10rpx;
-            .author-avator{
-              height:60rpx;
-              width:60rpx;
-            }
-            .author-name{
-              font-size: var(--text-size);
-              color:var(--text-color);
-              margin-left:20rpx;
-              align-self: center;
-            }
-          }
-        }
-      }
+  margin: 0;
+  padding: 28rpx 12rpx;
+  gap: 24rpx;
+  box-sizing: border-box;
+}
+.event {
+  align-items: center;
+  margin: 0;
+  padding: 28rpx 12rpx;
+  gap: 24rpx;
+  box-sizing: border-box;
+}
 
-      .item-right{
-        display: flex;
-        margin-right: 30rpx;
-        flex-shrink: 0;
-        .item-img{
-          height: 180rpx;
-          width: 270rpx;
-          border-radius: 10rpx;
-        }
-      }
-
-      .item-tags{
-        margin-left: -10rpx;
-        
-        
-      }
-
-      .item-status{
-          display: flex;
-          justify-content: flex-start;
-          margin-top: 10rpx;
-          gap:10rpx;
-          align-items: center;
-          color: var(--text-color);
-          font-size: calc(var(--text-size) - 2rpx);
-          font-weight: var(--text-weight);
-        }
-      
-    }
+/* 多行输入框的行样式 */
+.multiline-row {
+  padding: 28rpx 12rpx;
+  box-sizing: border-box;
+  
+  .field {
+    flex: 1;
+    height: auto; 
+    line-height: normal; 
+    padding: 0 24rpx;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 28rpx;
+    box-sizing: border-box;
   }
 }
 
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
+
+.field {
+  flex: 1;
+  height: 76rpx;
+  line-height: 76rpx;
+  padding: 0 24rpx;
+  color: #666;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
-.text-area {
+
+/* 底部操作条位置调整（仍固定）*/
+.buttons {
   display: flex;
-  justify-content: center;
+  gap: 24rpx;
+  padding: 40rpx 80rpx;
+  justify-content: space-between;
+  border: box-sizing;
 }
+
+
 </style>

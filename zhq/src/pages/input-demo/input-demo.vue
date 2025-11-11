@@ -119,7 +119,7 @@
           :multiline="true"
           placeholder="请输入个人简介..."
           v-model:value="form.description"
-          :show-word-limit="true"
+          :show-word-limit="false"
           :clearable="false"
         />
         
@@ -127,7 +127,7 @@
           label="详细地址"
           :multiline="true"
           border-style="line"
-          placeholder="请输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址请你输入详细地址"
+          placeholder="请输入详细地址"
           v-model:value="form.address"
           :maxlength="500"
           :show-word-limit="true"
