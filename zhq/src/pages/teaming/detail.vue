@@ -1,45 +1,49 @@
 <template>
   <view class="content">
-
     <view class="detail-container">
-        <view class="title">
-          <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
-          <view class="title-text">
-            基于uniapp开发的跨平台移动应用实战
-          </view>
+      <!-- 标题图片 - 保持全屏 -->
+      <view class="title">
+        <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
+        <view class="title-text">
+          基于uniapp开发的跨平台移动应用实战
         </view>
+      </view>
 
-        <view class="author-info">
-          <img class="author-avator" src="/static/icon/头像2.svg" mode="aspectFill"></img>
-          <view class="author-name">废物利用</view>
-        </view>
+      <!-- 作者信息 - 有左右间距 -->
+      <view class="author-info">
+        <img class="author-avator" src="/static/icon/头像2.svg" mode="aspectFill"></img>
+        <view class="author-name">废物利用</view>
+      </view>
 
-        <view class="detail-info">
-          <text class="info-label">项目周期：</text>
-          <text class="info-value">4 周</text>
-          <text class="info-label">招募人数：</text>
-          <text class="info-value">5 人</text>
-          <text class="info-label">预期成果：</text>
-          <text class="info-value">发表一篇论文以及申请专利</text>
-        </view>
+      <!-- 项目详情 - 有左右间距 -->
+      <view class="detail-info">
+        <text class="info-label">项目周期：</text>
+        <text class="info-value">4 周</text>
+        <text class="info-label">招募人数：</text>
+        <text class="info-value">5 人</text>
+        <text class="info-label">预期成果：</text>
+        <text class="info-value">发表一篇论文以及申请专利</text>
+      </view>
 
-        <view class="detail-context">
-          <mp-html :content="html" />
-          <application 
+      <!-- 详情内容 - 有左右间距 -->
+      <view class="detail-context">
+        <mp-html :content="html" />
+        <application 
           :title="`${mockContext.title}`"
           :type="'green'"
-          </application>
-        </view>
+        ></application>
+      </view>
 
-        <view class="detail-tag">
-          <TagComponent
-            v-for="(tags,index) in mockContext.tags"
-            :key="index"
-            :tagText="tags"
-          ></TagComponent>
+      <!-- 标签 - 有左右间距 -->
+      <view class="detail-tag">
+        <TagComponent
+          v-for="(tags,index) in mockContext.tags"
+          :key="index"
+          :tagText="tags"
+        ></TagComponent>
+        <TagsInput v-model:tags="mockContext.tags" />
       </view>
     </view>
-    
   </view>
 </template>
 
@@ -48,6 +52,8 @@ import { readonly, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import {Application} from '@/components/Application.vue';
 import TagComponent from '@/components/Tags.vue';
+import TagsInput from '@/components/TagsInput.vue'
+
 const id=ref(null);
 onLoad((options)=>{
   id.value=options.id;
@@ -55,9 +61,8 @@ onLoad((options)=>{
 
 const html = ref(`
   <div style="color:#333;line-height:1.9;">
-
     <h3 style="color:#333;">一、项目背景</h3>
-    <p>随着高校创新创业教育深化，<strong>“一码多端”</strong>已成为移动应用的主流交付形态。本次实战以<strong>校园二手市集</strong>为真实业务场景，采用 <strong>uni-app + Vue3 + Vite + TypeScript</strong> 技术栈，<strong>4 周</strong>内完成一套可同时编译到微信、支付宝、H5、App 的商用级代码库，并输出学术论文与软件著作权。</p>
+    <p>随着高校创新创业教育深化，<strong>"一码多端"</strong>已成为移动应用的主流交付形态。本次实战以<strong>校园二手市集</strong>为真实业务场景，采用 <strong>uni-app + Vue3 + Vite + TypeScript</strong> 技术栈，<strong>4 周</strong>内完成一套可同时编译到微信、支付宝、H5、App 的商用级代码库，并输出学术论文与软件著作权。</p>
 
     <h3 style="color:#333;">二、技术选型与收益</h3>
     <ul>
@@ -73,7 +78,7 @@ const html = ref(`
         <th style="padding:8px;">模块</th><th style="padding:8px;">关键技术</th><th style="padding:8px;">交付物</th>
       </tr>
       <tr><td>用户中心</td><td>JWT 无感刷新、Vuex 持久化、微信一键登录</td><td>登录/注册/找回密码</td></tr>
-      <tr><td>商品瀑布流</td><td>Intersection 懒加载、分页缓存、图片实时压缩</td><td>首页列表、搜索、详情页</td></tr>
+      <tr><td>商品瀑布流</td><td>Intersection 懒加载、分页缓存、图片实时压缩</td><td>首屏列表、搜索、详情页</td></tr>
       <tr><td>订单&支付</td><td>微信支付 V3、异步通知、订单状态机</td><td>下单/支付/退款/状态回调</td></tr>
       <tr><td>发布上架</td><td>条件编译、原生插件、离线包方案</td><td>微信小程序包 + App 离线包</td></tr>
     </table>
@@ -108,7 +113,6 @@ const html = ref(`
       <li>✅ EI 会议论文 1 篇（已拟题）</li>
       <li>✅ 软件著作权 1 项（材料已准备）</li>
     </ul>
-
   </div>
 `)
 
@@ -127,88 +131,135 @@ let mockAuthor=ref({
 </script>
 
 <style lang="scss" scoped>
-.content{
+/* ========== 外层容器 ========== */
+.content {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  flex:1;
-  align-items: flex-start;
+  flex: 1;
+  align-items: stretch;
   background-color: #ffffff;
   min-height: 90vh;
-  width:100vw;
-  border-radius: 20rpx;
-  border: 1rpx solid #e5e5e5;
-  box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
-  margin-top: 20rpx;
-  gap:10rpx;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; /* ✨ 防止横向滚动 */
 }
-.detail-container{
+
+/* ========== 详情容器 ========== */
+.detail-container {
   display: flex;
   flex-direction: column;
-  flex:1;
-  align-items: center;
-  width: 100vw;
-  margin-top:20rpx;
-  .title{
-    width:100vw;;
-    .title-text{
-      font-size: var(--title-size);
-      font-weight: bold;
-      color:var(--title-color);
-      padding:10rpx;
-    }
-    .title-img{
-      width: 100vw;
-      object-fit: cover;
-      margin-bottom: 10rpx;
-    }
+  flex: 1;
+  align-items: stretch;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  gap: 20rpx;
+}
+
+/* ========== 标题区域 - 全屏显示 ========== */
+.title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  .title-img {
+    width: 100%;
+    height: 400rpx;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
   }
 
-  .author-info{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100vw;
-    gap:20rpx;
-    padding:20rpx;
-    .author-avator{
-      height: 150rpx;
-      width: 150rpx;
-      border-radius: 10rpx;
-      padding:20rpx;
-    }
-  }
-
-  .detail-info{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100vw;
-    gap:20rpx;
-    .info-label{
-      font-weight: bold;
-      color:var(--accent-color);
-    }
-    
-  }
-
-  .detail-context{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .detail-tag{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: calc(100% - 40rpx);
-    justify-content: flex-start;
-    margin:20rpx;
-    gap:5rpx;
+  .title-text {
+    font-size: var(--title-size);
+    font-weight: bold;
+    color: var(--title-color);
+    padding: 20rpx;
+    line-height: 1.4;
+    word-break: break-word;
   }
 }
 
+/* ========== 作者信息 - 有左右间距 ========== */
+.author-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 20rpx;
+  padding: 20rpx;
+  margin: 0;
+  box-sizing: border-box;
 
+  .author-avator {
+    height: 120rpx;
+    width: 120rpx;
+    border-radius: 12rpx;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+
+  .author-name {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: var(--title-color);
+  }
+}
+
+/* ========== 项目详情 - 有左右间距 ========== */
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 16rpx;
+  padding: 0 20rpx;
+  margin: 0;
+  box-sizing: border-box;
+
+  .info-label {
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 28rpx;
+  }
+
+  .info-value {
+    color: #666;
+    font-size: 26rpx;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+}
+
+/* ========== 详情内容 - 有左右间距 ========== */
+.detail-context {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  padding: 0 20rpx;
+  margin: 0;
+  box-sizing: border-box;
+  gap: 20rpx;
+}
+
+/* ========== 标签区域 - 有左右间距 ========== */
+.detail-tag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  gap: 12rpx;
+  padding: 0 20rpx 20rpx 20rpx;
+  margin: 0;
+  box-sizing: border-box;
+}
 </style>

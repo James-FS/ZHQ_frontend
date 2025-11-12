@@ -51,12 +51,12 @@ export default {
   padding-right: 10rpx;
   padding-top:5rpx;
   font-weight: bold;
-  color:#084e8a;
+  color:#2b6de9;
 }
 .tag-text {
   max-width:550rpx;
   margin-right: 20rpx;
-  color:#084e8a;
+  color:#2b6de9;
   white-space: nowrap;           /* 不换行 */
   overflow: hidden;              /* 隐藏溢出内容 */
   text-overflow: ellipsis;       /* 显示省略号 */
