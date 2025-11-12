@@ -84,7 +84,7 @@
       <view class="menu-item" @click="goToPage('history')">
         <view class="menu-left">
           <!-- Font Class 方式：时钟图标 -->
-          <text class="iconfont icon-liulanlishi menu-icon"></text>
+          <text class="iconfont icon-liulanlishi1 menu-icon"></text>
           <text class="menu-text">浏览历史</text>
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>

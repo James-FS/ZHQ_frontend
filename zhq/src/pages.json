@@ -69,7 +69,15 @@
 				"navigationBarTitleText":"系统设置"
 			}
 			
+		},
+		{
+			"path":"pages/collection/collection",
+			"style":{
+				"navigationBarTitleText":"我的收藏"
+			}
+			
 		}
+
 	],
 
 	"tabBar": {
