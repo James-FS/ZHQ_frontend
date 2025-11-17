@@ -97,16 +97,11 @@ export default {
   methods: {
     openChat(item) {
       console.log('打开聊天:', item.username)
-      // 模拟点击反馈
-      uni.showToast({
-        title: `打开与${item.username}的聊天`,
-        icon: 'none',
-        duration: 2000
+      
+      // 跳转到聊天页面，传递用户信息
+      uni.navigateTo({
+        url: `/pages/chat/chat?userId=${item.id}&username=${encodeURIComponent(item.username)}`
       })
-      // 这里可以跳转到具体的聊天页面
-      // uni.navigateTo({
-      //   url: `/pages/chat/chat?userId=${item.id}&username=${item.username}`
-      // })
     },
 
     // 格式化时间显示
