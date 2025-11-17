@@ -34,6 +34,12 @@
 			}
 		},
 		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "聊天"
+			}
+		},
+		{
 			"path":"pages/square/square",
 			"style":{
 				"navigationBarTitleText":"广场"
