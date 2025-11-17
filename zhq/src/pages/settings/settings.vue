@@ -77,6 +77,14 @@
           <text class="iconfont icon-youjiantou arrow-icon"></text>
         </view>
         
+        <view class="setting-item" @click="goToTestPage">
+          <view class="setting-left">
+            <text class="iconfont icon-ceshi setting-icon"></text>
+            <text class="setting-text">后端连接测试</text>
+          </view>
+          <text class="iconfont icon-youjiantou arrow-icon"></text>
+        </view>
+        
         <view class="setting-item">
           <view class="setting-left">
             <text class="iconfont icon-guanyu setting-icon"></text>
@@ -127,6 +135,23 @@ export default {
           }
         })
       }
+    },
+    
+    // 跳转到测试页面
+    goToTestPage() {
+      uni.navigateTo({
+        url: '/pages/test/test',
+        success: () => {
+          console.log('跳转到后端连接测试页面成功')
+        },
+        fail: (err) => {
+          console.error('跳转到后端连接测试页面失败:', err)
+          uni.showToast({
+            title: '页面跳转失败',
+            icon: 'none'
+          })
+        }
+      })
     },
     
     // 处理其他设置项点击
