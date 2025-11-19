@@ -12,6 +12,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-eye:before {
+  content: "\e78f";
+}
+
+.icon-eye-close:before {
+  content: "\e8ff";
+}
+
+.icon-qq:before {
+  content: "\e66a";
+}
+
+.icon-QQ:before {
+  content: "\e667";
+}
+
+.icon-gengduo:before {
+  content: "\e61e";
+}
+
+.icon-biaoqing:before {
+  content: "\e659";
+}
+
+.icon-biaoqing1:before {
+  content: "\e60e";
+}
+
 .icon-wodejianli:before {
   content: "\e609";
 }
