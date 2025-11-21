@@ -104,6 +104,7 @@ let mockData = ref([
   },
 ])
 let total = ref()
+const token = uni.getStorageSync('token')
 function getDetail(id){
   uni.navigateTo({
     url:`/pages/teaming/detail?id=${id}`
@@ -136,8 +137,20 @@ async function getTeamList(){
   }
 }
 
+
+async function getUserInfo(){
+    const res = await uni.request({
+      url:`http://localhost:8080/api/v1/user`,
+      method:'GET',
+      header: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+    })
+}
 onMounted(()=>{
   getTeamList();
+  getUserInfo();
 })
 </script>
 
@@ -167,10 +180,10 @@ onMounted(()=>{
             <!-- <view class="item-img">       文字       </view> -->
                 <view class="item-content" @click="getDetail(item.id)">
                   <view class="author-info">
-                    <img class="author-avator" :src="item.avatar" mode="aspectFill"></img>
-                    <view class="author-name">{{ item.team_name }}</view>
+                    <img class="author-avator" :src="item.creato_avatar" mode="aspectFill"></img>
+                    <view class="author-name">{{ item.creator_nickname }}</view>
                   </view>
-                  <view class="item-title">{{ item.title }}</view>
+                  <view class="item-title">{{ item.team_name }}</view>
                   <view class="item-description">{{ item.content }}</view>
                   </view>
 
@@ -189,7 +202,7 @@ onMounted(()=>{
           
           <view class="item-status">
             <i class="iconfont icon-zudui"></i>
-            <text>3/5人</text>
+            <text>{{item.current_members}}/{{item.max_members}}人</text>
             <StatusTags type="green" text="开发中" />
           </view>
         </view>
