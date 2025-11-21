@@ -46,8 +46,14 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 
-const props = defineProps({ modelValue: { type: Array, default: () => [] } })
-const emit  = defineEmits(['update:modelValue'])
+const props = defineProps({ 
+  modelValue: { 
+    type: Array, 
+    default: () => [] 
+  } 
+})
+
+const emit = defineEmits(['update:modelValue'])
 
 const tags = ref([...props.modelValue])
 const newTag = ref('')
@@ -56,10 +62,17 @@ const draft = ref('')
 const inputRef = ref(null)
 const inputWidth = ref('110rpx')
 
-watch(tags, n => emit('update:modelValue', n), { deep: true })
+
+watch(() => props.modelValue, (newVal) => {
+  tags.value = [...newVal]
+}, { deep: true })
+
+
+watch(tags, (newTags) => {
+  emit('update:modelValue', [...newTags])
+}, { deep: true })
 
 onMounted(() => {
-  // 初始化时计算 placeholder 的宽度
   updateInputWidth()
 })
 
@@ -73,11 +86,9 @@ function updateInputWidth() {
   const computedStyle = window.getComputedStyle(input)
   ctx.font = `${computedStyle.fontSize} ${computedStyle.fontFamily}`
   
-  // 如果有输入内容，按输入内容计算；否则按 placeholder 计算
   const text = newTag.value || '添加标签'
   const metrics = ctx.measureText(text)
   
-  // 转换 px 到 rpx (1px = 2rpx)
   let width = Math.ceil(metrics.width) * 2 + 20
   width = Math.max(200, Math.min(width, 520))
   
@@ -86,14 +97,17 @@ function updateInputWidth() {
 
 function addTag() {
   const txt = newTag.value.trim()
-  if (txt && !tags.value.includes(txt)) tags.value.push(txt)
+  if (txt && !tags.value.includes(txt)) {
+    tags.value.push(txt)
+    emit('update:modelValue', [...tags.value])
+  }
   newTag.value = ''
-  // 清空后重新计算 placeholder 宽度
   setTimeout(() => updateInputWidth(), 0)
 }
 
 function deleteTag(i) {
   tags.value.splice(i, 1)
+  emit('update:modelValue', [...tags.value])
 }
 
 function onEdit(i) {
@@ -103,7 +117,10 @@ function onEdit(i) {
 
 function onUpdate(i) {
   const txt = draft.value.trim()
-  if (txt && !tags.value.includes(txt)) tags.value[i] = txt
+  if (txt && !tags.value.includes(txt)) {
+    tags.value[i] = txt
+    emit('update:modelValue', [...tags.value])
+  }
   editIndex.value = -1
 }
 </script>
@@ -116,6 +133,8 @@ function onUpdate(i) {
   align-items: center;
   row-gap: 32rpx;
   column-gap: 24rpx;
+  margin: 0;
+  padding: 0;
 }
 
 /* 标签统一样式 */
@@ -179,7 +198,6 @@ function onUpdate(i) {
   justify-content: center;
   height: 40rpx;
 }
-
 
 .tag-input {
   border: none;

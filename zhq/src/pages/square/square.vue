@@ -1,15 +1,8 @@
-<script>
-export default {
-  onLoad() {},
-  methods: {},
-}
-</script>
-
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import TagComponent from '@/components/Tags.vue'
 import StatusTags from '../../components/StatusTags.vue';
-let mockData = [
+let mockData = ref([
   {
     id: 1,
     title: '基于uniapp开发的跨平台移动应用实战',
@@ -109,13 +102,43 @@ let mockData = [
     tags: ['NLP', '深度学习', 'TensorFlow'],
     members: '2/4'
   },
-]
-
+])
+let total = ref()
 function getDetail(id){
   uni.navigateTo({
     url:`/pages/teaming/detail?id=${id}`
   })
 }
+
+async function getTeamList(){
+  try{
+    const res = await uni.request({
+      url:`http://localhost:8080/api/v1/teams`,
+      method:'GET'
+    })
+
+    const result=res.data;
+    if(result.code==0)
+    {
+      mockData.value=result.data.list;
+      total.value=result.data.total;
+    }
+    else{
+      uni.showToast({
+      title: result.message||'获取失败',
+      icon: 'none'});
+    }
+  } catch(err){
+    console.log(err);
+    uni.showToast({
+    title:'网络错误',
+    icon: 'none'});
+  }
+}
+
+onMounted(()=>{
+  getTeamList();
+})
 </script>
 
 <template>
@@ -145,10 +168,10 @@ function getDetail(id){
                 <view class="item-content" @click="getDetail(item.id)">
                   <view class="author-info">
                     <img class="author-avator" :src="item.avatar" mode="aspectFill"></img>
-                    <view class="author-name">{{ item.name }}</view>
+                    <view class="author-name">{{ item.team_name }}</view>
                   </view>
                   <view class="item-title">{{ item.title }}</view>
-                  <view class="item-description">{{ item.description.slice(0, 25) }}</view>
+                  <view class="item-description">{{ item.content }}</view>
                   </view>
 
                 <view class="item-right">
@@ -158,7 +181,7 @@ function getDetail(id){
 
           <view class="item-tags">
             <TagComponent
-              v-for="(tag, idx) in item.tags"
+              v-for="(tag, idx) in item.tags?.split(',') || []"
               :key="idx"
               :tagText="tag"
             />
