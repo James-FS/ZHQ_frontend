@@ -3,6 +3,9 @@ const baseURL = 'http://localhost:8080' // 开发环境
 // const baseURL = 'https://your-domain.com' // 生产环境
 
 const request = (options) => {
+  // 获取本地存储的token
+  const token = uni.getStorageSync('token')
+
   return new Promise((resolve, reject) => {
     uni.request({
       url: baseURL + options.url,
@@ -10,6 +13,7 @@ const request = (options) => {
       data: options.data || {},
       header: {
         'Content-Type': 'application/json',
+         'Authorization': token ? `Bearer ${token}` : '',// 在所有请求中添加token
         ...options.header
       },
       success: (res) => {

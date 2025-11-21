@@ -2,19 +2,11 @@
   <view class="container">
     <!-- 顶部标签切换 -->
     <view class="tabs">
-      <view 
-        class="tab-item" 
-        :class="{ active: activeTab === 'login' }"
-        @click="switchTab('login')"
-      >
+      <view class="tab-item" :class="{ active: activeTab === 'login' }" @click="switchTab('login')">
         <text class="tab-text" :class="{ 'active-text': activeTab === 'login' }">登录</text>
         <view class="tab-line" v-if="activeTab === 'login'"></view>
       </view>
-      <view 
-        class="tab-item" 
-        :class="{ active: activeTab === 'register' }"
-        @click="switchTab('register')"
-      >
+      <view class="tab-item" :class="{ active: activeTab === 'register' }" @click="switchTab('register')">
         <text class="tab-text" :class="{ 'active-text': activeTab === 'register' }">注册</text>
         <view class="tab-line" v-if="activeTab === 'register'"></view>
       </view>
@@ -23,17 +15,12 @@
     <!-- 登录页面 -->
     <view v-if="activeTab === 'login'" class="form-container">
       <view class="zhihuiquan">智汇圈</view>
-      
+
 
       <!-- 账号输入框 -->
       <view class="form-item">
         <text class="label">账号</text>
-        <input 
-          class="input" 
-          v-model="loginForm.account" 
-          placeholder="请输入账号"
-          placeholder-class="placeholder"
-        />
+        <input class="input" v-model="loginForm.account" placeholder="请输入账号" placeholder-class="placeholder" />
       </view>
 
       <!-- 密码输入框 -->
@@ -43,18 +30,10 @@
           <text class="forgot-text">忘记密码?</text>
         </view>
         <view class="password-input-wrapper">
-          <input 
-            class="input" 
-            v-model="loginForm.password" 
-            :password="!loginForm.showPassword"
-            placeholder="请输入密码"
-            placeholder-class="placeholder"
-          />
-          <text 
-            class="eye-icon iconfont" 
-            :class="loginForm.showPassword ? 'icon-eye' : 'icon-eye-close'"
-            @click="togglePasswordVisibility('login')"
-          >
+          <input class="input" v-model="loginForm.password" :password="!loginForm.showPassword" placeholder="请输入密码"
+            placeholder-class="placeholder" />
+          <text class="eye-icon iconfont" :class="loginForm.showPassword ? 'icon-eye' : 'icon-eye-close'"
+            @click="togglePasswordVisibility('login')">
           </text>
         </view>
       </view>
@@ -86,35 +65,22 @@
     <!-- 注册页面 -->
     <view v-if="activeTab === 'register'" class="form-container">
       <view class="zhihuiquan">智汇圈</view>
-     
+
 
       <!-- 账号输入框 -->
       <view class="form-item">
         <text class="label">账号</text>
-        <input  
-          class="input" 
-          v-model="registerForm.account" 
-          placeholder="请输入账号"
-          placeholder-class="placeholder"
-        />
+        <input class="input" v-model="registerForm.account" placeholder="请输入账号" placeholder-class="placeholder" />
       </view>
 
       <!-- 密码输入框 -->
       <view class="form-item">
         <text class="label">密码</text>
         <view class="password-input-wrapper">
-          <input 
-            class="input" 
-            v-model="registerForm.password" 
-            :password="!registerForm.showPassword"
-            placeholder="请输入密码"
-            placeholder-class="placeholder"
-          />
-          <text 
-            class="eye-icon iconfont" 
-            :class="registerForm.showPassword ? 'icon-eye' : 'icon-eye-close'"
-            @click="togglePasswordVisibility('register')"
-          >
+          <input class="input" v-model="registerForm.password" :password="!registerForm.showPassword"
+            placeholder="请输入密码" placeholder-class="placeholder" />
+          <text class="eye-icon iconfont" :class="registerForm.showPassword ? 'icon-eye' : 'icon-eye-close'"
+            @click="togglePasswordVisibility('register')">
           </text>
         </view>
       </view>
@@ -123,18 +89,10 @@
       <view class="form-item">
         <text class="label">确认密码</text>
         <view class="password-input-wrapper">
-          <input 
-            class="input" 
-            v-model="registerForm.confirmPassword" 
-            :password="!registerForm.showConfirmPassword"
-            placeholder="请再次输入密码"
-            placeholder-class="placeholder"
-          />
-          <text 
-            class="eye-icon iconfont" 
-            :class="registerForm.showConfirmPassword ? 'icon-eye' : 'icon-eye-close'"
-            @click="toggleConfirmPasswordVisibility"
-          >
+          <input class="input" v-model="registerForm.confirmPassword" :password="!registerForm.showConfirmPassword"
+            placeholder="请再次输入密码" placeholder-class="placeholder" />
+          <text class="eye-icon iconfont" :class="registerForm.showConfirmPassword ? 'icon-eye' : 'icon-eye-close'"
+            @click="toggleConfirmPasswordVisibility">
           </text>
         </view>
       </view>
@@ -156,6 +114,7 @@
 </template>
 
 <script>
+import { api } from '@/utils/index'
 export default {
   data() {
     return {
@@ -180,7 +139,7 @@ export default {
     switchTab(tab) {
       this.activeTab = tab
     },
-    
+
     // 切换密码可见性（登录/注册）
     togglePasswordVisibility(type) {
       if (type === 'login') {
@@ -189,17 +148,17 @@ export default {
         this.registerForm.showPassword = !this.registerForm.showPassword
       }
     },
-    
+
     // 切换确认密码可见性
     toggleConfirmPasswordVisibility() {
       this.registerForm.showConfirmPassword = !this.registerForm.showConfirmPassword
     },
-    
+
     // 协议勾选变化
     handleAgreementChange(e) {
       this.agreed = e.detail.value.length > 0
     },
-    
+
     // 处理登录
     handleLogin() {
       if (!this.agreed) {
@@ -209,7 +168,7 @@ export default {
         })
         return
       }
-      
+
       if (!this.loginForm.account || !this.loginForm.password) {
         uni.showToast({
           title: '请填写完整信息',
@@ -217,15 +176,49 @@ export default {
         })
         return
       }
-      
-      console.log('登录信息：', this.loginForm)
-      // 这里添加登录逻辑
-      uni.showToast({
-        title: '登录成功',
-        icon: 'success'
+
+      // 调用后端登录接口
+      uni.showLoading({ title: '登录中...' })
+      api.wechatLogin({
+        account: this.loginForm.account,
+        password: this.loginForm.password
       })
+        .then(res => {
+          uni.hideLoading()
+          if (res.code === 0) {
+            // 登录成功，保存token和用户信息
+            uni.setStorageSync('token', res.data.token)
+            uni.setStorageSync('userInfo', res.data.userInfo)
+
+            uni.showToast({
+              title: '登录成功',
+              icon: 'success'
+            })
+
+            // 跳转到首页或之前的页面
+            setTimeout(() => {
+              uni.switchTab({
+                url: '/pages/square/square'
+              })
+            }, 1500)
+          } else {
+            // 登录失败，显示错误信息
+            uni.showToast({
+              title: res.message || '登录失败',
+              icon: 'none'
+            })
+          }
+        })
+        .catch(err => {
+          uni.hideLoading()
+          console.error('登录请求失败：', err)
+          uni.showToast({
+            title: '网络错误，请稍后重试',
+            icon: 'none'
+          })
+        })
     },
-    
+
     // 处理注册
     handleRegister() {
       if (!this.agreed) {
@@ -235,7 +228,7 @@ export default {
         })
         return
       }
-      
+
       if (!this.registerForm.account || !this.registerForm.password || !this.registerForm.confirmPassword) {
         uni.showToast({
           title: '请填写完整信息',
@@ -243,7 +236,7 @@ export default {
         })
         return
       }
-      
+
       if (this.registerForm.password !== this.registerForm.confirmPassword) {
         uni.showToast({
           title: '两次密码输入不一致',
@@ -251,7 +244,7 @@ export default {
         })
         return
       }
-      
+
       console.log('注册信息：', this.registerForm)
       // 这里添加注册逻辑
       uni.showToast({
@@ -259,23 +252,60 @@ export default {
         icon: 'success'
       })
     },
-    
+
     // 处理微信登录
     handleWechatLogin() {
       uni.login({
         provider: 'weixin',
         success: (loginRes) => {
           console.log('微信登录成功：', loginRes)
+
           // 获取用户信息
           uni.getUserInfo({
             provider: 'weixin',
             success: (infoRes) => {
               console.log('用户信息：', infoRes)
-              // 这里将登录凭证发送到后端进行验证
-              uni.showToast({
-                title: '微信登录成功',
-                icon: 'success'
+
+              // 调用后端微信登录接口
+              uni.showLoading({ title: '登录中...' })
+              api.wechatLogin({
+                code: loginRes.code,
+                userInfo: infoRes.userInfo
               })
+                .then(res => {
+                  uni.hideLoading()
+                  if (res.code === 0) {
+                    // 登录成功，保存token和用户信息
+                    uni.setStorageSync('token', res.data.token)
+                    uni.setStorageSync('userInfo', res.data.userInfo)
+                    console.log('登录成功，token为：', res.data.token)
+
+                    uni.showToast({
+                      title: '微信登录成功',
+                      icon: 'success'
+                    })
+
+                    // 跳转到首页
+                    setTimeout(() => {
+                      uni.switchTab({
+                        url: '/pages/square/square'
+                      })
+                    }, 1500)
+                  } else {
+                    uni.showToast({
+                      title: res.message || '登录失败',
+                      icon: 'none'
+                    })
+                  }
+                })
+                .catch(err => {
+                  uni.hideLoading()
+                  console.error('微信登录请求失败：', err)
+                  uni.showToast({
+                    title: '网络错误，请稍后重试',
+                    icon: 'none'
+                  })
+                })
             },
             fail: (err) => {
               console.error('获取用户信息失败：', err)
