@@ -185,6 +185,7 @@ export default {
     goToPage(type) {
       // 页面路由映射表
       const urlMap = {
+<<<<<<< HEAD
         collection: "/pages/collection/collection", // 收藏页面
         history: "/pages/history/history", // 历史页面
         resume: "/pages/resume/resume", // 简历页面
@@ -192,6 +193,15 @@ export default {
         logout: "/pages/logout/logout", // 退出登录页面
       };
 
+=======
+        collection: '/pages/collection/collection', // 收藏页面
+        history: '/pages/history/history', // 历史页面
+        resume: '/pages/resume/resume', // 简历页面
+        settings: '/pages/settings/settings', // 设置页面
+        logout: '/pages/login/login' // 退出登录页面
+      }
+      
+>>>>>>> develop
       // 特殊处理退出登录
       if (type === "logout") {
         uni.showModal({
@@ -202,9 +212,9 @@ export default {
               // 执行退出登录逻辑
               console.log("用户确认退出");
               // 清除登录信息，跳转到登录页
-              // uni.redirectTo({
-              //   url: '/pages/login/login'
-              // })
+              uni.redirectTo({
+                url: '/pages/login/login'
+              })
             }
           },
         });

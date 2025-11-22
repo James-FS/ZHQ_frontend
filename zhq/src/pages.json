@@ -104,6 +104,14 @@
 				"navigationBarTitleText": "个人资料"
 			}
 		}
+		,
+		{
+			"path":"pages/login/login",
+			"style":{
+				"navigationBarTitleText":"登录"
+			}
+			
+		}
 	],
 	"tabBar": {
 		"color": "#212121",
