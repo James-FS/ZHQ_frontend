@@ -1,17 +1,17 @@
 {
-	"pages": [ 
+	"pages": [
 		{
-			"path":"pages/user/user",
-			"style":{
-				"navigationBarTitleText":"个人中心",
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "个人中心",
 				"navigationStyle": "custom",
-                "navigationBarTextStyle": "white"
+				"navigationBarTextStyle": "white"
 			}
 		},
 		{
-			"path":"pages/test/test",
-			"style":{
-				"navigationBarTitleText":"测试"
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": "测试"
 			}
 		},
 		{
@@ -19,7 +19,6 @@
 			"style": {
 				"navigationBarTitleText": "我的队伍"
 			}
-			
 		},
 		{
 			"path": "pages/teaming/detail",
@@ -31,6 +30,12 @@
 			"path": "pages/create-team/create-team",
 			"style": {
 				"navigationBarTitleText": "创建队伍"
+			}
+		},
+		{
+			"path": "pages/editor/editor",
+			"style": {
+				"navigationBarTitleText": "编辑内容"
 			}
 		},
 		{
@@ -46,53 +51,57 @@
 			}
 		},
 		{
-			"path":"pages/square/square",
-			"style":{
-				"navigationBarTitleText":"广场"
+			"path": "pages/square/square",
+			"style": {
+				"navigationBarTitleText": "广场"
 			}
 		},
 		{
-			"path":"pages/button-demo/button-demo",
-			"style":{
-				"navigationBarTitleText":"按钮展示"
+			"path": "pages/button-demo/button-demo",
+			"style": {
+				"navigationBarTitleText": "按钮展示"
 			}
 		},
 		{
-			"path":"pages/input-demo/input-demo",
-			"style":{
-				"navigationBarTitleText":"输入框演示"
+			"path": "pages/input-demo/input-demo",
+			"style": {
+				"navigationBarTitleText": "输入框演示"
 			}
 		},
 		{
-			"path":"pages/select-demo/select-demo",
-			"style":{
-				"navigationBarTitleText":"选择框演示"
+			"path": "pages/select-demo/select-demo",
+			"style": {
+				"navigationBarTitleText": "选择框演示"
 			}
 		},
 		{
-			"path":"pages/history/history",
-			"style":{
-				"navigationBarTitleText":"浏览历史"
+			"path": "pages/history/history",
+			"style": {
+				"navigationBarTitleText": "浏览历史"
 			}
 		},
 		{
-			"path":"pages/settings/settings",
-			"style":{
-				"navigationBarTitleText":"系统设置"
+			"path": "pages/settings/settings",
+			"style": {
+				"navigationBarTitleText": "系统设置"
 			}
-			
 		},
 		{
-			"path":"pages/collection/collection",
-			"style":{
-				"navigationBarTitleText":"我的收藏"
+			"path": "pages/collection/collection",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
 			}
-			
 		},
 		{
-			"path":"pages/resume/resume",
-			"style":{
-				"navigationBarTitleText":"我的简历"
+			"path": "pages/resume/resume",
+			"style": {
+				"navigationBarTitleText": "我的简历"
+			}
+		},
+		{
+			"path": "pages/user-detail/user-detail",
+			"style": {
+				"navigationBarTitleText": "个人资料"
 			}
 		}
 		,
@@ -104,49 +113,42 @@
 			
 		}
 	],
-
 	"tabBar": {
-    "color": "#212121",
-    "selectedColor": "#03a9f4",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-	  {
-		"pagePath": "pages/square/square",
-		"text": "广场",
-		"iconPath": "static/img/广场.png",
-		"selectedIconPath": "static/img/广场_active.png"
-	  },
-	  {
-		"pagePath": "pages/message/message",
-		"text": "消息",
-		"iconPath": "static/img/消息.png",
-		"selectedIconPath": "static/img/消息_active.png"
-		
-	  },
-
-	  {
-		"pagePath": "pages/create-team/create-team",
-		"iconPath": "static/img/2ebd9496-1ff5-4e6c-b26f-4a18361d0801.png"
-	  },
-
-      {
-        "pagePath": "pages/teaming/teaming",
-        "text": "组队",
-		"iconPath": "static/img/组队.png",
-		"selectedIconPath": "static/img/组队_active.png"
-      },
-	  
-	  {
-        "pagePath": "pages/user/user",
-        "text": "我",
-		"iconPath": "static/img/我.png",
-		"selectedIconPath": "static/img/我_active.png"
-      }
-	  
-    ]
-  },
-
+		"color": "#212121",
+		"selectedColor": "#03a9f4",
+		"backgroundColor": "#ffffff",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/square/square",
+				"text": "广场",
+				"iconPath": "static/img/广场.png",
+				"selectedIconPath": "static/img/广场_active.png"
+			},
+			{
+				"pagePath": "pages/message/message",
+				"text": "消息",
+				"iconPath": "static/img/消息.png",
+				"selectedIconPath": "static/img/消息_active.png"
+			},
+			{
+				"pagePath": "pages/create-team/create-team",
+				"iconPath": "static/img/2ebd9496-1ff5-4e6c-b26f-4a18361d0801.png"
+			},
+			{
+				"pagePath": "pages/teaming/teaming",
+				"text": "组队",
+				"iconPath": "static/img/组队.png",
+				"selectedIconPath": "static/img/组队_active.png"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "我",
+				"iconPath": "static/img/我.png",
+				"selectedIconPath": "static/img/我_active.png"
+			}
+		]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "智汇圈",

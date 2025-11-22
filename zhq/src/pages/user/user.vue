@@ -2,71 +2,73 @@
   <!-- ==================== 新增：最外层容器 ==================== -->
   <view class="page-wrapper">
     <!-- ==================== 新增：使用渐变背景组件 ==================== -->
-    <gradient-background 
+    <gradient-background
       height="800rpx"
       top-color="#D3E4FE"
       mid-color="#EFF4FA"
       bottom-color="#F5F6FB"
     ></gradient-background>
-    
+
     <!-- ==================== 新增：使用自定义导航栏组件 ==================== -->
-    <Custom-navbar 
-      title="个人中心" 
-      :show-back="false"
-    ></Custom-navbar>
-    
+    <Custom-navbar title="个人中心" :show-back="false"></Custom-navbar>
+
     <!-- ==================== 修改：原有内容容器，添加动态 paddingTop ==================== -->
-    <view class="mine-container" :style="{ paddingTop: contentPaddingTop + 'px' }">
+    <view
+      class="mine-container"
+      :style="{ paddingTop: contentPaddingTop + 'px' }"
+    >
       <!-- 顶部用户信息卡片 -->
       <view class="user-card">
         <!-- 顶部区域：头像和用户信息横向排列 -->
         <view class="user-header">
           <!-- 用户头像 -->
-          <image 
-            class="avatar" 
-            :src="userInfo.avatar || '/static/img/我_active.png'" 
+          <image
+            class="avatar"
+            :src="userInfo.avatar || '/static/img/我_active.png'"
             mode="aspectFill"
           />
-          
+
           <!-- 用户信息区域 -->
           <view class="user-info">
             <!-- 用户名 -->
-            <text class="username">{{ userInfo.name || '大卫带' }}</text>
-            
+            <text class="username">{{ userInfo.name || "大卫带" }}</text>
+
             <!-- 性别和学院信息 -->
             <view class="info-row">
               <!-- 性别图标和文字 -->
               <view class="gender-box">
                 <!-- Font Class 方式：iconfont + 具体图标类名 -->
                 <text class="iconfont icon-nan gender-icon"></text>
-                <text class="gender-text">{{ userInfo.gender || '男' }}</text>
+                <text class="gender-text">{{ userInfo.gender || "男" }}</text>
               </view>
-              
+
               <!-- 分隔符 -->
               <text class="divider">|</text>
-              
+
               <!-- 学院信息 -->
-              <text class="college">{{ userInfo.college || '计算机科学与网络工程学院' }}</text>
+              <text class="college">{{
+                userInfo.college || "计算机科学与网络工程学院"
+              }}</text>
             </view>
           </view>
         </view>
-        
+
         <!-- 标签区域 -->
         <view class="tags-container">
           <!-- 循环渲染标签，使用自定义组件，修改属性名为 tagText -->
-          <TagItem 
-            v-for="(tag, index) in userInfo.tags" 
+          <TagItem
+            v-for="(tag, index) in userInfo.tags"
             :key="index"
             :tagText="tag"
           />
         </view>
-        
+
         <!-- 查看详情按钮 -->
         <view class="detail-btn" @click="goToDetail">
           <text class="detail-text">编辑资料</text>
         </view>
       </view>
-      
+
       <!-- 功能列表 - 改为独立卡片 -->
       <!-- 我的收藏 -->
       <view class="menu-item" @click="goToPage('collection')">
@@ -79,7 +81,7 @@
         <!-- 右侧箭头 -->
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      
+
       <!-- 浏览历史 -->
       <view class="menu-item" @click="goToPage('history')">
         <view class="menu-left">
@@ -89,7 +91,7 @@
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      
+
       <!-- 我的简历 -->
       <view class="menu-item" @click="goToPage('resume')">
         <view class="menu-left">
@@ -99,7 +101,7 @@
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      
+
       <!-- 系统设置 -->
       <view class="menu-item" @click="goToPage('settings')">
         <view class="menu-left">
@@ -109,7 +111,7 @@
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
-      
+
       <!-- 退出登录 -->
       <view class="menu-item" @click="goToPage('logout')">
         <view class="menu-left">
@@ -124,44 +126,42 @@
 </template>
 
 <script>
-
 // 引入标签组件
-import TagItem from '@/components/Tags.vue'
-import GradientBackground from '@/components/Grandient-background.vue'
-import CustomNavbar from '@/components/Custom-navbar.vue'
-import navbarPaddingMixin from '@/components/Navbar-padding.js'
+import TagItem from "@/components/Tags.vue";
+import GradientBackground from "@/components/Grandient-background.vue";
+import CustomNavbar from "@/components/Custom-navbar.vue";
+import navbarPaddingMixin from "@/components/Navbar-padding.js";
 
 export default {
   // ==================== 修改：注册渐变背景和自定义导航栏组件 ====================
   components: {
     TagItem,
-    GradientBackground,  // 新增
-    CustomNavbar         // 新增
+    GradientBackground, // 新增
+    CustomNavbar, // 新增
   },
-  
+
   // ==================== 新增：使用混入（自动提供 contentPaddingTop 和 setContentPadding 方法） ====================
   mixins: [navbarPaddingMixin],
-  
+
   data() {
     return {
       // 用户信息数据
       userInfo: {
-        avatar: '/static/img/我_active.png', // 头像路径
-        name: '大卫带', // 用户名
-        gender: '男', // 性别
-        college: '计算机科学与网络工程学院', // 学院
-        tags: ['前端', '计算机科学', '创新创业比赛'] // 标签数组
-      }
-    }
+        avatar: "/static/img/我_active.png", // 头像路径
+        name: "大卫带", // 用户名
+        gender: "男", // 性别
+        college: "计算机科学与网络工程学院", // 学院
+        tags: ["前端", "计算机科学", "创新创业比赛"], // 标签数组
+      },
+    };
   },
-  
+
   onLoad() {
     // 页面加载时获取用户信息
-    this.getUserInfo()
+    this.getUserInfo();
   },
-  
+
   methods: {
-    
     // 获取用户信息
     getUserInfo() {
       // 这里调用API获取用户数据
@@ -171,20 +171,29 @@ export default {
       //     this.userInfo = res.data
       //   }
       // })
-      console.log('获取用户信息')
+      console.log("获取用户信息");
     },
-    
+
     // 跳转到详情页
     goToDetail() {
       uni.navigateTo({
-        url: '/pages/user-detail/user-detail'
-      })
+        url: "/pages/user-detail/user-detail",
+      });
     },
-    
+
     // 跳转到对应功能页面
     goToPage(type) {
       // 页面路由映射表
       const urlMap = {
+<<<<<<< HEAD
+        collection: "/pages/collection/collection", // 收藏页面
+        history: "/pages/history/history", // 历史页面
+        resume: "/pages/resume/resume", // 简历页面
+        settings: "/pages/settings/settings", // 设置页面
+        logout: "/pages/logout/logout", // 退出登录页面
+      };
+
+=======
         collection: '/pages/collection/collection', // 收藏页面
         history: '/pages/history/history', // 历史页面
         resume: '/pages/resume/resume', // 简历页面
@@ -192,47 +201,48 @@ export default {
         logout: '/pages/login/login' // 退出登录页面
       }
       
+>>>>>>> develop
       // 特殊处理退出登录
-      if (type === 'logout') {
+      if (type === "logout") {
         uni.showModal({
-          title: '提示',
-          content: '确定要退出登录吗？',
+          title: "提示",
+          content: "确定要退出登录吗？",
           success: (res) => {
             if (res.confirm) {
               // 执行退出登录逻辑
-              console.log('用户确认退出')
+              console.log("用户确认退出");
               // 清除登录信息，跳转到登录页
               uni.redirectTo({
                 url: '/pages/login/login'
               })
             }
-          }
-        })
-        return
+          },
+        });
+        return;
       }
-      
+
       // 跳转到对应页面
       uni.navigateTo({
-        url: urlMap[type]
-      })
-    }
-  }
-}
+        url: urlMap[type],
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 /* ==================== 新增：页面最外层包裹容器 ==================== */
 .page-wrapper {
-  position: relative;      /* 相对定位，为子元素提供定位上下文 */
-  min-height: 100vh;       /* 最小高度为屏幕高度 */
+  position: relative; /* 相对定位，为子元素提供定位上下文 */
+  min-height: 100vh; /* 最小高度为屏幕高度 */
 }
 
 /* ==================== 修改：页面容器样式 ==================== */
 .mine-container {
-  position: relative;              /* 相对定位 */
-  min-height: 100vh;               /* 最小高度为屏幕高度 */
-  background-color: transparent;   /* 修改：改为透明，显示渐变背景 */
-  padding: 20rpx;                  /* 保持原有左右内边距 */
+  position: relative; /* 相对定位 */
+  min-height: 100vh; /* 最小高度为屏幕高度 */
+  background-color: transparent; /* 修改：改为透明，显示渐变背景 */
+  padding: 20rpx; /* 保持原有左右内边距 */
   /* padding-top 通过动态绑定 :style 设置，在 template 中已添加 */
 }
 
@@ -293,7 +303,7 @@ export default {
 
 /* 性别图标 - Font Class 方式 */
 .gender-icon {
-  color: #4A90E2; // 蓝色
+  color: #4a90e2; // 蓝色
   margin-right: 8rpx; // 右侧外边距
   font-size: 32rpx; // 图标大小
 }
@@ -318,19 +328,19 @@ export default {
 /* 标签容器 */
 .tags-container {
   display: flex;
-  flex-wrap: wrap;           /* 允许换行 */
-  gap: 8rpx;                 /* 间距（根据您原代码是8rpx） */
+  flex-wrap: wrap; /* 允许换行 */
+  gap: 8rpx; /* 间距（根据您原代码是8rpx） */
   margin-bottom: 32rpx;
-  
+
   /* 新增：限制最多两行 */
-  max-height: 80rpx;         /* 限制最大高度 = 2 × 标签高度 */
+  max-height: 80rpx; /* 限制最大高度 = 2 × 标签高度 */
 }
 
 /* 查看详情按钮 */
 .detail-btn {
   width: 100%; // 宽度100%
   height: 88rpx; // 高度
-  background: linear-gradient(90deg, #4FC3F7 0%, #1E98D7 100%); // 渐变背景
+  background: linear-gradient(90deg, #4fc3f7 0%, #1e98d7 100%); // 渐变背景
   border-radius: 20rpx; // 圆角
   display: flex; // 弹性布局
   align-items: center; // 垂直居中

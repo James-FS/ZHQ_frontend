@@ -13,23 +13,26 @@
  * maxOptions: 多选时最多选择数 - null（无限制）
  */ -->
 <template>
-  <view class="select-wrapper" :class="[
-    `select-${size}`,
-    `border-${borderStyle}`,
-    {
-      'select-error': hasError,
-      'select-focused': isFocused,
-      'select-open': isDropdownOpen,
-      'select-has-value': hasValue
-    }
-  ]">
+  <view
+    class="select-wrapper"
+    :class="[
+      `select-${size}`,
+      `border-${borderStyle}`,
+      {
+        'select-error': hasError,
+        'select-focused': isFocused,
+        'select-open': isDropdownOpen,
+        'select-has-value': hasValue,
+      },
+    ]"
+  >
     <!-- 背景蒙层（用于检测外部点击） -->
-    <view 
+    <view
       v-if="isDropdownOpen"
       class="select-mask"
       @click="handleContainerClick"
     />
-    
+
     <!-- 主要内容区域 -->
     <view class="select-main">
       <!-- 标签 -->
@@ -37,29 +40,32 @@
         <text v-if="required" class="label-required">*</text>
         <text class="label-text">{{ label }}</text>
       </view>
-      
+
       <!-- 选择框容器 -->
       <view class="select-container" @click="handleSelectClick">
         <!-- 显示选中值 -->
         <text class="select-field" :class="{ 'has-value': displayValue }">
           {{ displayValue || placeholder }}
         </text>
-        
+
         <!-- 右侧操作区域 -->
         <view class="select-actions">
           <!-- 清空按钮 -->
-          <view 
+          <view
             v-if="clearable && hasValue"
             class="action-btn clear-btn"
             @click.stop="handleClear"
           >
             <text class="clear-icon">×</text>
           </view>
-          
+
           <!-- 下拉箭头 -->
-          <view class="action-btn arrow-btn" :class="{ 'arrow-rotate': isDropdownOpen }">
-            <image 
-              src="@/static/icon/右箭头.svg" 
+          <view
+            class="action-btn arrow-btn"
+            :class="{ 'arrow-rotate': isDropdownOpen }"
+          >
+            <image
+              src="@/static/icon/右箭头.svg"
               class="arrow-icon"
               mode="aspectFit"
             />
@@ -67,21 +73,18 @@
         </view>
       </view>
     </view>
-    
+
     <!-- 下拉框面板 -->
-    <view 
-      v-if="isDropdownOpen"
-      class="select-dropdown"
-    >
+    <view v-if="isDropdownOpen" class="select-dropdown">
       <!-- 选项列表 -->
-      <scroll-view 
-        scroll-y 
+      <scroll-view
+        scroll-y
         class="options-scroll"
         :style="{ maxHeight: dropdownMaxHeight }"
       >
         <view class="options-list">
-          <view 
-            v-for="option in options" 
+          <view
+            v-for="option in options"
             :key="option.value"
             class="option-item"
             :class="{ 'option-selected': isOptionSelected(option.value) }"
@@ -89,22 +92,32 @@
           >
             <!-- 多选时显示复选框 -->
             <view v-if="multiple" class="checkbox-wrapper">
-              <view class="checkbox" :class="{ 'checkbox-checked': isOptionSelected(option.value) }">
-                <text v-if="isOptionSelected(option.value)" class="checkbox-check">✓</text>
+              <view
+                class="checkbox"
+                :class="{ 'checkbox-checked': isOptionSelected(option.value) }"
+              >
+                <text
+                  v-if="isOptionSelected(option.value)"
+                  class="checkbox-check"
+                  >✓</text
+                >
               </view>
             </view>
-            
+
             <!-- 单选时显示单选框 -->
             <view v-else class="radio-wrapper">
-              <view class="radio" :class="{ 'radio-checked': isOptionSelected(option.value) }" />
+              <view
+                class="radio"
+                :class="{ 'radio-checked': isOptionSelected(option.value) }"
+              />
             </view>
-            
+
             <!-- 选项标签 -->
             <text class="option-label">{{ option.label }}</text>
           </view>
-          
+
           <!-- 添加新选项按钮 -->
-          <view 
+          <view
             v-if="addable && !isAddingOption"
             class="option-item add-option-btn"
             @click="handleAddOptionClick"
@@ -112,10 +125,10 @@
             <view class="add-icon">+</view>
             <text class="option-label">添加新选项</text>
           </view>
-          
+
           <!-- 添加新选项输入框 -->
           <view v-if="addable && isAddingOption" class="add-option-input">
-            <input 
+            <input
               v-model="newOptionText"
               class="new-option-input"
               placeholder="输入新选项"
@@ -124,14 +137,20 @@
               @blur="isAddingOption = false"
             />
             <view class="add-option-actions">
-              <view class="add-option-action" @click="handleAddNewOption">确定</view>
-              <view class="add-option-action cancel" @click="handleCancelAddOption">取消</view>
+              <view class="add-option-action" @click="handleAddNewOption"
+                >确定</view
+              >
+              <view
+                class="add-option-action cancel"
+                @click="handleCancelAddOption"
+                >取消</view
+              >
             </view>
           </view>
         </view>
       </scroll-view>
     </view>
-    
+
     <!-- 底部信息区域 -->
     <view v-if="errorMessage" class="select-footer">
       <!-- 错误信息 -->
@@ -144,245 +163,253 @@
 
 <script>
 export default {
-  name: 'CommonSelect',
+  name: "CommonSelect",
   props: {
     // 选择框标签
     label: {
       type: String,
-      default: ''
+      default: "",
     },
     // 提示文本
     placeholder: {
       type: String,
-      default: '请选择'
+      default: "请选择",
     },
     // 选中值（单选为string或number，多选为array）
+    // 默认使用空字符串，避免单选时显示默认空数组 `[]`
     value: {
       type: [String, Number, Array],
-      default: () => []
+      default: "",
     },
     // 选项数组
     options: {
       type: Array,
       required: true,
-      validator: value => Array.isArray(value) && value.every(item => 
-        item.label && (item.value !== undefined && item.value !== null)
-      )
+      validator: (value) =>
+        Array.isArray(value) &&
+        value.every(
+          (item) =>
+            item.label && item.value !== undefined && item.value !== null
+        ),
     },
     // 是否多选
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否显示清空按钮
     clearable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否允许添加新选项
     addable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否必填
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 尺寸
     size: {
       type: String,
-      default: 'medium',
-      validator: value => ['small', 'medium', 'large'].includes(value)
+      default: "medium",
+      validator: (value) => ["small", "medium", "large"].includes(value),
     },
     // 边框风格
     borderStyle: {
       type: String,
-      default: 'line',
-      validator: value => ['line', 'card'].includes(value)
+      default: "line",
+      validator: (value) => ["line", "card"].includes(value),
     },
     // 多选时最多选择数
     maxOptions: {
       type: Number,
-      default: null
-    }
+      default: null,
+    },
   },
-  
+
   data() {
     return {
       isFocused: false,
       isDropdownOpen: false,
-      errorMessage: '',
+      errorMessage: "",
       hasError: false,
       isAddingOption: false,
-      newOptionText: '',
-      dropdownMaxHeight: '300px'
-    }
+      newOptionText: "",
+      dropdownMaxHeight: "300px",
+    };
   },
-  
+
   computed: {
     // 检查是否有选中值
     hasValue() {
       if (this.multiple) {
-        return Array.isArray(this.value) && this.value.length > 0
+        return Array.isArray(this.value) && this.value.length > 0;
       }
-      return this.value !== '' && this.value !== null && this.value !== undefined
+      return (
+        this.value !== "" && this.value !== null && this.value !== undefined
+      );
     },
-    
+
     // 获取显示文本
     displayValue() {
       if (this.multiple && Array.isArray(this.value)) {
-        if (this.value.length === 0) return ''
+        if (this.value.length === 0) return "";
         if (this.value.length === 1) {
-          const option = this.options.find(opt => opt.value === this.value[0])
-          return option ? option.label : this.value[0]
+          const option = this.options.find(
+            (opt) => opt.value === this.value[0]
+          );
+          return option ? option.label : this.value[0];
         }
-        return `已选择 ${this.value.length} 项`
+        return `已选择 ${this.value.length} 项`;
       } else if (!this.multiple && this.value) {
-        const option = this.options.find(opt => opt.value === this.value)
-        return option ? option.label : this.value
+        const option = this.options.find((opt) => opt.value === this.value);
+        return option ? option.label : this.value;
       }
-      return ''
-    }
+      return "";
+    },
   },
-  
+
   methods: {
     // 处理选择框点击
     handleSelectClick() {
-      this.isFocused = true
-      this.isDropdownOpen = !this.isDropdownOpen
-      this.$emit('focus')
+      this.isFocused = true;
+      this.isDropdownOpen = !this.isDropdownOpen;
+      this.$emit("focus");
     },
-    
+
     // 检查选项是否被选中
     isOptionSelected(optionValue) {
       if (this.multiple) {
-        return Array.isArray(this.value) && this.value.includes(optionValue)
+        return Array.isArray(this.value) && this.value.includes(optionValue);
       }
-      return this.value === optionValue
+      return this.value === optionValue;
     },
-    
+
     // 处理选项点击
     handleOptionClick(option) {
       if (this.multiple) {
         // 多选逻辑
-        const newValue = Array.isArray(this.value) ? [...this.value] : []
-        const index = newValue.indexOf(option.value)
-        
+        const newValue = Array.isArray(this.value) ? [...this.value] : [];
+        const index = newValue.indexOf(option.value);
+
         if (index > -1) {
           // 已选中，则取消选择
-          newValue.splice(index, 1)
+          newValue.splice(index, 1);
         } else {
           // 未选中，则选择
           if (this.maxOptions === null || newValue.length < this.maxOptions) {
-            newValue.push(option.value)
+            newValue.push(option.value);
           } else {
-            this.setError(`最多只能选择 ${this.maxOptions} 项`)
-            return
+            this.setError(`最多只能选择 ${this.maxOptions} 项`);
+            return;
           }
         }
-        
-        this.$emit('input', newValue)
-        this.$emit('update:value', newValue)
-        this.$emit('change', newValue)
+
+        this.$emit("input", newValue);
+        this.$emit("update:value", newValue);
+        this.$emit("change", newValue);
       } else {
         // 单选逻辑
-        this.$emit('input', option.value)
-        this.$emit('update:value', option.value)
-        this.$emit('change', option.value)
-        this.isDropdownOpen = false
+        this.$emit("input", option.value);
+        this.$emit("update:value", option.value);
+        this.$emit("change", option.value);
+        this.isDropdownOpen = false;
       }
-      
-      this.clearError()
+
+      this.clearError();
     },
-    
+
     // 处理清空
     handleClear() {
-      const emptyValue = this.multiple ? [] : ''
-      this.$emit('input', emptyValue)
-      this.$emit('update:value', emptyValue)
-      this.$emit('clear')
-      this.clearError()
+      const emptyValue = this.multiple ? [] : "";
+      this.$emit("input", emptyValue);
+      this.$emit("update:value", emptyValue);
+      this.$emit("clear");
+      this.clearError();
     },
-    
+
     // 处理点击"添加新选项"按钮
     handleAddOptionClick() {
-      this.isAddingOption = true
-      this.newOptionText = ''
+      this.isAddingOption = true;
+      this.newOptionText = "";
       // 小程序环境下不支持querySelector，移除focus操作
       // 在小程序中，input会自动获得焦点
     },
-    
+
     // 处理添加新选项
     handleAddNewOption() {
-      if (this.newOptionText.trim() === '') {
-        this.setError('选项名称不能为空')
-        return
+      if (this.newOptionText.trim() === "") {
+        this.setError("选项名称不能为空");
+        return;
       }
-      
+
       // 检查重复
-      if (this.options.some(opt => opt.label === this.newOptionText.trim())) {
-        this.setError('该选项已存在')
-        return
+      if (this.options.some((opt) => opt.label === this.newOptionText.trim())) {
+        this.setError("该选项已存在");
+        return;
       }
-      
+
       const newOption = {
         label: this.newOptionText.trim(),
-        value: `custom_${Date.now()}_${Math.random()}`
-      }
-      
+        value: `custom_${Date.now()}_${Math.random()}`,
+      };
+
       // 向options中添加新选项
-      this.$emit('option-added', newOption)
-      
+      this.$emit("option-added", newOption);
+
       // 如果组件的options使用了.sync或v-model，需要在父组件中处理
       // 这里通过事件发射给父组件处理
-      
-      this.isAddingOption = false
-      this.newOptionText = ''
-      this.clearError()
+
+      this.isAddingOption = false;
+      this.newOptionText = "";
+      this.clearError();
     },
-    
+
     // 处理取消添加选项
     handleCancelAddOption() {
-      this.isAddingOption = false
-      this.newOptionText = ''
-      this.clearError()
+      this.isAddingOption = false;
+      this.newOptionText = "";
+      this.clearError();
     },
-    
+
     // 设置错误信息
     setError(message) {
-      this.errorMessage = message
-      this.hasError = true
+      this.errorMessage = message;
+      this.hasError = true;
     },
-    
+
     // 清除错误信息
     clearError() {
-      this.errorMessage = ''
-      this.hasError = false
+      this.errorMessage = "";
+      this.hasError = false;
     },
-    
+
     // 外部调用的验证方法
     validate() {
       if (this.required) {
         if (!this.hasValue) {
-          this.setError(`${this.label || '此项'}不能为空`)
-          return false
+          this.setError(`${this.label || "此项"}不能为空`);
+          return false;
         }
       }
-      this.clearError()
-      return true
+      this.clearError();
+      return true;
     },
-    
+
     // 处理容器点击事件，用于关闭下拉框
     handleContainerClick() {
       // 如果下拉框打开，则关闭
       if (this.isDropdownOpen) {
-        this.isDropdownOpen = false
-        this.isFocused = false
+        this.isDropdownOpen = false;
+        this.isFocused = false;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -428,7 +455,7 @@ export default {
   // 边框风格
   &.border-line .select-main {
     border: none;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #e5e5e5;
     border-radius: 0;
     background: transparent;
   }
@@ -439,9 +466,9 @@ export default {
   }
 
   &.border-card .select-container {
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     border-radius: 8px;
-    background: #FAFAFA;
+    background: #fafafa;
   }
 
   // 状态样式
@@ -492,7 +519,7 @@ export default {
 
 .select-field {
   flex: 1;
-  color: #C7C7C7;
+  color: #c7c7c7;
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
@@ -520,7 +547,7 @@ export default {
 
   .clear-icon {
     font-size: 18px;
-    color: #C7C7C7;
+    color: #c7c7c7;
     transition: color 0.2s ease;
     font-weight: 300;
     line-height: 1;
@@ -541,7 +568,7 @@ export default {
   .arrow-icon {
     width: 16px;
     height: 16px;
-    color: #C7C7C7;
+    color: #c7c7c7;
   }
 }
 
@@ -553,7 +580,7 @@ export default {
   right: 0;
   margin-top: 4px;
   background: white;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -587,7 +614,7 @@ export default {
   align-items: center;
   padding: 12px 14px;
   min-height: 20px;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid #f0f0f0;
   transition: background-color 0.2s ease;
 
   &:last-child {
@@ -595,21 +622,21 @@ export default {
   }
 
   &:active {
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
   }
 
   &.option-selected {
-    background-color: #F0F8FF;
+    background-color: #f0f8ff;
   }
 
   &.add-option-btn {
     color: $uni-color-primary;
     justify-content: center;
-    border-top: 1px solid #F0F0F0;
+    border-top: 1px solid #f0f0f0;
     min-height: 20px;
 
     &:active {
-      background-color: #F9F9F9;
+      background-color: #f9f9f9;
     }
   }
 }
@@ -626,7 +653,7 @@ export default {
 .checkbox {
   width: 14px;
   height: 14px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -648,7 +675,7 @@ export default {
 .radio {
   width: 14px;
   height: 14px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 50%;
   transition: all 0.2s ease;
   position: relative;
@@ -657,7 +684,7 @@ export default {
     border-color: $uni-color-primary;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 8px;
       height: 8px;
@@ -690,14 +717,14 @@ export default {
 // 添加新选项输入框样式
 .add-option-input {
   padding: 12px 14px;
-  border-top: 1px solid #F0F0F0;
+  border-top: 1px solid #f0f0f0;
   display: flex;
   gap: 8px;
   align-items: center;
 
   .new-option-input {
     flex: 1;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     border-radius: 4px;
     padding: 6px 8px;
     font-size: 13px;
@@ -728,7 +755,7 @@ export default {
   }
 
   &.cancel {
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     color: #333333;
   }
 }
