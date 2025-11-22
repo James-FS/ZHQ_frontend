@@ -189,7 +189,7 @@ export default {
         history: '/pages/history/history', // 历史页面
         resume: '/pages/resume/resume', // 简历页面
         settings: '/pages/settings/settings', // 设置页面
-        logout: '/pages/logout/logout' // 退出登录页面
+        logout: '/pages/login/login' // 退出登录页面
       }
       
       // 特殊处理退出登录
@@ -202,9 +202,9 @@ export default {
               // 执行退出登录逻辑
               console.log('用户确认退出')
               // 清除登录信息，跳转到登录页
-              // uni.redirectTo({
-              //   url: '/pages/login/login'
-              // })
+              uni.redirectTo({
+                url: '/pages/login/login'
+              })
             }
           }
         })
