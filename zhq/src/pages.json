@@ -103,14 +103,24 @@
 			"style": {
 				"navigationBarTitleText": "个人资料"
 			}
-		}
-		,
+		},
 		{
-			"path":"pages/login/login",
-			"style":{
-				"navigationBarTitleText":"登录"
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
 			}
-			
+		},
+		{
+			"path": "pages/signature-edit/signature-edit",
+			"style": {
+				"navigationBarTitleText": "填写信息"
+			}
+		},
+		{
+			"path": "pages/image-page/image-page",
+			"style": {
+				"navigationBarTitleText": "头像"
+			}
 		}
 	],
 	"tabBar": {
