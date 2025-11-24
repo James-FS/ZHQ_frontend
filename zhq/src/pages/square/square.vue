@@ -105,13 +105,24 @@ let mockData = ref([
 ])
 let total = ref()
 const token = uni.getStorageSync('token')
+const statusMap = {
+  1: { type: 'green', text: '招募中' },
+  2: { type: 'orange', text: '已截止' },
+  3: { type: 'blue', text: '开发中' },
+  4: { type: 'purple', text: '已结项' }
+}
+
+const getStatusInfo = (status) => {
+  return statusMap[status] || { type: 'green', text: '未知' }
+}
 function getDetail(id){
   console.log(id);
   uni.navigateTo({
     url:`/pages/teaming/detail?team_id=${id}`
   })
 }
-//示例接口
+
+//获取广场列表
 async function getTeamList(){
   try{
     const res = await uni.request({
@@ -124,6 +135,7 @@ async function getTeamList(){
     {
       mockData.value=result.data.list;
       total.value=result.data.total;
+      console.table(res.data.data.list)
     }
     else{
       uni.showToast({
@@ -204,7 +216,10 @@ onMounted(()=>{
           <view class="item-status">
             <i class="iconfont icon-zudui"></i>
             <text>{{item.current_members}}/{{item.max_members}}人</text>
-            <StatusTags type="green" text="开发中" />
+            <StatusTags 
+              :type="getStatusInfo(item.status).type" 
+              :text="getStatusInfo(item.status).text" 
+            />
           </view>
         </view>
       </view>

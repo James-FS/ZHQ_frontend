@@ -69,7 +69,6 @@ const teamID=ref(null);
 const token = uni.getStorageSync('token');
 let collectionStatus=ref()
 onLoad(async(options)=>{
-  console.log(options);
   teamID.value=options.team_id;
   getCollectionStatus();
 })
@@ -144,7 +143,7 @@ let mockAuthor=ref({
   avator:'/static/img/wechat_2025-11-05_103123_039.png',
 });
 
-let menuVisible=ref(true)
+let menuVisible=ref(false)
 const closeMenu=()=>{
   menuVisible.value=false;
 }
@@ -157,7 +156,6 @@ async function fetchDetails(){
 }
 
 async function getCollectionStatus(){
-  console.log(teamID);
   try{
     const res=await uni.request({
       url:`${global.API_BASE_URL}/api/v1/user/collection/status?team_id=${teamID.value}`,
