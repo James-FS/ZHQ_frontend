@@ -1,11 +1,18 @@
 <template>
   <view class="content">
+    <TabMenu
+    :visible="menuVisible"
+    @close="closeMenu">
+    </TabMenu>
     <view class="detail-container">
+      
       <!-- 标题图片 - 保持全屏 -->
       <view class="title">
         <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
         <view class="title-text">
           基于uniapp开发的跨平台移动应用实战
+           <i class="iconfont icon-shoucang"></i>
+           <i class="iconfont icon-gengduo" @tap="openMenu"></i>
         </view>
       </view>
 
@@ -44,16 +51,18 @@
         <view style="margin-bottom: 1px;"><TagsInput v-model:tags="mockContext.tags" /></view>
       </view>
     </view>
+    
   </view>
+  
 </template>
 
 <script setup>
 import { readonly, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
-import {Application} from '@/components/Application.vue';
+import Application from '@/components/Application.vue';
 import TagComponent from '@/components/Tags.vue';
 import TagsInput from '@/components/TagsInput.vue'
-
+import TabMenu from '../../components/Tab-menu.vue';
 const id=ref(null);
 onLoad((options)=>{
   id.value=options.id;
@@ -89,7 +98,7 @@ const html = ref(`
       <li><strong>接口契约</strong>：Swagger + OpenAPI 3.0，前端通过 openapi-typescript 自动生成调用代码。</li>
       <li><strong>分支策略</strong>：Git Flow，main / dev / feature-xxx，合并必须经过 MR + Code Review。</li>
       <li><strong>自动化质检</strong>：Husky + lint-staged 在 commit 阶段跑 ESLint + Prettier，保证风格统一。</li>
-      <li><strong>多端构建</strong>：一条命令同时输出微信小程序、H5、App 三端包，CI 自动上传体验版。</li>
+      <li><strong>多端构建</strong>：一条命令同时输出微信小程序、H5、App 三端包，CI 自动上传体验版1。</li>
     </ol>
 
     <h3 style="color:#333;">五、性能与体验优化</h3>
@@ -128,6 +137,18 @@ let mockAuthor=ref({
   name:'作者名称',
   avator:'/static/img/wechat_2025-11-05_103123_039.png',
 });
+
+let menuVisible=ref(true)
+const closeMenu=()=>{
+  menuVisible.value=false;
+}
+const openMenu=()=>{
+  menuVisible.value=true;
+}
+
+async function fetchDetails(){
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -178,12 +199,19 @@ let mockAuthor=ref({
   }
 
   .title-text {
+    display: flex;
+    flex-direction: row;
     font-size: var(--title-size);
     font-weight: bold;
     color: var(--title-color);
     padding: 20rpx;
     line-height: 1.4;
     word-break: break-word;
+    justify-content: space-between;
+    align-items: center;
+    .iconfont.icon-gengduo{
+      font-size:54rpx;
+    }
   }
 }
 
@@ -261,6 +289,6 @@ let mockAuthor=ref({
   padding: 0 20rpx 20rpx 20rpx;
   margin: 0;
   box-sizing: border-box;
-  justify-content: center;  // ✅ 保持这个，会让每行的内容居中
+  justify-content: center;  
 }
 </style>
