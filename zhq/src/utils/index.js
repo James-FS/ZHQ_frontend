@@ -1,4 +1,4 @@
-import { get, post, put } from '@/utils/request'
+import { get, post, put, del } from '@/utils/request'
 
 export const api = {
   // 健康检查
@@ -9,5 +9,12 @@ export const api = {
   
   // 用户相关
   getUserProfile: () => get('/api/v1/user/profile'),
-  updateUserProfile: (data) => put('/api/v1/user/profile', data)
+  updateUserProfile: (data) => put('/api/v1/user/profile', data),
+
+  // 队伍相关
+  createTeam: (data) => post('/api/v1/teams', data), // 创建队伍
+  getTeamList: () => get('/api/v1/teams'), // 获取队伍列表
+  getTeamDetail: (id) => get(`/api/v1/teams/${id}`), // 获取队伍详情
+  updateTeam: (id, data) => put(`/api/v1/teams/${id}`, data), // 更新队伍信息
+  deleteTeam: (id) => del(`/api/v1/teams/${id}`) // 删除队伍
 }

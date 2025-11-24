@@ -21,9 +21,9 @@
             label="队伍名称"
             class="field"
             placeholder="请输入队伍名称"
-            v-model="form.name"
+            :value="form.name"
             :required="true"
-            @input="onUsernameInput"
+            @input="(val) => form.name = val"
           />
         </view>
         <view class="event">
@@ -40,29 +40,22 @@
           />
         </view>
         <view class="multiline-row">
-          <!-- 项目内容输入框：添加点击事件和只读属性，不改动样式 -->
           <common-input
             label="项目内容"
             class="field"
             placeholder="请输入项目内容"
             :multiline="true"
             :required="true"
-            v-model:value="form.content"
+            :value="form.content"
             :show-word-limit="false"
             :clearable="false"
+            :readonly="true"
+            :show-arrow="true"
             @focus.prevent="openContentEditor"
-            @input.prevent=""
             @touchstart="openContentEditor"
             @click="openContentEditor"
           />
-          <!-- 编辑器入口箭头 -->
-          <view class="arrow-btn" @click="openContentEditor">
-            <image
-              src="@/static/icon/右箭头.svg"
-              class="arrow-icon"
-              mode="aspectFit"
-            />
-          </view>
+          
         </view>
 
         <view class="row">
@@ -70,9 +63,10 @@
             label="招募人数"
             class="field"
             placeholder="请输入招募人数"
-            v-model="form.recruitNumber"
+            :value="form.recruitNumber"
             :required="true"
-            @input="onUsernameInput"
+            type="number"
+            @input="(val) => form.recruitNumber = val"
           />
         </view>
 
@@ -81,9 +75,9 @@
             label="所需技能"
             class="field"
             placeholder="示例:Python・机器学习・团队协作"
-            v-model="form.skills"
+            :value="form.skills"
             :required="true"
-            @input="onUsernameInput"
+            @input="(val) => form.skills = val"
           />
         </view>
 
@@ -92,9 +86,9 @@
             label="项目周期"
             class="field"
             placeholder="请输入项目周期"
-            v-model="form.period"
+            :value="form.period"
             :required="true"
-            @input="onUsernameInput"
+            @input="(val) => form.period = val"
           />
         </view>
 
@@ -103,9 +97,9 @@
             label="预期成果"
             class="field"
             placeholder="请输入预期成果"
-            v-model="form.outcome"
+            :value="form.outcome"
             :required="true"
-            @input="onUsernameInput"
+            @input="(val) => form.outcome = val"
           />
         </view>
         <view class="row">
@@ -143,6 +137,7 @@
 import { CommonInput } from "@/components/Input.vue";
 import { CommonSelect } from "@/components/Select.vue";
 import TagsInput from "@/components/TagsInput.vue";
+import { api } from '@/utils/index'
 export default {
   components: {
     CommonInput,
@@ -182,6 +177,16 @@ export default {
     uni.$on("contentEdited", (data) => {
       if (data && data.content !== undefined) {
         this.form.content = data.content;
+        console.log("收到编辑器内容：", data.content);
+      }
+    });
+  },
+  onShow() {
+    // 页面显示时重新监听（确保事件能被捕获）
+    uni.$on("contentEdited", (data) => {
+      if (data && data.content !== undefined) {
+        this.form.content = data.content;
+        console.log("收到编辑器内容（onShow）：", data.content);
       }
     });
   },
@@ -224,15 +229,54 @@ export default {
         uni.navigateBack();
       }
     },
-    onSubmit() {
-      // 提交逻辑
-      // 基础校验示例
-      if (!this.form.name) {
-        uni.showToast({ title: "请填写队伍名称", icon: "none" });
-        return;
+    async onSubmit() {
+      try {
+        // 显示加载提示
+        uni.showLoading({ title: '创建中...' });
+        
+        // 构建符合后端要求的数据结构
+        const requestData = {
+          team_name: this.form.name,
+          content: this.form.content,
+          pictures: this.form.images.join(','), // 将图片数组转为逗号分隔的字符串
+          max_members: parseInt(this.form.recruitNumber) || 1,
+          tags: this.form.tags, // 直接传数组，后端会自动转换为JSON
+          anticipative_outcome: this.form.outcome,
+          require_skills: this.form.skills,
+          relative_contest: this.form.event,
+          project_cycle: this.form.period
+        };
+
+        console.log('提交数据：', requestData);
+
+        // 调用API创建队伍
+        const response = await api.createTeam(requestData);
+        
+        uni.hideLoading();
+        
+        if (response.code === 200) {
+          uni.showToast({ 
+            title: '创建成功', 
+            icon: 'success',
+            duration: 2000
+          });
+          
+          // 延迟返回上一页，让用户看到成功提示
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 1500);
+        } else {
+          throw new Error(response.message || '创建失败');
+        }
+      } catch (error) {
+        uni.hideLoading();
+        console.error('创建队伍失败：', error);
+        uni.showToast({ 
+          title: error.message || '创建失败，请重试', 
+          icon: 'none',
+          duration: 2000
+        });
       }
-      console.log("提交表单：", this.form);
-      uni.showToast({ title: "提交成功", icon: "success" });
     },
     chooseImage() {
       uni.chooseImage({
@@ -280,10 +324,7 @@ export default {
       }
       // 所有字段校验通过，执行提交
       this.onSubmit();
-    },
-    onUsernameInput() {
-      // 原输入监听方法，保持不变
-    },
+    }
   },
 };
 </script>

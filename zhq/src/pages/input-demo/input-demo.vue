@@ -24,6 +24,7 @@
           placeholder="请输入密码"
           v-model:value="form.password"
           :required="true"
+          :maxlength="11"
           :rules="passwordRules"
         />
         
