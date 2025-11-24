@@ -175,10 +175,10 @@ onMounted(()=>{
       </view>
 
       <view class="list-container">
-        <view class="list-item" v-for="item in mockData" :key="item.id">
+        <view class="list-item" v-for="item in mockData" :key="item.team_id">
           <view class="item-body">
             <!-- <view class="item-img">       文字       </view> -->
-                <view class="item-content" @click="getDetail(item.id)">
+                <view class="item-content" @click="getDetail(item.team_id)">
                   <view class="author-info">
                     <img class="author-avator" :src="item.creator_avatar" mode="aspectFill"></img>
                     <view class="author-name">{{ item.creator_nickname }}</view>
