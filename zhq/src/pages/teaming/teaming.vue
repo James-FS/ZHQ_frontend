@@ -113,7 +113,7 @@ let mockData = [
 
 function getDetail(id){
   uni.navigateTo({
-    url:`/pages/teaming/detail?id=${id}`
+    url:`/pages/teaming/detail?team_id=1`
   })
 }
 </script>

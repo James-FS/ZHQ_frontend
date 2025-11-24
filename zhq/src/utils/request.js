@@ -18,9 +18,13 @@ const request = (options) => {
       },
       success: (res) => {
         if (res.statusCode === 200) {
-          resolve(res.data)
+          resolve(res.data);
+        } else if (res.statusCode === 401) {
+          // 未授权，跳转到登录页
+          uni.navigateTo({ url: '/pages/login/login' });
+          reject(new Error('请先登录'));
         } else {
-          reject(res)
+          reject(res.data || new Error('请求失败'));
         }
       },
       fail: (err) => {

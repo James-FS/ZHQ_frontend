@@ -60,7 +60,7 @@ const newTag = ref('')
 const editIndex = ref(-1)
 const draft = ref('')
 const inputRef = ref(null)
-const inputWidth = ref('110rpx')
+const inputWidth = ref('120rpx')
 
 
 watch(() => props.modelValue, (newVal) => {

@@ -88,13 +88,25 @@
           <text class="clear-icon">×</text>
         </view>
         
-        <!-- 密码显示切换按钮（单行时才显示） -->
+        <!-- 密码显示切换按钮(单行时才显示) -->
         <view 
           v-if="!multiline && type === 'password' && showPassword"
           class="action-btn password-btn"
           @click="togglePasswordVisibility"
         >
           <text class="eye-icon">{{ isPasswordVisible ?'👁️' : '👁️‍🗨️' }}</text>
+        </view>
+        
+        <!-- 右侧箭头 -->
+        <view
+          v-if="showArrow"
+          class="action-btn arrow-btn"
+        >
+          <image
+            src="@/static/icon/右箭头.svg"
+            class="arrow-icon"
+            mode="aspectFit"
+          />
         </view>
       </view>
     </view>
@@ -160,10 +172,15 @@ export default {
       type: Boolean,
       default: true
     },
+    // 是否显示右侧箭头
+    showArrow: {
+      type: Boolean,
+      default: false
+    },
     // 最大输入长度
     maxlength: {
       type: Number,
-      default: null
+      default: 200
     },
     // 是否显示字数统计
     showWordLimit: {
@@ -563,6 +580,7 @@ export default {
   justify-content: center;
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
   
   .clear-icon {
     font-size: 18px;
@@ -582,6 +600,16 @@ export default {
   &:active .clear-icon,
   &:active .eye-icon {
     color: #999999;
+  }
+}
+
+.arrow-btn {
+  transition: transform 0.3s ease;
+  
+  .arrow-icon {
+    width: 16px;
+    height: 16px;
+    color: #C7C7C7;
   }
 }
 

@@ -106,15 +106,16 @@ let mockData = ref([
 let total = ref()
 const token = uni.getStorageSync('token')
 function getDetail(id){
+  console.log(id);
   uni.navigateTo({
-    url:`/pages/teaming/detail?id=${id}`
+    url:`/pages/teaming/detail?team_id=${id}`
   })
 }
-
+//示例接口
 async function getTeamList(){
   try{
     const res = await uni.request({
-      url:`http://localhost:8080/api/v1/teams`,
+      url:`${global.API_BASE_URL}/api/v1/teams`,
       method:'GET'
     })
 
@@ -150,7 +151,7 @@ async function getUserInfo(){
 }
 onMounted(()=>{
   getTeamList();
-  getUserInfo();
+  // getUserInfo();
 })
 </script>
 
@@ -175,12 +176,12 @@ onMounted(()=>{
       </view>
 
       <view class="list-container">
-        <view class="list-item" v-for="item in mockData" :key="item.id">
+        <view class="list-item" v-for="item in mockData" :key="item.team_id">
           <view class="item-body">
             <!-- <view class="item-img">       文字       </view> -->
-                <view class="item-content" @click="getDetail(item.id)">
+                <view class="item-content" @click="getDetail(item.team_id)">
                   <view class="author-info">
-                    <img class="author-avator" :src="item.creato_avatar" mode="aspectFill"></img>
+                    <img class="author-avator" :src="item.creator_avatar" mode="aspectFill"></img>
                     <view class="author-name">{{ item.creator_nickname }}</view>
                   </view>
                   <view class="item-title">{{ item.team_name }}</view>
@@ -194,7 +195,7 @@ onMounted(()=>{
 
           <view class="item-tags">
             <TagComponent
-              v-for="(tag, idx) in item.tags?.split(',') || []"
+              v-for="(tag, idx) in item.tags"
               :key="idx"
               :tagText="tag"
             />
