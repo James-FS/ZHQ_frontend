@@ -11,6 +11,7 @@
         <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
         <view class="title-text">
           基于uniapp开发的跨平台移动应用实战
+           <i class="iconfont icon-shoucang"></i>
            <i class="iconfont icon-gengduo" @tap="openMenu"></i>
         </view>
       </view>
@@ -143,6 +144,10 @@ const closeMenu=()=>{
 }
 const openMenu=()=>{
   menuVisible.value=true;
+}
+
+async function fetchDetails(){
+
 }
 </script>
 

@@ -194,7 +194,7 @@ onMounted(()=>{
 
           <view class="item-tags">
             <TagComponent
-              v-for="(tag, idx) in item.tags?.split(',') || []"
+              v-for="(tag, idx) in item.tags"
               :key="idx"
               :tagText="tag"
             />
