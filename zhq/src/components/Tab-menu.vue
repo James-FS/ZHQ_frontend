@@ -2,7 +2,7 @@
     <view v-if="visible" class="overlay" @tap="handleClose"></view>
 
     <view v-if="visible" class="menu-wrapper">
-        <view class="Tab-menu">
+        <view class="Tab-menu" :class="{active:visible}">
             <view class="menu-header">
                 <i class="iconfont icon-cha" @tap="handleClose"></i>
             </view>
@@ -38,7 +38,7 @@
     const props = defineProps({
         visible:{
             type:Boolean,
-            default:true
+            default:false
         }
     })
     const emit = defineEmits(['close'])
@@ -67,7 +67,7 @@
     z-index: 999;
         .Tab-menu{
         position: fixed;
-        bottom:0;
+        bottom:-500rpx;
         left: 0;
         right: 0;
         justify-content: space-between;
@@ -75,6 +75,10 @@
         background-color: #fff;
         border-radius:16rpx;
         gap:10rpx;
+        animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        &.active {
+        animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
         .menu-header{
             display: flex;
             justify-content: flex-end;
@@ -103,4 +107,16 @@
     }
 }
 
+.iconfont{
+    font-size:35rpx;
+}
+/* ========== 淡入动画 ========== */
+@keyframes slideUp {
+    from {
+        bottom: -500rpx;
+    }
+    to {
+        bottom: 0;
+    }
+}
 </style>
