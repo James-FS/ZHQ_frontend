@@ -63,9 +63,12 @@ import Application from '@/components/Application.vue';
 import TagComponent from '@/components/Tags.vue';
 import TagsInput from '@/components/TagsInput.vue'
 import TabMenu from '../../components/Tab-menu.vue';
-const id=ref(null);
+const teamID=ref(null);
+const token = uni.getStorageSync('token');
+let collectionStatus=ref()
 onLoad((options)=>{
-  id.value=options.id;
+  teamID.value=options.id;
+  getCollectionStatus()
 })
 
 const html = ref(`
@@ -147,7 +150,36 @@ const openMenu=()=>{
 }
 
 async function fetchDetails(){
+    
+}
 
+async function getCollectionStatus(){
+  console.log(teamID);
+  try{
+    const res=await uni.request({
+      url:`${global.API_BASE_URL}/api/v1/collection/status/${teamID.value}`,
+      method:"GET",
+      header:{
+      'Authorization':`Bearer ${token}`,
+      'Content-Type':'application/json'
+      }
+    })
+    const result=res.data;
+    if(result.code==0)
+    {
+      collectionStatus.value=result.data.CollectionStatus;
+    }
+    else{
+      uni.showToast({
+      title: result.message||'获取收藏状态失败',
+      icon: 'none'});
+    }
+  }catch(err){
+    console.log(err);
+    uni.showToast({
+    title:'网络错误',
+    icon: 'none'});
+  }
 }
 </script>
 
