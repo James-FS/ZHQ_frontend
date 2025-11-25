@@ -65,11 +65,13 @@ import Application from '@/components/Application.vue';
 import TagComponent from '@/components/Tags.vue';
 import TagsInput from '@/components/TagsInput.vue'
 import TabMenu from '../../components/Tab-menu.vue';
+import { api } from '@/utils/index'
 const teamID=ref(null);
 const token = uni.getStorageSync('token');
 let collectionStatus=ref()
 onLoad(async(options)=>{
   teamID.value=options.team_id;
+  fetchDetails();
   getCollectionStatus();
 })
 
@@ -152,13 +154,13 @@ const openMenu=()=>{
 }
 
 async function fetchDetails(){
-    
+    await api.getTeamDetails(teamID.value);
 }
 
 async function getCollectionStatus(){
   try{
     const res=await uni.request({
-      url:`${global.API_BASE_URL}/api/v1/user/collection/status?team_id=${teamID.value}`,
+      url:`http://localhost:8080/api/v1/user/collection/status?team_id=${teamID.value}`,
       method:"GET",
       header:{
       'Authorization':`Bearer ${token}`,

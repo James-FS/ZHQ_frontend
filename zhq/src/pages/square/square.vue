@@ -126,7 +126,7 @@ function getDetail(id){
 async function getTeamList(){
   try{
     const res = await uni.request({
-      url:`${global.API_BASE_URL}/api/v1/teams`,
+      url:`http://localhost:8080/api/v1/teams`,
       method:'GET'
     })
 
@@ -151,19 +151,9 @@ async function getTeamList(){
 }
 
 
-async function getUserInfo(){
-    const res = await uni.request({
-      url:`http://localhost:8080/api/v1/user`,
-      method:'GET',
-      header: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-    })
-}
 onMounted(()=>{
   getTeamList();
-  // getUserInfo();
+
 })
 </script>
 
@@ -197,7 +187,7 @@ onMounted(()=>{
                     <view class="author-name">{{ item.creator_nickname }}</view>
                   </view>
                   <view class="item-title">{{ item.team_name }}</view>
-                  <view class="item-description">{{ item.content }}</view>
+                  <view class="item-description"><mp-html :content="item.content" /></view>
                   </view>
 
                 <view class="item-right">
