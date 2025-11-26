@@ -177,18 +177,19 @@ export default {
         return
       }
 
-      // 调用后端登录接口
+      // 调用后端手机号密码登录接口（账号即手机号）
       uni.showLoading({ title: '登录中...' })
-      api.wechatLogin({
-        account: this.loginForm.account,
+      api.phoneLogin({
+        phone: this.loginForm.account,
         password: this.loginForm.password
       })
         .then(res => {
           uni.hideLoading()
           if (res.code === 0) {
-            // 登录成功，保存token和用户信息
+            // 登录成功，保存token和用户信息（后端返回 data.token 与 data.user）
             uni.setStorageSync('token', res.data.token)
-            uni.setStorageSync('userInfo', res.data.userInfo)
+            uni.setStorageSync('userInfo', res.data.user)
+            console.log('登录成功，token为：', res.data.token)
 
             uni.showToast({
               title: '登录成功',
@@ -245,12 +246,27 @@ export default {
         return
       }
 
-      console.log('注册信息：', this.registerForm)
-      // 这里添加注册逻辑
-      uni.showToast({
-        title: '注册成功',
-        icon: 'success'
+      // 调用后端注册接口（账号即手机号）
+      uni.showLoading({ title: '注册中...' })
+      api.registerByPhone({
+        phone: this.registerForm.account,
+        password: this.registerForm.password
       })
+        .then(res => {
+          uni.hideLoading()
+          if (res.code === 0) {
+            uni.showToast({ title: res.message || '注册成功', icon: 'success' })
+            // 注册成功后切回登录页
+            this.switchTab('login')
+          } else {
+            uni.showToast({ title: res.message || '注册失败', icon: 'none' })
+          }
+        })
+        .catch(err => {
+          uni.hideLoading()
+          console.error('注册请求失败：', err)
+          uni.showToast({ title: '网络错误，请稍后重试', icon: 'none' })
+        })
     },
 
     // 处理微信登录
