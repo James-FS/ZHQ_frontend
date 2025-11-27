@@ -105,17 +105,28 @@ let mockData = ref([
 ])
 let total = ref()
 const token = uni.getStorageSync('token')
+const statusMap = {
+  1: { type: 'green', text: '招募中' },
+  2: { type: 'orange', text: '已截止' },
+  3: { type: 'blue', text: '开发中' },
+  4: { type: 'purple', text: '已结项' }
+}
+
+const getStatusInfo = (status) => {
+  return statusMap[status] || { type: 'green', text: '未知' }
+}
 function getDetail(id){
   console.log(id);
   uni.navigateTo({
     url:`/pages/teaming/detail?team_id=${id}`
   })
 }
-//示例接口
+
+//获取广场列表
 async function getTeamList(){
   try{
     const res = await uni.request({
-      url:`${global.API_BASE_URL}/api/v1/teams`,
+      url:`http://localhost:8080/api/v1/teams`,
       method:'GET'
     })
 
@@ -124,6 +135,7 @@ async function getTeamList(){
     {
       mockData.value=result.data.list;
       total.value=result.data.total;
+      console.table(res.data.data.list)
     }
     else{
       uni.showToast({
@@ -139,19 +151,9 @@ async function getTeamList(){
 }
 
 
-async function getUserInfo(){
-    const res = await uni.request({
-      url:`http://localhost:8080/api/v1/user`,
-      method:'GET',
-      header: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-    })
-}
 onMounted(()=>{
   getTeamList();
-  // getUserInfo();
+
 })
 </script>
 
@@ -185,7 +187,7 @@ onMounted(()=>{
                     <view class="author-name">{{ item.creator_nickname }}</view>
                   </view>
                   <view class="item-title">{{ item.team_name }}</view>
-                  <view class="item-description">{{ item.content }}</view>
+                  <view class="item-description"><mp-html :content="item.content" /></view>
                   </view>
 
                 <view class="item-right">
@@ -204,7 +206,10 @@ onMounted(()=>{
           <view class="item-status">
             <i class="iconfont icon-zudui"></i>
             <text>{{item.current_members}}/{{item.max_members}}人</text>
-            <StatusTags type="green" text="开发中" />
+            <StatusTags 
+              :type="getStatusInfo(item.status).type" 
+              :text="getStatusInfo(item.status).text" 
+            />
           </view>
         </view>
       </view>
