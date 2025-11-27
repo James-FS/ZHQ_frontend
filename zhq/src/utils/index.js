@@ -12,8 +12,9 @@ export const api = {
   registerByPhone: (data) => post('/api/v1/auth/register', data),
   
   // 用户相关
-  getUserProfile: () => get('/api/v1/user/profile'),
-  updateUserProfile: (data) => put('/api/v1/user/profile', data),
+  getUserInfo: () => get('/api/v1/user'),// 获取用户信息
+  getUserProfile: () => get('/api/v1/user/profile'),//获取用户简历
+  updateUserProfile: (data) => put('/api/v1/user/profile', data),//更新用户简历
 
   // 队伍相关
   createTeam: (data) => post('/api/v1/teams', data), // 创建队伍
