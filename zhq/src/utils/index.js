@@ -24,4 +24,7 @@ export const api = {
 
   //收藏相关
   removeCollection: (id) => del(`/api/v1/user/collection?team_id=${id}`)
+
+  //连接ws
+  
 }
