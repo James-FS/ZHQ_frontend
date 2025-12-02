@@ -6,6 +6,10 @@ export const api = {
   
   // 微信登录
   wechatLogin: (data) => post('/api/v1/auth/login', data),
+  // 手机号+密码登录
+  phoneLogin: (data) => post('/api/v1/auth/phone-login', data),
+  // 手机号注册
+  registerByPhone: (data) => post('/api/v1/auth/register', data),
   
   // 用户相关
   getUserProfile: () => get('/api/v1/user/profile'),

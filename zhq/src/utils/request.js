@@ -1,6 +1,6 @@
 // 配置后端服务器地址
 const baseURL = 'http://localhost:8080' // 开发环境
-// const baseURL = 'http://182.254.171.24:8080' // 生产环境
+//const baseURL = 'http://182.254.171.24:8080' // 生产环境
 
 const request = (options) => {
   // 获取本地存储的token
@@ -13,7 +13,7 @@ const request = (options) => {
       data: options.data || {},
       header: {
         'Content-Type': 'application/json',
-         'Authorization': token ? `Bearer ${token}` : '',// 在所有请求中添加token
+        'Authorization': token ? `Bearer ${token}` : '',// 在所有请求中添加token
         ...options.header
       },
       success: (res) => {
