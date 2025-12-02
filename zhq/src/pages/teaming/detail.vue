@@ -10,13 +10,13 @@
       <view class="title">
         <img class="title-img" src="/static/img/微信图片_20251110104833_364_2.png" mode="aspectFill"></img>
         <view class="title-text">
-          基于uniapp开发的跨平台移动应用实战
-           <i class="iconfont icon-shoucang"
-           :class="{'collected':collectionStatus}"
-           @tap="removeCollection"
-           ></i>
-           <i class="iconfont icon-gengduo" @tap="openMenu"></i>
-        </view>
+  基于uniapp开发的跨平台移动应用实战
+  <i class="iconfont icon-shoucang"
+     :class="{'collected':collectionStatus}"
+     @tap="toggleCollection"
+  ></i>
+  <i class="iconfont icon-gengduo" @tap="openMenu"></i>
+</view>
       </view>
 
       <!-- 作者信息 - 有左右间距 -->
@@ -76,7 +76,7 @@ let teamDetails=ref()
 onLoad(async(options)=>{
   teamID.value=options.team_id;
   await fetchDetails();
-  getCollectionStatus();
+  await getCollectionStatus();
 })
 
 const html = ref(`
@@ -177,35 +177,76 @@ async function fetchDetails(){
 
 async function getCollectionStatus(){
   try{
-    const res=await uni.request({
-      url:`http://localhost:8080/api/v1/user/collection/status?team_id=${teamID.value}`,
-      method:"GET",
-      header:{
-      'Authorization':`Bearer ${token}`,
-      'Content-Type':'application/json'
-      }
-    })
-    const result=res.data;
-    if(result.code==0)
-    {
-      collectionStatus.value=result.data.CollectionStatus;
+    const res = await api.getCollectionStatus(teamID.value);
+    // res 本身就是 { code, data, message }
+    if(res.code === 0) {
+      collectionStatus.value = res.data.CollectionStatus;
     }
     else{
       uni.showToast({
-      title: result.message||'获取收藏状态失败',
-      icon: 'none'});
+        title: res.message || '获取收藏状态失败',
+        icon: 'none'
+      });
     }
   }catch(err){
     console.log(err);
     uni.showToast({
-    title:'网络错误',
-    icon: 'none'});
+      title:'网络错误',
+      icon: 'none'
+    });
+  }
+}
+
+async function addCollection(){
+  try {
+    console.log("添加收藏 team_id:", teamID.value);
+    const res = await api.addCollection(teamID.value);
+    if(res.code === 0) {
+      collectionStatus.value = true;
+      uni.showToast({
+        title: '收藏成功',
+        icon: 'success'
+      });
+    } else {
+      throw new Error(res.message);
+    }
+  } catch(err) {
+    console.error('收藏失败:', err);
+    uni.showToast({
+      title: err.message || '操作失败',
+      icon: 'none'
+    });
   }
 }
 
 async function removeCollection(){
-  console.log("t:",teamID.value);
-  const res=await api.removeCollection(teamID.value);
+  try {
+    console.log("取消收藏 team_id:", teamID.value);
+    const res = await api.removeCollection(teamID.value);
+    if(res.code === 0) {
+      collectionStatus.value = false;
+      uni.showToast({
+        title: '取消收藏成功',
+        icon: 'success'
+      });
+    } else {
+      throw new Error(res.message);
+    }
+  } catch(err) {
+    console.error('取消收藏失败:', err);
+    uni.showToast({
+      title: err.message || '操作失败',
+      icon: 'none'
+    });
+  }
+}
+
+async function toggleCollection(){
+  if(collectionStatus.value) {
+    await removeCollection();
+  } else {
+    await addCollection();
+  }
 }
 </script>
 
@@ -256,7 +297,7 @@ async function removeCollection(){
     padding: 0;
   }
 
-  .title-text {
+   .title-text {
     display: flex;
     flex-direction: row;
     font-size: var(--title-size);
@@ -271,8 +312,9 @@ async function removeCollection(){
       font-size:54rpx;
     }
     .iconfont.icon-shoucang{
+      color: #333; // 未收藏时的默认颜色
       &.collected{
-        color:yellow;
+        color: #e09846; // 收藏后填充此颜色
       }
     }
   }
