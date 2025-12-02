@@ -159,6 +159,59 @@ export default {
       this.agreed = e.detail.value.length > 0
     },
 
+    // login.vue 的 methods 中
+
+connectWebSocket(token) {
+  // ✅ 第一步：创建连接
+  uni.connectSocket({
+    url: 'ws://localhost:8080/api/v1/chat/ws',
+    header: {
+      'Authorization': `Bearer ${token}`
+    },
+    success: (res) => {
+      console.log('连接成功');
+    }
+  });
+
+  // ✅ 第二步：获取 SocketTask（关键！）
+  // 等待连接打开后再获取
+  uni.onSocketOpen(() => {
+    // 在这里获取 SocketTask
+    uni.$chatSocket = {
+      send: (data) => {
+        uni.sendSocketMessage({
+          data: data,
+          success: () => console.log('✅ 已发送'),
+          fail: (err) => console.error('❌ 发送失败', err)
+        });
+      },
+      close: () => {
+        uni.closeSocket({
+          code: 1000,
+          reason: '正常关闭'
+        });
+      }
+    };
+
+    console.log('✅ WebSocket 已连接');
+    uni.$wsConnected = true;
+  });
+
+  uni.onSocketMessage((res) => {
+    console.log('📨 收到消息:', res. data);
+  });
+
+  uni.onSocketError(() => {
+    console.error('❌ WebSocket 连接错误');
+    uni.$wsConnected = false;
+  });
+
+  uni.onSocketClose(() => {
+    console.log('WebSocket 已关闭');
+    uni.$wsConnected = false;
+  });
+},
+
     // 处理登录
     handleLogin() {
       if (!this.agreed) {
@@ -188,7 +241,9 @@ export default {
           if (res.code === 0) {
             // 登录成功，保存token和用户信息
             uni.setStorageSync('token', res.data.token)
-            uni.setStorageSync('userInfo', res.data.userInfo)
+            uni.setStorageSync('userInfo', res.data.user)
+            this.connectWebSocket(res.data.token);
+            console.log('登录成功，token为：', res.data.token)
 
             uni.showToast({
               title: '登录成功',

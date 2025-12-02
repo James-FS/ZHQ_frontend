@@ -134,26 +134,60 @@ export default {
 
     // 发送消息
     sendMessage() {
-      if (!this.inputMessage.trim()) {
-        return;
-      }
+  if (! this.inputMessage.trim()) {
+    return;
+  }
 
-      const newMessage = {
-        id: this.messageList.length + 1,
-        content: this.inputMessage,
-        time: this.formatCurrentTime(),
-        isSelf: true,
-        avatar: '/static/icon/头像4.svg'
-      };
+  if (! uni.$wsConnected) {
+    uni. showToast({
+      title: '连接已断开',
+      icon: 'error'
+    });
+    return;
+  }
 
-      this.messageList.push(newMessage);
-      this.inputMessage = '';
+  const message = {
+    type: 'chat',
+    content: this.inputMessage,
+    data: {
+      receiver_id: "26faedb1-81d9-4d00-89dc-9e640e0c63b7"
+    }
+  };
 
-      // 滚动到底部
-      this.$nextTick(() => {
-        this.scrollToBottom();
-      });
+  // ✅ 改成这样：直接发送 JSON 字符串
+  const messageStr = JSON.stringify(message);
+  console.log('📤 发送消息:', messageStr);  // 打印查看格式
+  
+  uni. sendSocketMessage({
+    data: messageStr,  // ✅ 这里必须是字符串
+    success: () => {
+      console.log('✅ 消息已发送');
     },
+    fail: (err) => {
+      console.error('❌ 发送失败:', err);
+      uni.showToast({
+        title: '发送失败',
+        icon: 'error'
+      });
+    }
+  });
+
+  // 本地显示
+  const newMessage = {
+    id: this.messageList.length + 1,
+    content: this.inputMessage,
+    time: this.formatCurrentTime(),
+    isSelf: true,
+    avatar: '/static/icon/头像4.svg'
+  };
+
+  this.messageList.push(newMessage);
+  this.inputMessage = '';
+
+  this.$nextTick(() => {
+    this.scrollToBottom();
+  });
+},
 
     // 显示表情面板
     showEmoji() {
