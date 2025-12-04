@@ -54,6 +54,7 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-4070620250821001",
     "@dcloudio/uni-ui": "^1.5.11",
     "mp-html": "^2.5.1",
+    "pinyin": "^4.0.0",
     "vue": "^3.4.21",
     "vue-i18n": "^9.1.9",
     "vue-router": "^4.5.1"

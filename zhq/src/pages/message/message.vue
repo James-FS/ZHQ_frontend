@@ -15,6 +15,7 @@
         </view>
       </view>
 
+    
       <!-- 消息列表-->
       <view class="message-list">
         <view class="message-item" v-for="(item, index) in messageList" :key="index" @click="openChat(item)">
@@ -130,6 +131,9 @@ export default {
       uni.showToast({
         title: '添加联系人功能开发中',
         icon: 'none'
+      })
+      uni.navigateTo({
+        url: '/pages/message/contacts'
       })
     },
 
