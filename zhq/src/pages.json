@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/square/square",
+			"style": {
+				"navigationBarTitleText": "广场"
+			}
+		},
+		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -48,12 +54,6 @@
 			"path": "pages/chat/chat",
 			"style": {
 				"navigationBarTitleText": "聊天"
-			}
-		},
-		{
-			"path": "pages/square/square",
-			"style": {
-				"navigationBarTitleText": "广场"
 			}
 		},
 		{
