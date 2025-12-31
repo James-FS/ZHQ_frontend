@@ -31,24 +31,25 @@
           <!-- 用户信息区域 -->
           <view class="user-info">
             <!-- 用户名 -->
-            <text class="username">{{ userInfo.name || "大卫带" }}</text>
+            <text class="username">{{ userInfo.nickname || "未设置昵称" }}</text>
 
             <!-- 性别和学院信息 -->
             <view class="info-row">
               <!-- 性别图标和文字 -->
               <view class="gender-box">
                 <!-- Font Class 方式：iconfont + 具体图标类名 -->
-                <text class="iconfont icon-nan gender-icon"></text>
-                <text class="gender-text">{{ userInfo.gender || "男" }}</text>
+                <text 
+                  class="iconfont gender-icon" 
+                  :class="userInfo.gender === 1 ? 'icon-nan' : userInfo.gender === 2 ? 'icon-nv' : 'icon-wenhao'"
+                ></text>
+                <text class="gender-text">{{ getGenderText(userInfo.gender) }}</text>
               </view>
 
               <!-- 分隔符 -->
               <text class="divider">|</text>
 
               <!-- 学院信息 -->
-              <text class="college">{{
-                userInfo.college || "计算机科学与网络工程学院"
-              }}</text>
+              <text class="college">{{ userInfo.college || "未设置学院" }}</text>
             </view>
           </view>
         </view>
@@ -131,6 +132,8 @@ import TagItem from "@/components/Tags.vue";
 import GradientBackground from "@/components/Grandient-background.vue";
 import CustomNavbar from "@/components/Custom-navbar.vue";
 import navbarPaddingMixin from "@/components/Navbar-padding.js";
+// 引入API工具函数
+import { api } from "@/utils/index.js";
 
 export default {
   // ==================== 修改：注册渐变背景和自定义导航栏组件 ====================
@@ -147,11 +150,13 @@ export default {
     return {
       // 用户信息数据
       userInfo: {
-        avatar: "/static/img/我_active.png", // 头像路径
-        name: "大卫带", // 用户名
-        gender: "男", // 性别
-        college: "计算机科学与网络工程学院", // 学院
-        tags: ["前端", "计算机科学", "创新创业比赛"], // 标签数组
+        user_id: "",
+        nickname: "",
+        avatar: "/static/icon/头像1.svg", // 默认头像
+        gender: 0, // 0:未知 1:男 2:女
+        college: "",
+        major: "",
+        tags: [], // 标签数组
       },
     };
   },
@@ -163,15 +168,83 @@ export default {
 
   methods: {
     // 获取用户信息
-    getUserInfo() {
-      // 这里调用API获取用户数据
-      // uni.request({
-      //   url: 'your-api-url',
-      //   success: (res) => {
-      //     this.userInfo = res.data
-      //   }
-      // })
-      console.log("获取用户信息");
+    async getUserInfo() {
+      try {
+        // 调用后端API获取用户信息
+        const response = await api.getUserInfo();
+        
+        if (response.code === 0 && response.data && response.data.user) {
+          const userData = response.data.user;
+          
+          // 处理用户数据
+          this.userInfo = {
+            user_id: userData.user_id || "",
+            nickname: userData.nickname || "未设置昵称",
+            avatar: userData.avatar || "/static/icon/头像1.svg",
+            gender: userData.gender || 0,
+            college: userData.college || "未设置学院",
+            major: userData.major || "未设置专业", // 注意：后端可能没有这个字段
+            tags: this.parseTags(userData.tags) // 解析标签
+          };
+          
+          // 调试输出
+          console.log("原始tags数据:", userData.tags);
+          console.log("解析后的tags:", this.userInfo.tags);
+        } else {
+          console.error("获取用户信息失败:", response.message);
+          uni.showToast({
+            title: response.message || "获取用户信息失败",
+            icon: "none"
+          });
+        }
+      } catch (error) {
+        console.error("获取用户信息异常:", error);
+        uni.showToast({
+          title: "获取用户信息失败",
+          icon: "none"
+        });
+      }
+    },
+
+    // 解析标签数据
+    parseTags(tagsData) {
+      if (!tagsData) return [];
+      
+      try {
+        // 如果是字符串，先尝试JSON解析
+        if (typeof tagsData === 'string') {
+          try {
+            const parsed = JSON.parse(tagsData);
+            return Array.isArray(parsed) ? parsed : [tagsData];
+          } catch {
+            // JSON解析失败，直接将整个字符串作为一个标签
+            return [tagsData];
+          }
+        }
+        // 如果已经是数组，直接返回
+        if (Array.isArray(tagsData)) {
+          return tagsData;
+        }
+        // 如果是数字，转为字符串数组
+        if (typeof tagsData === 'number') {
+          return [tagsData.toString()];
+        }
+      } catch (error) {
+        console.error("解析标签失败:", error);
+      }
+      
+      // 确保返回数组，如果是字符串就包装成数组
+      return Array.isArray(tagsData) ? tagsData : [tagsData];
+    },
+
+    // 格式化性别显示
+    getGenderText(gender) {
+      const genderMap = {
+        0: "未知",
+        1: "男",
+        2: "女"
+      };
+      return genderMap[gender] || "未知";
     },
 
     // 跳转到详情页
