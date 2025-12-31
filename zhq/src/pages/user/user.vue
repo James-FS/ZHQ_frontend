@@ -122,6 +122,17 @@
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
+
+       <!-- 校园导航 -->
+      <view class="menu-item" @click="goToPage('map')">
+        <view class="menu-left">
+          <!-- Font Class 方式：你提供的在线简历图标 -->
+          <text class="iconfont icon-zaixianjianli menu-icon"></text>
+          <text class="menu-text">我的简历</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
+      </view>
+
     </view>
   </view>
 </template>
