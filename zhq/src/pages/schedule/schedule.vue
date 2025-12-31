@@ -1,8 +1,8 @@
 <template>
 	<view class="container">
 		<view class="content">
-			<view class="icon">🗺️</view>
-			<view class="title">地图功能开发中</view>
+			<view class="icon">🚧</view>
+			<view class="title">页面开发中</view>
 			<view class="subtitle">敬请期待</view>
 		</view>
 	</view>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-	name: 'Map',
+	name: 'Schedule',
 	data() {
 		return {
 			

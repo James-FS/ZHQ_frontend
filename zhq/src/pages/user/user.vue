@@ -128,7 +128,17 @@
         <view class="menu-left">
           <!-- Font Class 方式：你提供的在线简历图标 -->
           <text class="iconfont icon-zaixianjianli menu-icon"></text>
-          <text class="menu-text">我的简历</text>
+          <text class="menu-text">校园导航</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
+      </view>
+
+      <!-- 课程表 -->
+      <view class="menu-item" @click="goToPage('map')">
+        <view class="menu-left">
+          <!-- Font Class 方式：你提供的在线简历图标 -->
+          <text class="iconfont icon-zaixianjianli menu-icon"></text>
+          <text class="menu-text">课程表</text>
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
@@ -273,7 +283,9 @@ export default {
         history: '/pages/history/history', // 历史页面
         resume: '/pages/resume/resume', // 简历页面
         settings: '/pages/settings/settings', // 设置页面
-        logout: '/pages/login/login' // 退出登录页面
+        logout: '/pages/login/login', // 退出登录页面
+        schedule: '/pages/schedule/schedule', // 课程表页面
+        map: '/pages/map/map' // 校园导航页面
       }
       
       // 特殊处理退出登录

@@ -111,6 +111,18 @@
 			}
 		},
 		{
+			"path": "pages/schedule/schedule",
+			"style": {
+				"navigationBarTitleText": "课程表"
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "校园导航"
+			}
+		},
+		{
 			"path": "pages/signature-edit/signature-edit",
 			"style": {
 				"navigationBarTitleText": "填写信息"
