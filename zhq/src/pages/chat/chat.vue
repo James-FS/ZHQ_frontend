@@ -154,17 +154,17 @@ export default {
     }
   };
 
-  // ✅ 改成这样：直接发送 JSON 字符串
+  // 直接发送 JSON 字符串
   const messageStr = JSON.stringify(message);
   console.log('📤 发送消息:', messageStr);  // 打印查看格式
   
   uni. sendSocketMessage({
-    data: messageStr,  // ✅ 这里必须是字符串
+    data: messageStr,  // 这里必须是字符串
     success: () => {
-      console.log('✅ 消息已发送');
+      console.log('消息已发送');
     },
     fail: (err) => {
-      console.error('❌ 发送失败:', err);
+      console.error('发送失败:', err);
       uni.showToast({
         title: '发送失败',
         icon: 'error'

@@ -13,7 +13,7 @@ const request = (options) => {
       data: options.data || {},
       header: {
         'Content-Type': 'application/json',
-        'Authorization': token ? `Bearer ${token}` : '',// 在所有请求中添加token
+        'Authorization': token ? `Bearer ${token}` : '',
         ...options.header
       },
       success: (res) => {
@@ -31,6 +31,60 @@ const request = (options) => {
         reject(err)
       }
     })
+  })
+}
+
+// WebSocket连接配置
+export const connectWebSocket = (token) => {
+  const wsURL = baseURL.replace('http', 'ws') + '/api/v1/chat/ws'
+  
+  // 创建连接
+  uni.connectSocket({
+    url: wsURL,
+    header: {
+      'Authorization': `Bearer ${token}`
+    },
+    success: (res) => {
+      console.log('WebSocket连接中...')
+    }
+  })
+
+  // 监听连接打开
+  uni.onSocketOpen(() => {
+    uni.$chatSocket = {
+      send: (data) => {
+        uni.sendSocketMessage({
+          data: data,
+          success: () => console.log('✅ 已发送'),
+          fail: (err) => console.error('❌ 发送失败', err)
+        })
+      },
+      close: () => {
+        uni.closeSocket({
+          code: 1000,
+          reason: '正常关闭'
+        })
+      }
+    }
+    console.log('✅ WebSocket 已连接')
+    uni.$wsConnected = true
+  })
+
+  // 监听接收消息
+  uni.onSocketMessage((res) => {
+    console.log('📨 收到消息:', res.data)
+  })
+
+  // 监听连接错误
+  uni.onSocketError(() => {
+    console.error('❌ WebSocket 连接错误')
+    uni.$wsConnected = false
+  })
+
+  // 监听连接关闭
+  uni.onSocketClose(() => {
+    console.log('WebSocket 已关闭')
+    uni.$wsConnected = false
   })
 }
 
