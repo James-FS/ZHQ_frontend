@@ -78,7 +78,7 @@
 
         <!-- 查看详情按钮 -->
         <view class="detail-btn" @click="goToDetail">
-          <text class="detail-text">编辑资料</text>
+          <text class="detail-text">{{ userInfo.user_id ? '编辑资料' : '登录/注册' }}</text>
         </view>
       </view>
 
@@ -125,16 +125,6 @@
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
 
-      <!-- 退出登录 -->
-      <view class="menu-item" @click="goToPage('logout')">
-        <view class="menu-left">
-          <!-- 退出登录图标（请根据实际图标类名修改） -->
-          <text class="iconfont icon-tuichudenglu menu-icon"></text>
-          <text class="menu-text">退出登录</text>
-        </view>
-        <text class="iconfont icon-youjiantou arrow-icon"></text>
-      </view>
-
       <!-- 校园导航 -->
       <view class="menu-item" @click="goToPage('map')">
         <view class="menu-left">
@@ -154,6 +144,17 @@
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
+
+      <!-- 退出登录 -->
+      <view class="menu-item" @click="goToPage('logout')">
+        <view class="menu-left">
+          <!-- 退出登录图标（请根据实际图标类名修改） -->
+          <text class="iconfont icon-tuichudenglu menu-icon"></text>
+          <text class="menu-text">退出登录</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
+      </view>
+
     </view>
   </view>
 </template>
@@ -222,19 +223,43 @@ export default {
           // 调试输出
           console.log("原始tags数据:", userData.tags);
           console.log("解析后的tags:", this.userInfo.tags);
+        } else if (response.code === 401) {
+          // 未登录，使用默认信息
+          console.log("用户未登录，使用默认信息");
+          this.userInfo = {
+            user_id: "",
+            nickname: "游客",
+            avatar: "/static/icon/头像1.svg",
+            gender: 0,
+            college: "未登录",
+            major: "未登录",
+            tags: []
+          };
         } else {
           console.error("获取用户信息失败:", response.message);
-          uni.showToast({
-            title: response.message || "获取用户信息失败",
-            icon: "none",
-          });
+          // 失败时使用默认信息
+          this.userInfo = {
+            user_id: "",
+            nickname: "游客",
+            avatar: "/static/icon/头像1.svg",
+            gender: 0,
+            college: "未设置学院",
+            major: "未设置专业",
+            tags: []
+          };
         }
       } catch (error) {
         console.error("获取用户信息异常:", error);
-        uni.showToast({
-          title: "获取用户信息失败",
-          icon: "none",
-        });
+        // 异常时使用默认信息
+        this.userInfo = {
+          user_id: "",
+          nickname: "游客",
+          avatar: "/static/icon/头像1.svg",
+          gender: 0,
+          college: "未设置学院",
+          major: "未设置专业",
+          tags: []
+        };
       }
     },
 
@@ -281,9 +306,18 @@ export default {
 
     // 跳转到详情页
     goToDetail() {
-      uni.navigateTo({
-        url: "/pages/user-detail/user-detail",
-      });
+      // 检查用户是否已登录（通过user_id判断）
+      if (!this.userInfo.user_id) {
+        // 未登录，跳转到登录页面
+        uni.navigateTo({
+          url: "/pages/login/login",
+        });
+      } else {
+        // 已登录，跳转到编辑资料页面
+        uni.navigateTo({
+          url: "/pages/user-detail/user-detail",
+        });
+      }
     },
 
     // 跳转到对应功能页面

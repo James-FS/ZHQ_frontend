@@ -20,9 +20,8 @@ const request = (options) => {
         if (res.statusCode === 200) {
           resolve(res.data);
         } else if (res.statusCode === 401) {
-          // 未授权，跳转到登录页
-          uni.navigateTo({ url: '/pages/login/login' });
-          reject(new Error('请先登录'));
+          // 未授权，返回401状态，不强制跳转登录页
+          resolve({ code: 401, message: '未登录', data: null });
         } else {
           reject(res.data || new Error('请求失败'));
         }

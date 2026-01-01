@@ -50,14 +50,23 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxf3931c9fcba2d5a9",
         "setting" : {
             "urlCheck" : false
         },
         "usingComponents" : true,
+<<<<<<< HEAD
+        "requiredPrivateInfos" : [
+            "getLocation"
+        ],
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "获取你的位置用于校园导航功能"
+=======
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "你的位置信息将用于地图导航和路线规划"
+>>>>>>> develop
             }
         }
     },
