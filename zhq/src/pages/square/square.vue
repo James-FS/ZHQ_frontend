@@ -2,6 +2,7 @@
 import { ref,onMounted } from 'vue'
 import TagComponent from '@/components/Tags.vue'
 import StatusTags from '../../components/StatusTags.vue';
+  const baseURL = 'http://localhost:8080';
 let mockData = ref([
   {
     id: 1,
@@ -126,7 +127,7 @@ function getDetail(id){
 async function getTeamList(){
   try{
     const res = await uni.request({
-      url:`http://182.254.171.24:8080/api/v1/teams`,
+      url:`${baseURL}/api/v1/teams`,
       method:'GET'
     })
 
