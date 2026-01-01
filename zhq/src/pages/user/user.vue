@@ -128,8 +128,8 @@
       <!-- 校园导航 -->
       <view class="menu-item" @click="goToPage('map')">
         <view class="menu-left">
-          <!-- Font Class 方式：你提供的在线简历图标 -->
-          <text class="iconfont icon-zaixianjianli menu-icon"></text>
+          <!-- 校园导航图标 -->
+          <image class="menu-icon-img" src="/static/icon/导航.svg"></image>
           <text class="menu-text">校园导航</text>
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
@@ -138,8 +138,8 @@
       <!-- 课程表 -->
       <view class="menu-item" @click="goToPage('schedule')">
         <view class="menu-left">
-          <!-- Font Class 方式：你提供的在线简历图标 -->
-          <text class="iconfont icon-zaixianjianli menu-icon"></text>
+          <!-- 课程表图标 -->
+          <image class="menu-icon-img" src="/static/icon/课程表.svg"></image>
           <text class="menu-text">课程表</text>
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
@@ -199,6 +199,11 @@ export default {
     this.getUserInfo();
   },
 
+  onShow() {
+    // 页面显示时刷新用户信息（确保登录后能实时显示）
+    this.getUserInfo();
+  },
+
   methods: {
     // 获取用户信息
     async getUserInfo() {
@@ -206,23 +211,25 @@ export default {
         // 调用后端API获取用户信息
         const response = await api.getUserInfo();
 
-        if (response.code === 0 && response.data && response.data.user) {
-          const userData = response.data.user;
+        console.log("获取用户信息响应:", response);
+
+        if (response.code === 0 && response.data) {
+          // 兼容多种数据结构
+          const userData = response.data.user || response.data;
 
           // 处理用户数据
           this.userInfo = {
             user_id: userData.user_id || "",
-            nickname: userData.nickname || "未设置昵称",
+            nickname: userData.nickname || userData.user_name || "未设置昵称",
             avatar: userData.avatar || "/static/icon/头像1.svg",
             gender: userData.gender || 0,
-            college: userData.college || "未设置学院",
-            major: userData.major || "未设置专业", // 注意：后端可能没有这个字段
+            college: userData.college || userData.school || "未设置学院",
+            major: userData.major || "未设置专业",
             tags: this.parseTags(userData.tags), // 解析标签
           };
 
           // 调试输出
-          console.log("原始tags数据:", userData.tags);
-          console.log("解析后的tags:", this.userInfo.tags);
+          console.log("获取用户信息成功:", this.userInfo);
         } else if (response.code === 401) {
           // 未登录，使用默认信息
           console.log("用户未登录，使用默认信息");
@@ -508,6 +515,13 @@ export default {
   font-size: 44rpx; // 图标大小（使用 font-size 控制）
   margin-right: 24rpx; // 右侧外边距
   color: #666666; // 图标颜色
+}
+
+/* 菜单图标 - 图片方式 */
+.menu-icon-img {
+  width: 44rpx; // 图标宽度
+  height: 44rpx; // 图标高度
+  margin-right: 24rpx; // 右侧外边距
 }
 
 /* 菜单文字 */

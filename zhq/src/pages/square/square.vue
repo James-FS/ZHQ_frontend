@@ -50,7 +50,22 @@ async function getTeamList(){
     const result=res.data;
     if(result.code==0)
     {
-      mockData.value=result.data.list;
+      const list = result.data.list || []
+      
+      // 将后端数据映射为前端需要的格式
+      mockData.value = list.map(team => ({
+        team_id: team.team_id,
+        team_name: team.team_name,
+        content: team.content || '',
+        creator_nickname: team.creator_nickname || '未知用户',
+        creator_avatar: team.creator_avatar || '/static/icon/头像1.svg',
+        pictures: team.pictures || '/static/img/微信图片_20251110104833_364_2.png',
+        tags: team.tags || [],
+        current_members: team.current_members,
+        max_members: team.max_members,
+        status: team.status
+      }))
+      
       total.value=result.data.total;
       console.table(res.data.data.list)
     }
