@@ -31,25 +31,37 @@
           <!-- 用户信息区域 -->
           <view class="user-info">
             <!-- 用户名 -->
-            <text class="username">{{ userInfo.nickname || "未设置昵称" }}</text>
+            <text class="username">{{
+              userInfo.nickname || "未设置昵称"
+            }}</text>
 
             <!-- 性别和学院信息 -->
             <view class="info-row">
               <!-- 性别图标和文字 -->
               <view class="gender-box">
                 <!-- Font Class 方式：iconfont + 具体图标类名 -->
-                <text 
-                  class="iconfont gender-icon" 
-                  :class="userInfo.gender === 1 ? 'icon-nan' : userInfo.gender === 2 ? 'icon-nv' : 'icon-wenhao'"
+                <text
+                  class="iconfont gender-icon"
+                  :class="
+                    userInfo.gender === 1
+                      ? 'icon-nan'
+                      : userInfo.gender === 2
+                      ? 'icon-nv'
+                      : 'icon-wenhao'
+                  "
                 ></text>
-                <text class="gender-text">{{ getGenderText(userInfo.gender) }}</text>
+                <text class="gender-text">{{
+                  getGenderText(userInfo.gender)
+                }}</text>
               </view>
 
               <!-- 分隔符 -->
               <text class="divider">|</text>
 
               <!-- 学院信息 -->
-              <text class="college">{{ userInfo.college || "未设置学院" }}</text>
+              <text class="college">{{
+                userInfo.college || "未设置学院"
+              }}</text>
             </view>
           </view>
         </view>
@@ -113,7 +125,7 @@
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
 
-       <!-- 校园导航 -->
+      <!-- 校园导航 -->
       <view class="menu-item" @click="goToPage('map')">
         <view class="menu-left">
           <!-- Font Class 方式：你提供的在线简历图标 -->
@@ -124,7 +136,7 @@
       </view>
 
       <!-- 课程表 -->
-      <view class="menu-item" @click="goToPage('map')">
+      <view class="menu-item" @click="goToPage('schedule')">
         <view class="menu-left">
           <!-- Font Class 方式：你提供的在线简历图标 -->
           <text class="iconfont icon-zaixianjianli menu-icon"></text>
@@ -193,10 +205,10 @@ export default {
       try {
         // 调用后端API获取用户信息
         const response = await api.getUserInfo();
-        
+
         if (response.code === 0 && response.data && response.data.user) {
           const userData = response.data.user;
-          
+
           // 处理用户数据
           this.userInfo = {
             user_id: userData.user_id || "",
@@ -205,9 +217,9 @@ export default {
             gender: userData.gender || 0,
             college: userData.college || "未设置学院",
             major: userData.major || "未设置专业", // 注意：后端可能没有这个字段
-            tags: this.parseTags(userData.tags) // 解析标签
+            tags: this.parseTags(userData.tags), // 解析标签
           };
-          
+
           // 调试输出
           console.log("原始tags数据:", userData.tags);
           console.log("解析后的tags:", this.userInfo.tags);
@@ -254,10 +266,10 @@ export default {
     // 解析标签数据
     parseTags(tagsData) {
       if (!tagsData) return [];
-      
+
       try {
         // 如果是字符串，先尝试JSON解析
-        if (typeof tagsData === 'string') {
+        if (typeof tagsData === "string") {
           try {
             const parsed = JSON.parse(tagsData);
             return Array.isArray(parsed) ? parsed : [tagsData];
@@ -271,13 +283,13 @@ export default {
           return tagsData;
         }
         // 如果是数字，转为字符串数组
-        if (typeof tagsData === 'number') {
+        if (typeof tagsData === "number") {
           return [tagsData.toString()];
         }
       } catch (error) {
         console.error("解析标签失败:", error);
       }
-      
+
       // 确保返回数组，如果是字符串就包装成数组
       return Array.isArray(tagsData) ? tagsData : [tagsData];
     },
@@ -287,7 +299,7 @@ export default {
       const genderMap = {
         0: "未知",
         1: "男",
-        2: "女"
+        2: "女",
       };
       return genderMap[gender] || "未知";
     },
@@ -312,15 +324,15 @@ export default {
     goToPage(type) {
       // 页面路由映射表
       const urlMap = {
-        collection: '/pages/collection/collection', // 收藏页面
-        history: '/pages/history/history', // 历史页面
-        resume: '/pages/resume/resume', // 简历页面
-        settings: '/pages/settings/settings', // 设置页面
-        logout: '/pages/login/login', // 退出登录页面
-        schedule: '/pages/schedule/schedule', // 课程表页面
-        map: '/pages/map/map' // 校园导航页面
-      }
-      
+        collection: "/pages/collection/collection", // 收藏页面
+        history: "/pages/history/history", // 历史页面
+        resume: "/pages/resume/resume", // 简历页面
+        settings: "/pages/settings/settings", // 设置页面
+        logout: "/pages/login/login", // 退出登录页面
+        schedule: "/pages/schedule/schedule", // 课程表页面
+        map: "/pages/map/map", // 校园导航页面
+      };
+
       // 特殊处理退出登录
       if (type === "logout") {
         uni.showModal({
@@ -332,8 +344,8 @@ export default {
               console.log("用户确认退出");
               // 清除登录信息，跳转到登录页
               uni.redirectTo({
-                url: '/pages/login/login'
-              })
+                url: "/pages/login/login",
+              });
             }
           },
         });

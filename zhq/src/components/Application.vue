@@ -34,14 +34,15 @@ import { computed } from 'vue';
         }
     });
 
+    const emit = defineEmits(['on-apply']);
+
     const buttonText = computed(() => {
         return props.type === 'primary' ? '前往处理' : '申请加入'
     })
     
     function handleApplication(){
-        uni.navigateTo({
-            url:'/pages/teaming/teaming'
-        });
+        // 触发父组件传入的事件
+        emit('on-apply');
     }
 </script>
 

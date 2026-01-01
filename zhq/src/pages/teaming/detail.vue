@@ -43,6 +43,7 @@
         <application 
           :title="`${mockContext.title}`"
           :type="'green'"
+          @on-apply="handleJoinTeam"
         ></application>
       </view>
 
@@ -246,6 +247,84 @@ async function toggleCollection(){
     await removeCollection();
   } else {
     await addCollection();
+  }
+}
+
+/**
+ * 加入队伍
+ * 调用后端接口加入当前队伍
+ */
+async function handleJoinTeam() {
+  try {
+    // 1. 检查是否登录
+    const token = uni.getStorageSync('token');
+    if (!token) {
+      uni.showModal({
+        title: '提示',
+        content: '请先登录',
+        success: (res) => {
+          if (res.confirm) {
+            uni.navigateTo({
+              url: '/pages/login/login'
+            });
+          }
+        }
+      });
+      return;
+    }
+
+    // 2. 确认加入
+    const confirmRes = await new Promise((resolve) => {
+      uni.showModal({
+        title: '确认加入',
+        content: '确定要申请加入该队伍吗?',
+        success: (res) => resolve(res)
+      });
+    });
+
+    if (!confirmRes.confirm) {
+      return;
+    }
+
+    // 3. 显示加载中
+    uni.showLoading({
+      title: '申请中...',
+      mask: true
+    });
+
+    // 4. 调用加入队伍接口
+    console.log('加入队伍 team_id:', teamID.value);
+    const res = await api.joinTeam(teamID.value);
+
+    uni.hideLoading();
+
+    // 5. 处理响应
+    if (res.code === 0) {
+      uni.showModal({
+        title: '成功',
+        content: `已成功加入队伍【${res.data.team_name}】`,
+        showCancel: false,
+        success: () => {
+          // 跳转到我的队伍页面
+          uni.switchTab({
+            url: '/pages/teaming/teaming'
+          });
+        }
+      });
+    } else {
+      throw new Error(res.message || '加入队伍失败');
+    }
+
+  } catch (err) {
+    uni.hideLoading();
+    console.error('加入队伍失败:', err);
+    
+    // 显示错误信息
+    uni.showModal({
+      title: '加入失败',
+      content: err.message || '网络错误，请稍后重试',
+      showCancel: false
+    });
   }
 }
 </script>
