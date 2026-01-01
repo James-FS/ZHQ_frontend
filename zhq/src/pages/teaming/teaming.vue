@@ -6,10 +6,21 @@ export default {
 </script>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
 import TagComponent from '@/components/Tags.vue'
-import StatusTags from '../../components/StatusTags.vue';
-let mockData = [
+import StatusTags from '../../components/StatusTags.vue'
+import { api } from '@/utils/index'
+
+// 队伍列表数据
+const teamList = ref([])
+// 加载状态
+const loading = ref(false)
+// 总数
+const total = ref(0)
+
+// Mock数据（作为备用）
+const mockData = [
   {
     id: 1,
     title: '基于uniapp开发的跨平台移动应用实战',
@@ -111,11 +122,86 @@ let mockData = [
   },
 ]
 
+/**
+ * 跳转到队伍详情页
+ */
 function getDetail(id){
   uni.navigateTo({
-    url:`/pages/teaming/detail?team_id=1`
+    url:`/pages/teaming/detail?team_id=${id}`
   })
 }
+
+/**
+ * 获取我的队伍列表
+ */
+async function fetchMyTeams() {
+  try {
+    // 检查是否登录
+    const token = uni.getStorageSync('token')
+    if (!token) {
+      console.log('未登录，使用 mock 数据')
+      teamList.value = mockData
+      total.value = mockData.length
+      return
+    }
+
+    loading.value = true
+    
+    const res = await api.getMyTeams()
+    
+    if (res.code === 0) {
+      const list = res.data.list || []
+      
+      // 将后端数据映射为前端需要的格式
+      teamList.value = list.map(team => ({
+        id: team.team_id,
+        title: team.team_name,
+        description: team.description || '',
+        status: getStatusText(team.status),
+        name: team.creator_nickname || '未知用户',
+        avatar: team.creator_avatar || '/static/icon/头像1.svg',
+        image: team.cover_image || '/static/img/微信图片_20251110104833_364_2.png',
+        tags: team.tags_array || [],
+        members: `${team.current_members}/${team.max_members}`
+      }))
+      
+      total.value = res.data.total || 0
+      
+      console.log('获取我的队伍成功，共', total.value, '个队伍')
+    } else {
+      throw new Error(res.message || '获取队伍列表失败')
+    }
+  } catch (err) {
+    console.error('获取我的队伍失败:', err)
+    uni.showToast({
+      title: err.message || '加载失败',
+      icon: 'none'
+    })
+    // 失败时使用空数组
+    teamList.value = []
+    total.value = 0
+  } finally {
+    loading.value = false
+  }
+}
+
+/**
+ * 将状态码转换为文本
+ */
+function getStatusText(status) {
+  const statusMap = {
+    0: '已解散',
+    1: '招募中',
+    2: '进行中',
+    3: '已完成'
+  }
+  return statusMap[status] || '未知状态'
+}
+
+// 页面显示时获取数据（支持从其他页面返回时刷新）
+onShow(() => {
+  fetchMyTeams()
+})
 </script>
 
 <template>
@@ -123,8 +209,22 @@ function getDetail(id){
   <view class="pageHolder">
     <view class="content">
 
-      <view class="list-container">
-        <view class="list-item" v-for="item in mockData" :key="item.id">
+      <!-- 加载状态 -->
+      <view v-if="loading" class="loading-container">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <!-- 空状态 -->
+      <view v-else-if="teamList.length === 0" class="empty-container">
+        <view class="empty-icon">📭</view>
+        <text class="empty-text">还没有加入任何队伍</text>
+        <text class="empty-hint">快去广场看看吧~</text>
+      </view>
+
+      <!-- 队伍列表 -->
+      <view v-else class="list-container">
+        <view class="list-item" v-for="item in teamList" :key="item.id">
           <view class="item-body">
             <!-- <view class="item-img">       文字       </view> -->
                 <view class="item-content" @click="getDetail(item.id)">
@@ -198,6 +298,55 @@ function getDetail(id){
   border: 1rpx solid #e5e5e5;
   box-shadow: 0 4rpx 12rpx 0 rgba(0,0,0,.08);
   margin-top: 20rpx;
+
+  // 加载状态样式
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400rpx;
+    gap: 20rpx;
+    
+    .loading-spinner {
+      width: 60rpx;
+      height: 60rpx;
+      border: 6rpx solid #e5e5e5;
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .loading-text {
+      font-size: 28rpx;
+      color: #999;
+    }
+  }
+
+  // 空状态样式
+  .empty-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400rpx;
+    gap: 20rpx;
+    
+    .empty-icon {
+      font-size: 120rpx;
+    }
+    
+    .empty-text {
+      font-size: 32rpx;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .empty-hint {
+      font-size: 26rpx;
+      color: #999;
+    }
+  }
   .filter-bar{
     display: flex;
     width: 100%;
@@ -317,4 +466,13 @@ function getDetail(id){
   }
 }
 
+// 旋转动画
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
