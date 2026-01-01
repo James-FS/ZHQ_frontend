@@ -1,0 +1,32 @@
+0 verbose cli D:\node.exe D:\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.1
+2 info using node@v24.11.0
+3 silly config load:file:D:\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\4.1\.npmrc
+5 silly config load:file:C:\Users\胡不归\.npmrc
+6 silly config load:file:D:\code\ZHQ_frontend\node_global\etc\npmrc
+7 verbose title npm install @types/request@ts4.1
+8 verbose argv "install" "--ignore-scripts" "@types/request@ts4.1" "--save-dev" "--user-agent" "typesInstaller/4.1.2"
+9 verbose logfile logs-max:10 dir:D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T07_45_28_210Z-
+10 verbose logfile D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T07_45_28_210Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly packumentCache corgi:https://registry.npmjs.org/@types%2frequest cache-miss
+14 http fetch GET 200 https://registry.npmjs.org/@types%2frequest 514ms (cache miss)
+15 silly packumentCache corgi:https://registry.npmjs.org/@types%2frequest set size:undefined disposed:false
+16 silly idealTree buildDeps
+17 silly fetch manifest @types/request@2.48.8
+18 silly packumentCache full:https://registry.npmjs.org/@types%2frequest cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/@types%2frequest 111ms (cache miss)
+20 silly packumentCache full:https://registry.npmjs.org/@types%2frequest set size:undefined disposed:false
+21 silly placeDep ROOT @types/request@2.48.8 REPLACE for:  want: 2.48.8
+22 silly reify moves {}
+23 silly audit bulk request { 'types-registry': [ '0.1.752' ] }
+24 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 237ms
+25 silly audit report {}
+26 verbose cwd C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\4.1
+27 verbose os Windows_NT 10.0.22631
+28 verbose node v24.11.0
+29 verbose npm  v11.6.1
+30 verbose exit 0
+31 info ok

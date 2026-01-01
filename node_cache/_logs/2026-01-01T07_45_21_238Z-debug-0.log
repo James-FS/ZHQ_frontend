@@ -1,0 +1,163 @@
+0 verbose cli D:\node.exe D:\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.1
+2 info using node@v24.11.0
+3 silly config load:file:D:\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\4.1\.npmrc
+5 silly config load:file:C:\Users\胡不归\.npmrc
+6 silly config load:file:D:\code\ZHQ_frontend\node_global\etc\npmrc
+7 verbose title npm install types-registry@latest
+8 verbose argv "install" "--ignore-scripts" "types-registry@latest"
+9 verbose logfile logs-max:10 dir:D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T07_45_21_238Z-
+10 verbose logfile D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T07_45_21_238Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly packumentCache corgi:https://registry.npmjs.org/types-registry cache-miss
+14 http fetch GET 200 https://registry.npmjs.org/types-registry 817ms (cache miss)
+15 silly packumentCache corgi:https://registry.npmjs.org/types-registry set size:undefined disposed:false
+16 silly idealTree buildDeps
+17 silly fetch manifest types-registry@0.1.752
+18 silly packumentCache full:https://registry.npmjs.org/types-registry cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/types-registry 303ms (cache miss)
+20 silly packumentCache full:https://registry.npmjs.org/types-registry set size:undefined disposed:false
+21 silly placeDep ROOT types-registry@0.1.752 REPLACE for:  want: 0.1.752
+22 silly reify mark retired [
+22 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\caseless'
+22 silly reify ]
+23 silly reify mark retired [
+23 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\node'
+23 silly reify ]
+24 silly reify mark retired [
+24 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\request'
+24 silly reify ]
+25 silly reify mark retired [
+25 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\tough-cookie'
+25 silly reify ]
+26 silly reify mark retired [
+26 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\asynckit'
+26 silly reify ]
+27 silly reify mark retired [
+27 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\call-bind-apply-helpers'
+27 silly reify ]
+28 silly reify mark retired [
+28 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\combined-stream'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\delayed-stream'
+29 silly reify ]
+30 silly reify mark retired [
+30 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\dunder-proto'
+30 silly reify ]
+31 silly reify mark retired [
+31 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-define-property'
+31 silly reify ]
+32 silly reify mark retired [
+32 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-errors'
+32 silly reify ]
+33 silly reify mark retired [
+33 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-object-atoms'
+33 silly reify ]
+34 silly reify mark retired [
+34 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-set-tostringtag'
+34 silly reify ]
+35 silly reify mark retired [
+35 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\form-data'
+35 silly reify ]
+36 silly reify mark retired [
+36 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\function-bind'
+36 silly reify ]
+37 silly reify mark retired [
+37 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\get-intrinsic'
+37 silly reify ]
+38 silly reify mark retired [
+38 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\get-proto'
+38 silly reify ]
+39 silly reify mark retired [
+39 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\gopd'
+39 silly reify ]
+40 silly reify mark retired [
+40 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\has-symbols'
+40 silly reify ]
+41 silly reify mark retired [
+41 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\has-tostringtag'
+41 silly reify ]
+42 silly reify mark retired [
+42 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\hasown'
+42 silly reify ]
+43 silly reify mark retired [
+43 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\math-intrinsics'
+43 silly reify ]
+44 silly reify mark retired [
+44 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\mime-db'
+44 silly reify ]
+45 silly reify mark retired [
+45 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\mime-types'
+45 silly reify ]
+46 silly reify mark retired [
+46 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\safe-buffer'
+46 silly reify ]
+47 silly reify mark retired [
+47 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\undici-types'
+47 silly reify ]
+48 silly reify moves {
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\caseless': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\.caseless-qu9o0uE7',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\node': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\.node-g8yrX6dm',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\request': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\.request-LMRMm33C',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\tough-cookie': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\@types\\.tough-cookie-OMEA7Vlj',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\asynckit': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.asynckit-QgqLzpxY',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\call-bind-apply-helpers': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.call-bind-apply-helpers-9Tht6h8q',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\combined-stream': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.combined-stream-3sUig98C',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\delayed-stream': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.delayed-stream-lUN3UV0K',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\dunder-proto': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.dunder-proto-7ubvUXAV',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-define-property': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.es-define-property-4QxIbmeL',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-errors': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.es-errors-A7fLfSFk',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-object-atoms': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.es-object-atoms-Q5hOxAAF',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\es-set-tostringtag': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.es-set-tostringtag-uuCnAmkb',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\form-data': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.form-data-MpjwhKEQ',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\function-bind': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.function-bind-zXWPkBCY',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\get-intrinsic': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.get-intrinsic-FJFGOhWk',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\get-proto': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.get-proto-lGuyWoB8',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\gopd': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.gopd-l4sGcMgo',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\has-symbols': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.has-symbols-BgovHUWo',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\has-tostringtag': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.has-tostringtag-2KryeCLH',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\hasown': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.hasown-N5atKMEz',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\math-intrinsics': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.math-intrinsics-VsgcULDT',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\mime-db': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.mime-db-IUyKYdVP',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\mime-types': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.mime-types-XbQfwVuK',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\safe-buffer': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.safe-buffer-iAZitOa9',
+48 silly reify   'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\undici-types': 'C:\\Users\\胡不归\\AppData\\Local\\Microsoft\\TypeScript\\4.1\\node_modules\\.undici-types-jPYdhOgr'
+48 silly reify }
+49 silly audit bulk request { 'types-registry': [ '0.1.752' ] }
+50 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 249ms
+51 silly audit report {}
+52 silly REMOVE node_modules/undici-types
+53 silly REMOVE node_modules/safe-buffer
+54 silly REMOVE node_modules/mime-types
+55 silly REMOVE node_modules/mime-db
+56 silly REMOVE node_modules/math-intrinsics
+57 silly REMOVE node_modules/hasown
+58 silly REMOVE node_modules/has-tostringtag
+59 silly REMOVE node_modules/has-symbols
+60 silly REMOVE node_modules/gopd
+61 silly REMOVE node_modules/get-proto
+62 silly REMOVE node_modules/get-intrinsic
+63 silly REMOVE node_modules/function-bind
+64 silly REMOVE node_modules/form-data
+65 silly REMOVE node_modules/es-set-tostringtag
+66 silly REMOVE node_modules/es-object-atoms
+67 silly REMOVE node_modules/es-errors
+68 silly REMOVE node_modules/es-define-property
+69 silly REMOVE node_modules/dunder-proto
+70 silly REMOVE node_modules/delayed-stream
+71 silly REMOVE node_modules/combined-stream
+72 silly REMOVE node_modules/call-bind-apply-helpers
+73 silly REMOVE node_modules/asynckit
+74 silly REMOVE node_modules/@types/tough-cookie
+75 silly REMOVE node_modules/@types/request
+76 silly REMOVE node_modules/@types/node
+77 silly REMOVE node_modules/@types/caseless
+78 verbose cwd C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\4.1
+79 verbose os Windows_NT 10.0.22631
+80 verbose node v24.11.0
+81 verbose npm  v11.6.1
+82 verbose exit 0
+83 info ok
