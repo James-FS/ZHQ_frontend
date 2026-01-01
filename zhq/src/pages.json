@@ -117,6 +117,13 @@
 			}
 		},
 		{
+			"path": "pages/import/import",
+			"style": {
+				"navigationBarTitleText": "导入课表",
+				"navigationBarBackgroundColor": "#fcfdf7"
+			}
+		},
+		{
 			"path": "pages/map/map",
 			"style": {
 				"navigationBarTitleText": "校园导航"

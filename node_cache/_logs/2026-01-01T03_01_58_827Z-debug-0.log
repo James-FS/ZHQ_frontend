@@ -1,0 +1,19 @@
+0 verbose cli D:\node.exe D:\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.1
+2 info using node@v24.11.0
+3 silly config load:file:D:\node_modules\npm\npmrc
+4 silly config load:file:D:\.npmrc
+5 silly config load:file:C:\Users\胡不归\.npmrc
+6 silly config load:file:D:\code\ZHQ_frontend\node_global\etc\npmrc
+7 verbose title npm cache clean
+8 verbose argv "cache" "clean" "--force"
+9 verbose logfile logs-max:10 dir:D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T03_01_58_827Z-
+10 verbose logfile D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T03_01_58_827Z-debug-0.log
+11 warn using --force Recommended protections disabled.
+12 silly logfile done cleaning log files
+13 verbose cwd D:\code\ZHQ_frontend
+14 verbose os Windows_NT 10.0.22631
+15 verbose node v24.11.0
+16 verbose npm  v11.6.1
+17 verbose exit 0
+18 info ok
