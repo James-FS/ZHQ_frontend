@@ -18,7 +18,7 @@ export const api = {
   // 队伍相关
   createTeam: (data) => post('/api/v1/teams', data), // 创建队伍
   getTeamList: () => get('/api/v1/teams'), // 获取队伍列表
-  getMyTeams: () => get('/api/v1/teams/my'), // 获取我的队伍列表
+  getMyTeams: () => get('/api/v1/teams/my-teams'), // 获取我的队伍列表
   getTeamDetails: (id) => get(`/api/v1/teams/details`, { team_id: id }), // 获取队伍详情
   updateTeam: (id, data) => put(`/api/v1/teams/${id}`, data), // 更新队伍信息
   deleteTeam: (id) => del(`/api/v1/teams/${id}`), // 删除队伍
