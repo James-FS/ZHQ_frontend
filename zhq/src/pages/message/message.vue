@@ -7,7 +7,7 @@
       <view class="header-content">
         <view class="header-user">
           <image class="user-avatar" src="/static/icon/头像4.svg" mode="aspectFill"></image>
-          <text class="user-name">大卫带</text>
+          <text class="user-name">小明</text>
         </view>
         <view class="header-icons">
           <image class="icon search" src="/static/icon/搜索.svg" @click="handleSearch" mode="aspectFit"></image>
@@ -48,7 +48,7 @@ export default {
       messageList: [
         {
           id: 1,
-          username: '騛速',
+          username: '小地',
           lastMessage: '今天天气不错',
           time: '周二',
           avatar: '/static/icon/头像1.svg',
@@ -57,8 +57,8 @@ export default {
         },
         {
           id: 2,
-          username: '鬼叶',
-          lastMessage: '不错个蛋',
+          username: '小叶',
+          lastMessage: '确实不错',
           time: '周二',
           avatar: '/static/icon/头像2.svg',
           unreadCount: 2,
@@ -66,9 +66,9 @@ export default {
         },
         {
           id: 3,
-          username: '胃袋',
-          lastMessage: 'bangbangbangbang，颗秒！',
-          time: '2025年10月6日',
+          username: '小袋',
+          lastMessage: '天气确实很不错',
+          time: '2025年12月16日',
           avatar: '/static/icon/头像3.svg',
           unreadCount: 1,
           isOnline: false
@@ -76,20 +76,11 @@ export default {
         {
           id: 4,
           username: 'copilot',
-          lastMessage: '您的Copilot申请已通过，请登录github...',
-          time: '2025年7月9日',
+          lastMessage: '您的Copilot申请...',
+          time: '2025年12月9日',
           avatar: '/static/icon/github.svg',
           unreadCount: 0,
           isOnline: true
-        },
-        {
-          id: 5,
-          username: 'Chrome',
-          lastMessage: '您的Copilot申请已通过，请登录github...',
-          time: '2025年5月7日',
-          avatar: '/static/icon/google.svg',
-          unreadCount: 0,
-          isOnline: false
         }
       ]
     }

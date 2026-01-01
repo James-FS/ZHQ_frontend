@@ -1,8 +1,5 @@
 <template>
   <view class="page-wrapper">
-    <view class="title">
-      <h1>个人资料</h1>
-    </view>
     <!-- 内容容器 -->
     <scroll-view
       class="detail-content"
@@ -12,62 +9,47 @@
       <view class="detail-container">
         <!-- 资料列表项 -->
         <view class="info-section">
-          <view class="info-item" @click="handleItemClick('avatar')">
+          <!-- user-detail.vue 模板中头像项 -->
+          <view
+            class="info-item avatar-item"
+            @click="handleItemClick('avatar')"
+          >
             <text class="label">头像</text>
-            <view class="right-content">
-              <text class="iconfont icon-youjiantou arrow-icon"></text>
-            </view>
-          </view>
-
-          <view class="info-item">
-            <common-input
-              label="昵称"
-              class="input"
-              v-model="userInfo.name"
-              placeholder="请输入昵称"
-            />
+            <!-- 显示当前头像，无头像时用默认图 -->
+            <image
+              :src="userInfo.avatar || defaultAvatar"
+              class="avatar-img"
+              mode="cover"
+            ></image>
             <text class="iconfont icon-youjiantou arrow-icon"></text>
           </view>
 
-          <view class="info-item">
-            <common-input
-              label="性别"
-              class="input"
-              v-model="userInfo.gender"
-              placeholder="请输入性别"
-            />
+          <view class="info-item" @click="handleEdit('name')">
+            <text class="label">昵称</text>
+            <text class="value">{{ userInfo.name || "未填写" }}</text>
             <text class="iconfont icon-youjiantou arrow-icon"></text>
           </view>
 
-          <view class="info-item">
-            <common-input
-              label="学院"
-              class="input"
-              v-model="userInfo.college"
-              placeholder="请输入学院"
-            />
+          <view class="info-item" @click="handleEdit('gender')">
+            <text class="label">性别</text>
+            <text class="value">{{ userInfo.gender || "未填写" }}</text>
             <text class="iconfont icon-youjiantou arrow-icon"></text>
           </view>
 
-          <view class="info-item">
-            <common-input
-              label="专业"
-              class="input"
-              v-model="userInfo.major"
-              placeholder="请输入专业"
-            />
+          <view class="info-item" @click="handleEdit('college')">
+            <text class="label">学院</text>
+            <text class="value">{{ userInfo.college || "未填写" }}</text>
+            <text class="iconfont icon-youjiantou arrow-icon"></text>
+          </view>
+          <view class="info-item" @click="handleEdit('major')">
+            <text class="label">专业</text>
+            <text class="value">{{ userInfo.major || "未填写" }}</text>
             <text class="iconfont icon-youjiantou arrow-icon"></text>
           </view>
 
-          <view class="info-item">
-            <common-input
-              label="手机号"
-              class="input"
-              v-model="userInfo.phone"
-              placeholder="请输入手机号"
-              type="tel"
-              :maxlength="11"
-            />
+          <view class="info-item" @click="handleEdit('phone')">
+            <text class="label">手机号</text>
+            <text class="value">{{ userInfo.phone || "未填写" }}</text>
             <text class="iconfont icon-youjiantou arrow-icon"></text>
           </view>
         </view>
@@ -109,7 +91,9 @@ export default {
         major: "",
         phone: "",
         tags: [],
+        currentAvatar: "/static/icon/头像1.svg",
       },
+      defaultAvatar: "/static/icon/头像1.svg",
     };
   },
   methods: {
@@ -140,6 +124,42 @@ export default {
         url: urlMap[type],
       });
     },
+    // user-detail.vue 的 methods 中修正 handleEdit
+    handleEdit(type) {
+      // 导航到富文本编辑页
+      uni.navigateTo({
+        url: "/pages/signature-edit/signature-edit",
+        success: (res) => {
+          // 传递当前字段的已有值（如 type 是 name，则传递 userInfo.name）
+          res.eventChannel.emit("signatureData", {
+            currentValue: this.userInfo[type], // 根据 type 动态获取字段值
+            fieldType: type, // 传递字段类型，方便后续区分（可选）
+          });
+
+          // 监听编辑页返回的新值，更新对应字段
+          res.eventChannel.on("signatureSaved", (data) => {
+            this.userInfo[type] = data.signature; // 根据 type 动态更新字段
+          });
+        },
+      });
+    },
+    handleItemClick(type) {
+      if (type === "avatar") {
+        uni.navigateTo({
+          url: "/pages/image-page/image-page",
+          success: (res) => {
+            // 传递当前头像路径
+            res.eventChannel.emit("currentAvatar", {
+              avatar: this.userInfo.avatar,
+            });
+            // 监听头像选择结果，更新 userInfo.avatar
+            res.eventChannel.on("avatarSelected", (data) => {
+              this.userInfo.avatar = data.avatar;
+            });
+          },
+        });
+      }
+    },
   },
 };
 </script>
@@ -150,17 +170,7 @@ export default {
   min-height: 100vh;
   background: #f5f5f5;
 }
-.title {
-  position: relative;
-  width: 100%;
-  height: 120rpx;
-  line-height: 120rpx;
-  text-align: center;
-  font-size: 50rpx;
-  font-weight: 700;
-  color: #333333;
-  background: red;
-}
+
 .detail-content {
   min-height: 100vh;
   box-sizing: border-box;
@@ -188,8 +198,13 @@ export default {
   align-items: center; /* 垂直居中 */
   padding: 0 30rpx;
   height: 120rpx;
-  border-bottom: 1px solid #f5f5f5;
-
+  border-bottom: 1px solid #f0f0f0;
+  .value {
+    flex: 1;
+    text-align: right;
+    color: #666;
+    font-size: 28rpx;
+  }
   &:last-child {
     border-bottom: none;
   }
@@ -255,7 +270,20 @@ export default {
     }
   }
 }
-
+// user-detail.vue 的样式
+.avatar-item {
+  display: flex;
+  align-items: center;
+  .avatar-img {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin-left: 450rpx;
+  }
+  .arrow-icon {
+    margin-left: auto; // 让箭头靠右
+  }
+}
 /* 适配common-input组件样式 */
 ::v-deep .common-input {
   flex: 1;

@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/square/square",
+			"style": {
+				"navigationBarTitleText": "广场"
+			}
+		},
+		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "个人中心",
@@ -51,12 +57,6 @@
 			}
 		},
 		{
-			"path": "pages/square/square",
-			"style": {
-				"navigationBarTitleText": "广场"
-			}
-		},
-		{
 			"path": "pages/button-demo/button-demo",
 			"style": {
 				"navigationBarTitleText": "按钮展示"
@@ -103,14 +103,43 @@
 			"style": {
 				"navigationBarTitleText": "个人资料"
 			}
-		}
-		,
+		},
 		{
-			"path":"pages/login/login",
-			"style":{
-				"navigationBarTitleText":"登录"
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
 			}
-			
+		},
+		{
+			"path": "pages/schedule/schedule",
+			"style": {
+				"navigationBarTitleText": "课程表"
+			}
+		},
+		{
+			"path": "pages/import/import",
+			"style": {
+				"navigationBarTitleText": "导入课表",
+				"navigationBarBackgroundColor": "#fcfdf7"
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "校园导航"
+			}
+		},
+		{
+			"path": "pages/signature-edit/signature-edit",
+			"style": {
+				"navigationBarTitleText": "填写信息"
+			}
+		},
+		{
+			"path": "pages/image-page/image-page",
+			"style": {
+				"navigationBarTitleText": "头像"
+			}
 		}
 	],
 	"tabBar": {

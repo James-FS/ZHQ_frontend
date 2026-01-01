@@ -1,0 +1,103 @@
+0 verbose cli D:\node.exe D:\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.1
+2 info using node@v24.11.0
+3 silly config load:file:D:\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\5.9\.npmrc
+5 silly config load:file:C:\Users\胡不归\.npmrc
+6 silly config load:file:D:\code\ZHQ_frontend\node_global\etc\npmrc
+7 verbose title npm install types-registry@latest
+8 verbose argv "install" "--ignore-scripts" "types-registry@latest"
+9 verbose logfile logs-max:10 dir:D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T08_28_23_526Z-
+10 verbose logfile D:\code\ZHQ_frontend\node_cache\_logs\2026-01-01T08_28_23_526Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly packumentCache corgi:https://registry.npmjs.org/types-registry cache-miss
+14 http fetch GET 200 https://registry.npmjs.org/types-registry 376ms (cache revalidated)
+15 silly packumentCache corgi:https://registry.npmjs.org/types-registry set size:615222 disposed:false
+16 silly idealTree buildDeps
+17 silly fetch manifest types-registry@0.1.752
+18 silly packumentCache full:https://registry.npmjs.org/types-registry cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/types-registry 99ms (cache revalidated)
+20 silly packumentCache full:https://registry.npmjs.org/types-registry set size:1321683 disposed:false
+21 silly placeDep ROOT types-registry@0.1.752 REPLACE for:  want: 0.1.752
+22 silly reify moves {}
+23 silly audit bulk request {
+23 silly audit   '@parcel/watcher': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-android-arm64': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-darwin-arm64': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-darwin-x64': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-freebsd-x64': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-arm-glibc': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-arm-musl': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-arm64-glibc': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-arm64-musl': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-x64-glibc': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-linux-x64-musl': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-win32-arm64': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-win32-ia32': [ '2.5.1' ],
+23 silly audit   '@parcel/watcher-win32-x64': [ '2.5.1' ],
+23 silly audit   '@types/babel__code-frame': [ '7.0.6' ],
+23 silly audit   '@types/caseless': [ '0.12.5' ],
+23 silly audit   '@types/hash-sum': [ '1.0.2' ],
+23 silly audit   '@types/node': [ '24.10.1' ],
+23 silly audit   '@types/node-sass': [ '4.11.8' ],
+23 silly audit   '@types/react': [ '19.2.2' ],
+23 silly audit   '@types/request': [ '2.48.13' ],
+23 silly audit   '@types/sass-loader': [ '8.0.10' ],
+23 silly audit   '@types/source-list-map': [ '0.1.6' ],
+23 silly audit   '@types/tapable': [ '1.0.12' ],
+23 silly audit   '@types/tough-cookie': [ '4.0.5' ],
+23 silly audit   '@types/uglify-js': [ '3.17.5' ],
+23 silly audit   '@types/webpack': [ '4.41.40' ],
+23 silly audit   '@types/webpack-sources': [ '3.2.3' ],
+23 silly audit   'source-map': [ '0.7.6', '0.6.1' ],
+23 silly audit   anymatch: [ '3.1.3' ],
+23 silly audit   asynckit: [ '0.4.0' ],
+23 silly audit   braces: [ '3.0.3' ],
+23 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+23 silly audit   chokidar: [ '4.0.3' ],
+23 silly audit   'combined-stream': [ '1.0.8' ],
+23 silly audit   csstype: [ '3.1.3' ],
+23 silly audit   'delayed-stream': [ '1.0.0' ],
+23 silly audit   'detect-libc': [ '1.0.3' ],
+23 silly audit   'dunder-proto': [ '1.0.1' ],
+23 silly audit   'es-define-property': [ '1.0.1' ],
+23 silly audit   'es-errors': [ '1.3.0' ],
+23 silly audit   'es-object-atoms': [ '1.1.1' ],
+23 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+23 silly audit   'fill-range': [ '7.1.1' ],
+23 silly audit   'form-data': [ '2.5.5' ],
+23 silly audit   'function-bind': [ '1.1.2' ],
+23 silly audit   'get-intrinsic': [ '1.3.0' ],
+23 silly audit   'get-proto': [ '1.0.1' ],
+23 silly audit   gopd: [ '1.2.0' ],
+23 silly audit   'has-symbols': [ '1.1.0' ],
+23 silly audit   'has-tostringtag': [ '1.0.2' ],
+23 silly audit   hasown: [ '2.0.2' ],
+23 silly audit   immutable: [ '5.1.4' ],
+23 silly audit   'is-extglob': [ '2.1.1' ],
+23 silly audit   'is-glob': [ '4.0.3' ],
+23 silly audit   'is-number': [ '7.0.0' ],
+23 silly audit   'math-intrinsics': [ '1.1.0' ],
+23 silly audit   micromatch: [ '4.0.8' ],
+23 silly audit   'mime-db': [ '1.52.0' ],
+23 silly audit   'mime-types': [ '2.1.35' ],
+23 silly audit   'node-addon-api': [ '7.1.1' ],
+23 silly audit   'normalize-path': [ '3.0.0' ],
+23 silly audit   picomatch: [ '2.3.1' ],
+23 silly audit   readdirp: [ '4.1.2' ],
+23 silly audit   'safe-buffer': [ '5.2.1' ],
+23 silly audit   sass: [ '1.94.0' ],
+23 silly audit   'source-map-js': [ '1.2.1' ],
+23 silly audit   'to-regex-range': [ '5.0.1' ],
+23 silly audit   'undici-types': [ '7.16.0' ],
+23 silly audit   'types-registry': [ '0.1.752' ]
+23 silly audit }
+24 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 235ms
+25 silly audit report {}
+26 verbose cwd C:\Users\胡不归\AppData\Local\Microsoft\TypeScript\5.9
+27 verbose os Windows_NT 10.0.22631
+28 verbose node v24.11.0
+29 verbose npm  v11.6.1
+30 verbose exit 0
+31 info ok
