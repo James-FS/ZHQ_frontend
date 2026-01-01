@@ -113,16 +113,6 @@
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
 
-      <!-- 退出登录 -->
-      <view class="menu-item" @click="goToPage('logout')">
-        <view class="menu-left">
-          <!-- 退出登录图标（请根据实际图标类名修改） -->
-          <text class="iconfont icon-tuichudenglu menu-icon"></text>
-          <text class="menu-text">退出登录</text>
-        </view>
-        <text class="iconfont icon-youjiantou arrow-icon"></text>
-      </view>
-
        <!-- 校园导航 -->
       <view class="menu-item" @click="goToPage('map')">
         <view class="menu-left">
@@ -139,6 +129,16 @@
           <!-- Font Class 方式：你提供的在线简历图标 -->
           <text class="iconfont icon-zaixianjianli menu-icon"></text>
           <text class="menu-text">课程表</text>
+        </view>
+        <text class="iconfont icon-youjiantou arrow-icon"></text>
+      </view>
+
+      <!-- 退出登录 -->
+      <view class="menu-item" @click="goToPage('logout')">
+        <view class="menu-left">
+          <!-- 退出登录图标（请根据实际图标类名修改） -->
+          <text class="iconfont icon-tuichudenglu menu-icon"></text>
+          <text class="menu-text">退出登录</text>
         </view>
         <text class="iconfont icon-youjiantou arrow-icon"></text>
       </view>
